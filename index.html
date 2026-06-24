@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashutosh Kumar | Academic Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#4f46e5', /* Indigo 600 */
+                        secondary: '#8b5cf6', /* Violet 500 */
+                        tertiary: '#0ea5e9', /* Sky 500 */
+                        dark: '#0f172a', /* Slate 900 */
+                        surface: '#ffffff',
+                        background: '#f8fafc', /* Slate 50 */
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; overflow-x: hidden; }
+        h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
+        
+        /* Modern Timeline */
+        .timeline-container { border-left: 2px dashed #cbd5e1; margin-left: 0.5rem; padding-left: 2rem; }
+        .timeline-item { position: relative; padding-bottom: 3rem; }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.45rem;
+            top: 0.25rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            border: 3px solid #f8fafc;
+            box-shadow: 0 0 0 2px #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .timeline-item:hover::before {
+            transform: scale(1.3);
+            box-shadow: 0 0 0 2px #8b5cf6;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-secondary selection:text-white relative z-0">
+    <!-- Ambient Background Gradients -->
+    <div class="absolute inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute -top-[10%] -right-[5%] w-[500px] h-[500px] rounded-full bg-secondary/20 blur-[100px]"></div>
+        <div class="absolute top-[20%] -left-[10%] w-[400px] h-[400px] rounded-full bg-primary/20 blur-[100px]"></div>
+        <div class="absolute top-[60%] right-[10%] w-[600px] h-[600px] rounded-full bg-tertiary/10 blur-[120px]"></div>
+    </div>
+
+    <!-- Top Navigation -->
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-lg z-50 border-b border-slate-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-serif text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Ashutosh Kumar</a>
+            <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-600">
+                <a href="#about" class="hover:text-primary transition-colors">About</a>
+                <a href="#education" class="hover:text-primary transition-colors">Education</a>
+                <a href="#projects" class="hover:text-primary transition-colors">Research</a>
+                <a href="#skills" class="hover:text-primary transition-colors">Skills</a>
+                <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+            </div>
+            <a href="#contact" class="md:hidden text-primary"><i class="fa-solid fa-bars text-xl"></i></a>
+        </div>
+    </nav>
+
+    <main class="pt-28 pb-0">
+        <!-- 1. HERO SECTION -->
+        <section id="about" class="max-w-6xl mx-auto px-6 py-12 md:py-24">
+            <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-20">
+                <!-- Text Content -->
+                <div class="flex-1 space-y-6">
+                    <div class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-indigo-50 text-primary border border-indigo-100 shadow-sm mb-2">
+                        <span class="w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"></span> PhD Candidate at IIT Mandi
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold leading-tight text-dark">
+                        Advancing <br> <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-tertiary">Transportation</span> <br> Infrastructure.
+                    </h1>
+                    <p class="text-lg text-slate-600 leading-relaxed max-w-xl">
+                        I am a PhD Student specializing in <strong class="text-primary font-semibold">Transportation Engineering and Pavement Materials</strong> at the School of Civil and Environmental Engineering, supervised by 
+                        <a href="https://scene.iitmandi.ac.in/pages/faculty_details/NA==" target="_blank" rel="noopener noreferrer" class="text-secondary font-semibold hover:text-primary transition-all">Dr. Kaustav Sarkar</a>.
+                    </p>
+                    <div class="bg-white/60 backdrop-blur-md p-5 border border-slate-200/60 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden group">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-secondary"></div>
+                        <strong class="text-dark font-serif text-lg flex items-center gap-2"><i class="fa-solid fa-microscope text-primary"></i> Current Research Focus</strong>
+                        <p class="text-slate-700 mt-2 font-medium">Life Cycle Assessment (LCA) of Pavements & Hygrothermal Analysis of Concrete Pavements.</p>
+                    </div>
+                    
+                    <div class="pt-4 flex flex-wrap gap-4 items-center">
+                        <a href="#contact" class="px-8 py-3.5 bg-gradient-to-r from-primary to-secondary text-white text-sm font-bold rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5 transition-all">
+                            <i class="fa-solid fa-download mr-2"></i> Download CV
+                        </a>
+                        <a href="https://scene.iitmandi.ac.in/pages/student_details/OTE1" target="_blank" rel="noopener noreferrer" class="px-8 py-3.5 bg-white text-dark text-sm font-bold border-2 border-slate-200 rounded-xl hover:border-primary hover:text-primary transition-all shadow-sm">
+                            Official Profile
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image Area -->
+                <div class="relative w-72 md:w-96 flex-shrink-0 group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary to-tertiary translate-x-4 translate-y-4 rounded-3xl opacity-70 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-500"></div>
+                    <img src="src/assets/images/profile.jpg" alt="Ashutosh Kumar" class="relative z-10 w-full h-auto object-cover rounded-3xl border-4 border-white shadow-2xl group-hover:scale-[1.02] transition-transform duration-500">
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. RESEARCH PROFILE ALIGNMENT -->
+        <section class="max-w-6xl mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <a href="https://www.iitmandi.ac.in/" target="_blank" rel="noopener noreferrer" class="group flex items-center p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-primary/30 transition-all hover:-translate-y-1">
+                    <div class="w-14 h-14 flex items-center justify-center bg-indigo-50 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors mr-5 text-primary text-xl shadow-inner">
+                        <i class="fa-solid fa-landmark"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-dark group-hover:text-primary transition-colors">IIT Mandi</h4>
+                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-widest mt-1">Institution</p>
+                    </div>
+                </a>
+                <a href="https://scene.iitmandi.ac.in/" target="_blank" rel="noopener noreferrer" class="group flex items-center p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-secondary/30 transition-all hover:-translate-y-1">
+                    <div class="w-14 h-14 flex items-center justify-center bg-purple-50 rounded-xl group-hover:bg-secondary group-hover:text-white transition-colors mr-5 text-secondary text-xl shadow-inner">
+                        <i class="fa-solid fa-road"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-dark group-hover:text-secondary transition-colors">SCENE Branch</h4>
+                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-widest mt-1">Civil & Env Eng.</p>
+                    </div>
+                </a>
+                <a href="https://scholar.google.com/citations?user=ZM5CxJoAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" class="group flex items-center p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-tertiary/30 transition-all hover:-translate-y-1">
+                    <div class="w-14 h-14 flex items-center justify-center bg-sky-50 rounded-xl group-hover:bg-tertiary group-hover:text-white transition-colors mr-5 text-tertiary text-xl shadow-inner">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-dark group-hover:text-tertiary transition-colors">Publications</h4>
+                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-widest mt-1">Google Scholar</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- TWO COLUMN LAYOUT: EDUCATION & PROJECTS -->
+        <div class="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-12 gap-16">
+            
+            <!-- 3. EDUCATIONAL CHRONOLOGY -->
+            <section id="education" class="lg:col-span-5 scroll-mt-24">
+                <h2 class="text-3xl font-serif text-dark mb-10 flex items-center gap-3"><i class="fa-solid fa-graduation-cap text-primary"></i> Education</h2>
+                <div class="timeline-container">
+                    
+                    <div class="timeline-item group">
+                        <span class="inline-block px-3 py-1 bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold rounded-full mb-3 shadow-md">Ongoing</span>
+                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">PhD in Transportation Engineering</h3>
+                        <p class="text-primary font-semibold mt-1">IIT Mandi</p>
+                        <p class="text-sm text-slate-600 mt-2 leading-relaxed bg-white/50 p-3 rounded-lg border border-slate-100">Focusing on pavement materials and advanced transportation infrastructure solutions.</p>
+                    </div>
+                    
+                    <div class="timeline-item group">
+                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full mb-3 border border-slate-200">2022 &mdash; 2024</span>
+                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">M.Tech in Traffic & Transportation Planning</h3>
+                        <a href="https://nitc.ac.in/" target="_blank" rel="noopener noreferrer" class="block text-slate-600 font-medium hover:text-secondary transition-colors mt-1">National Institute of Technology Calicut (NITC)</a>
+                        <p class="text-sm font-bold text-secondary mt-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> CGPA: 8.41/10</p>
+                    </div>
+
+                    <div class="timeline-item group">
+                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full mb-3 border border-slate-200">2017 &mdash; 2021</span>
+                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">B.Tech in Civil Engineering</h3>
+                        <a href="https://www.ctae.ac.in/" target="_blank" rel="noopener noreferrer" class="block text-slate-600 font-medium hover:text-secondary transition-colors mt-1">College of Technology and Engineering, Udaipur</a>
+                        <p class="text-sm font-bold text-secondary mt-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> CGPA: 6.77/10</p>
+                    </div>
+
+                    <div class="timeline-item group">
+                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full mb-3 border border-slate-200">2016</span>
+                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">Senior Secondary (XII)</h3>
+                        <p class="text-slate-600 font-medium mt-1">Science Degree College Supaul</p>
+                        <p class="text-sm font-bold text-secondary mt-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> 68.8%</p>
+                    </div>
+
+                    <div class="timeline-item group">
+                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full mb-3 border border-slate-200">2014</span>
+                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">Secondary (X)</h3>
+                        <a href="https://www.facebook.com/JNVSupaul/" target="_blank" rel="noopener noreferrer" class="block text-slate-600 font-medium hover:text-secondary transition-colors mt-1">Jawahar Navodaya Vidyalaya Supaul</a>
+                        <p class="text-sm font-bold text-secondary mt-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> CGPA: 10.00/10</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. PROJECTS & RESEARCH EXPERIENCE -->
+            <section id="projects" class="lg:col-span-7 scroll-mt-24">
+                <h2 class="text-3xl font-serif text-dark mb-10 flex items-center gap-3"><i class="fa-solid fa-flask text-secondary"></i> Research & Projects</h2>
+                
+                <div class="space-y-6">
+                    <!-- Experience Card -->
+                    <div class="bg-gradient-to-br from-primary to-secondary p-1 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 transition-shadow">
+                        <div class="bg-white p-8 rounded-xl h-full relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-5"><i class="fa-solid fa-quote-right text-6xl text-primary"></i></div>
+                            <span class="inline-flex items-center gap-2 text-xs font-bold text-primary mb-3 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md"><i class="fa-solid fa-briefcase"></i> Research Internship</span>
+                            <h3 class="text-2xl font-bold text-dark mb-1">CSIR-Central Road Research Institute (CRRI)</h3>
+                            <p class="text-slate-500 font-medium text-sm mb-6 flex items-center gap-2"><i class="fa-solid fa-location-dot"></i> New Delhi</p>
+                            <p class="text-slate-800 leading-relaxed font-serif italic text-lg border-l-4 border-secondary pl-5 py-1">
+                                "Impact of geosynthetics on reflective cracking performance life of asphalt concrete overlays"
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Academic Projects Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-primary hover:shadow-lg transition-all group">
+                            <span class="text-xs font-bold text-tertiary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-cogs"></i> M.Tech Major</span>
+                            <p class="text-sm text-slate-700 leading-relaxed font-medium">Influence of Pavement Surface Characteristics on the Speeds of Different Classes of Vehicles (Pavement Distress And Roughness)</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-secondary hover:shadow-lg transition-all group">
+                            <span class="text-xs font-bold text-secondary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-map-location-dot"></i> M.Tech Minor</span>
+                            <p class="text-sm text-slate-700 leading-relaxed font-medium">Identification of accidents black spot in Thiruvananthapuram using GIS Software (Arc GIS & QGIS)</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-primary hover:shadow-lg transition-all group">
+                            <span class="text-xs font-bold text-primary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-building"></i> B.Tech Major</span>
+                            <p class="text-sm text-slate-700 leading-relaxed font-medium">Design and analysis of multi story car parking of steel as material using ETabs</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-tertiary hover:shadow-lg transition-all group">
+                            <span class="text-xs font-bold text-tertiary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-leaf"></i> B.Tech Minor</span>
+                            <p class="text-sm text-slate-700 leading-relaxed font-medium">Study about self healing concrete</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 5. TECHNICAL SKILLS & CERTIFICATIONS GRID -->
+        <section id="skills" class="bg-white scroll-mt-24 py-24 relative overflow-hidden">
+            <!-- Background decorative element -->
+            <div class="absolute top-0 right-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+            <div class="absolute bottom-0 right-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+            
+            <div class="max-w-6xl mx-auto px-6 relative z-10">
+                <div class="flex flex-col md:flex-row gap-16">
+                    <div class="md:w-1/3">
+                        <h2 class="text-3xl font-serif text-dark mb-6 flex items-center gap-3"><i class="fa-solid fa-layer-group text-tertiary"></i> Expertise</h2>
+                        <p class="text-slate-600 leading-relaxed mb-8">Technical proficiencies and certifications acquired through rigorous academic research and practical application.</p>
+                        
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                            <h3 class="text-sm font-bold text-primary uppercase tracking-widest mb-5 flex items-center gap-2"><i class="fa-solid fa-laptop-code"></i> Software Skills</h3>
+                            <div class="flex flex-wrap gap-2.5">
+                                <span class="px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">AutoCAD</span>
+                                <span class="px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">ETabs</span>
+                                <span class="px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">ArcGIS</span>
+                                <span class="px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">QGIS</span>
+                                <span class="px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">VISSIM</span>
+                                <span class="px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">MATLAB</span>
+                                <span class="px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">Civil 3D</span>
+                                <span class="px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">Power BI</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-2/3 space-y-10">
+                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/40">
+                            <h3 class="text-xl font-bold text-dark mb-6 flex items-center gap-3"><span class="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-primary"><i class="fa-solid fa-certificate"></i></span> Core Certifications</h3>
+                            <ul class="space-y-5">
+                                <li class="flex items-start bg-slate-50 p-4 rounded-xl border border-slate-100 hover:border-secondary transition-colors">
+                                    <span class="text-secondary mt-0.5 mr-4 text-xl"><i class="fa-solid fa-circle-check"></i></span>
+                                    <span class="text-slate-800 font-medium leading-relaxed">Bituminous Pavement Design (3-Day Short Course)</span>
+                                </li>
+                                <li class="flex items-start bg-slate-50 p-4 rounded-xl border border-slate-100 hover:border-secondary transition-colors">
+                                    <span class="text-secondary mt-0.5 mr-4 text-xl"><i class="fa-solid fa-circle-check"></i></span>
+                                    <span class="text-slate-800 font-medium leading-relaxed">Tools for Transportation Data Analysis & Modelling (6-Day STTP at CTR, NIT Calicut)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/40">
+                            <h3 class="text-xl font-bold text-dark mb-6 flex items-center gap-3"><span class="w-10 h-10 rounded-full bg-sky-50 flex items-center justify-center text-tertiary"><i class="fa-solid fa-users"></i></span> Extra-Curricular</h3>
+                            <ul class="space-y-5">
+                                <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
+                                    <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
+                                    <span class="text-slate-700 font-medium leading-relaxed">Student coordinator for International Conference RAID-2024 at NIT Calicut</span>
+                                </li>
+                                <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
+                                    <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
+                                    <span class="text-slate-700 font-medium leading-relaxed">2-Year NSS Volunteer</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CONTACT & CONNECTIVITY HUB -->
+        <section id="contact" class="relative bg-dark text-white py-24 scroll-mt-24 overflow-hidden">
+            <!-- Cool abstract gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-[#1e1b4b] to-slate-900 z-0"></div>
+            <div class="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-[100px] z-0"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary/20 rounded-full blur-[100px] z-0"></div>
+
+            <div class="max-w-6xl mx-auto px-6 relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-start gap-16">
+                    
+                    <div class="md:w-1/2">
+                        <h2 class="text-5xl font-serif text-white mb-6">Let's Connect</h2>
+                        <p class="text-indigo-200/80 mb-10 max-w-md leading-relaxed text-lg">Open to academic discussions, research collaborations, and professional opportunities in transportation engineering.</p>
+                        
+                        <ul class="space-y-6">
+                            <li>
+                                <a href="mailto:ashutstar66@gmail.com" class="flex items-center text-slate-300 hover:text-white transition-colors group bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-primary/50 hover:bg-white/10 shadow-lg">
+                                    <div class="w-12 h-12 bg-primary/20 text-primary rounded-xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-envelope text-xl"></i></div>
+                                    <span class="font-mono text-sm tracking-wide">ashutstar66@gmail.com</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tel:+918539807776" class="flex items-center text-slate-300 hover:text-white transition-colors group bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-secondary/50 hover:bg-white/10 shadow-lg">
+                                    <div class="w-12 h-12 bg-secondary/20 text-secondary rounded-xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-phone text-xl"></i></div>
+                                    <span class="font-mono text-sm tracking-wide">+91 8539807776</span>
+                                </a>
+                            </li>
+                            <li class="flex items-center text-slate-300 bg-white/5 p-4 rounded-2xl border border-white/10 shadow-lg">
+                                <div class="w-12 h-12 bg-white/10 text-white rounded-xl flex items-center justify-center mr-6"><i class="fa-solid fa-location-dot text-xl"></i></div>
+                                <span class="text-sm font-medium">Supaul, Bihar, 852131</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="md:w-1/2 w-full grid grid-cols-2 gap-4">
+                        <a href="https://scholar.google.com/citations?user=ZM5CxJoAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-8 bg-white/5 border border-white/10 rounded-3xl hover:bg-white/10 hover:border-tertiary transition-all group backdrop-blur-sm hover:-translate-y-1 shadow-lg">
+                            <i class="fa-brands fa-google text-4xl mb-4 text-slate-400 group-hover:text-tertiary transition-colors"></i>
+                            <span class="text-xs font-bold tracking-widest uppercase text-slate-300 group-hover:text-white transition-colors">Scholar</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/ashutosh-kumar-7a8644244/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-8 bg-white/5 border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#0A66C2] transition-all group backdrop-blur-sm hover:-translate-y-1 shadow-lg">
+                            <i class="fa-brands fa-linkedin text-4xl mb-4 text-slate-400 group-hover:text-[#0A66C2] transition-colors"></i>
+                            <span class="text-xs font-bold tracking-widest uppercase text-slate-300 group-hover:text-white transition-colors">LinkedIn</span>
+                        </a>
+                        <a href="https://www.instagram.com/ashutosh_kr66/?hl=en" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-8 bg-white/5 border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#E1306C] transition-all group backdrop-blur-sm hover:-translate-y-1 shadow-lg">
+                            <i class="fa-brands fa-instagram text-4xl mb-4 text-slate-400 group-hover:text-[#E1306C] transition-colors"></i>
+                            <span class="text-xs font-bold tracking-widest uppercase text-slate-300 group-hover:text-white transition-colors">Instagram</span>
+                        </a>
+                        <a href="https://m.facebook.com/profile.php?id=100007421173927" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-8 bg-white/5 border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#1877F2] transition-all group backdrop-blur-sm hover:-translate-y-1 shadow-lg">
+                            <i class="fa-brands fa-facebook text-4xl mb-4 text-slate-400 group-hover:text-[#1877F2] transition-colors"></i>
+                            <span class="text-xs font-bold tracking-widest uppercase text-slate-300 group-hover:text-white transition-colors">Facebook</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+        <footer class="bg-black py-8 text-center text-xs text-slate-500 font-semibold tracking-widest uppercase">
+            <p>&copy; 2024 Ashutosh Kumar. All rights reserved.</p>
+        </footer>
+    </main>
+
+</body>
+</html>
