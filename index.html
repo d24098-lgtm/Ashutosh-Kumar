@@ -245,34 +245,39 @@
                 <div class="space-y-6" id="projects-container">
                     <!-- Experience Card -->
                     <div class="project-card transition-all duration-500 bg-gradient-to-br from-primary to-secondary p-1 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30" data-category="materials">
-                        <div class="bg-white p-8 rounded-xl h-full relative overflow-hidden">
+                        <div class="bg-white p-8 rounded-xl h-full relative overflow-hidden flex flex-col items-start">
                             <div class="absolute top-0 right-0 p-4 opacity-5"><i class="fa-solid fa-quote-right text-6xl text-primary"></i></div>
                             <span class="inline-flex items-center gap-2 text-xs font-bold text-primary mb-3 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md"><i class="fa-solid fa-briefcase"></i> Research Internship</span>
                             <h3 class="text-2xl font-bold text-dark mb-1">CSIR-Central Road Research Institute (CRRI)</h3>
                             <p class="text-slate-500 font-medium text-sm mb-6 flex items-center gap-2"><i class="fa-solid fa-location-dot"></i> New Delhi</p>
-                            <p class="text-slate-800 leading-relaxed font-serif italic text-lg border-l-4 border-secondary pl-5 py-1">
+                            <p class="text-slate-800 leading-relaxed font-serif italic text-lg border-l-4 border-secondary pl-5 py-1 mb-6">
                                 "Impact of geosynthetics on reflective cracking performance life of asphalt concrete overlays"
                             </p>
+                            <button onclick="openProjectModal('crri')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-white bg-primary hover:bg-secondary px-5 py-2.5 rounded-lg transition-colors shadow-sm" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
                         </div>
                     </div>
 
                     <!-- Academic Projects Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-primary hover:shadow-lg group" data-category="transportation">
+                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-primary hover:shadow-lg group flex flex-col items-start" data-category="transportation">
                             <span class="text-xs font-bold text-tertiary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-cogs"></i> M.Tech Major</span>
-                            <p class="text-sm text-slate-700 leading-relaxed font-medium">Influence of Pavement Surface Characteristics on the Speeds of Different Classes of Vehicles (Pavement Distress And Roughness)</p>
+                            <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Influence of Pavement Surface Characteristics on the Speeds of Different Classes of Vehicles (Pavement Distress And Roughness)</p>
+                            <button onclick="openProjectModal('mtech-major')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
                         </div>
-                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-secondary hover:shadow-lg group" data-category="transportation">
+                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-secondary hover:shadow-lg group flex flex-col items-start" data-category="transportation">
                             <span class="text-xs font-bold text-secondary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-map-location-dot"></i> M.Tech Minor</span>
-                            <p class="text-sm text-slate-700 leading-relaxed font-medium">Identification of accidents black spot in Thiruvananthapuram using GIS Software (Arc GIS & QGIS)</p>
+                            <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Identification of accidents black spot in Thiruvananthapuram using GIS Software (Arc GIS & QGIS)</p>
+                            <button onclick="openProjectModal('mtech-minor')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-secondary border border-secondary hover:bg-secondary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
                         </div>
-                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-primary hover:shadow-lg group" data-category="materials">
+                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-primary hover:shadow-lg group flex flex-col items-start" data-category="materials">
                             <span class="text-xs font-bold text-primary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-building"></i> B.Tech Major</span>
-                            <p class="text-sm text-slate-700 leading-relaxed font-medium">Design and analysis of multi story car parking of steel as material using ETabs</p>
+                            <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Design and analysis of multi story car parking of steel as material using ETabs</p>
+                            <button onclick="openProjectModal('btech-major')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
                         </div>
-                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-tertiary hover:shadow-lg group" data-category="materials">
+                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-tertiary hover:shadow-lg group flex flex-col items-start" data-category="materials">
                             <span class="text-xs font-bold text-tertiary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-leaf"></i> B.Tech Minor</span>
-                            <p class="text-sm text-slate-700 leading-relaxed font-medium">Study about self healing concrete</p>
+                            <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Study about self healing concrete</p>
+                            <button onclick="openProjectModal('btech-minor')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-tertiary border border-tertiary hover:bg-tertiary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
                         </div>
                     </div>
                 </div>
@@ -439,6 +444,21 @@
         <footer class="bg-black py-8 text-center text-xs text-slate-500 font-semibold tracking-widest uppercase">
             <p>&copy; 2024 Ashutosh Kumar. All rights reserved.</p>
         </footer>
+
+        <!-- Project Modal -->
+        <div id="projectModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+            <!-- Backdrop -->
+            <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeProjectModal()"></div>
+            <!-- Modal Content -->
+            <div class="relative bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 transform transition-all scale-95 opacity-0" id="projectModalContent">
+                <button onclick="closeProjectModal()" class="absolute top-6 right-6 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-500 hover:text-slate-800 transition-colors z-10">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="p-8 md:p-12" id="projectModalBody">
+                    <!-- Dynamic content goes here -->
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Back to Top Button -->
@@ -447,6 +467,92 @@
     </button>
 
     <script>
+        const projectData = {
+            'crri': {
+                title: 'CSIR-Central Road Research Institute (CRRI)',
+                category: 'Research Internship',
+                location: 'New Delhi',
+                description: '"Impact of geosynthetics on reflective cracking performance life of asphalt concrete overlays". This research focused on understanding how various geosynthetic materials can be used to extend the life of pavement overlays by mitigating reflective cracking, a major distress in rehabilitated pavements.',
+                link: '#'
+            },
+            'mtech-major': {
+                title: 'Influence of Pavement Surface Characteristics on the Speeds of Different Classes of Vehicles',
+                category: 'M.Tech Major',
+                location: 'NIT Calicut',
+                description: 'A comprehensive study evaluating how pavement distress and roughness levels impact the operating speeds of various vehicle classifications under heterogeneous traffic conditions.',
+                link: '#'
+            },
+            'mtech-minor': {
+                title: 'Identification of accidents black spot in Thiruvananthapuram',
+                category: 'M.Tech Minor',
+                location: 'NIT Calicut',
+                description: 'Utilized Geographic Information System (GIS) software including Arc GIS and QGIS to spatially analyze crash data and identify high-risk accident locations in the city network for targeted safety improvements.',
+                link: '#'
+            },
+            'btech-major': {
+                title: 'Design and analysis of multi story car parking',
+                category: 'B.Tech Major',
+                location: 'CTAE Udaipur',
+                description: 'Structural design and analysis of a multi-story steel car parking facility using ETABS software, focusing on load distribution, structural integrity, and material efficiency.',
+                link: '#'
+            },
+            'btech-minor': {
+                title: 'Study about self healing concrete',
+                category: 'B.Tech Minor',
+                location: 'CTAE Udaipur',
+                description: 'An investigative study on the properties and mechanisms of self-healing concrete, evaluating its potential to autonomously repair micro-cracks and enhance long-term durability of concrete structures.',
+                link: '#'
+            }
+        };
+
+        function openProjectModal(id) {
+            const data = projectData[id];
+            if (!data) return;
+
+            const modal = document.getElementById('projectModal');
+            const modalContent = document.getElementById('projectModalContent');
+            const modalBody = document.getElementById('projectModalBody');
+
+            modalBody.innerHTML = `
+                <span class="inline-flex items-center gap-2 text-xs font-bold text-primary mb-4 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md">
+                    <i class="fa-solid fa-folder-open"></i> ${data.category}
+                </span>
+                <h3 class="text-3xl font-bold text-dark mb-4">${data.title}</h3>
+                <p class="text-slate-500 font-medium text-sm mb-6 flex items-center gap-2"><i class="fa-solid fa-location-dot"></i> ${data.location}</p>
+                <div class="prose prose-slate prose-p:leading-relaxed max-w-none text-slate-700">
+                    <p class="text-lg">${data.description}</p>
+                </div>
+                <div class="mt-8 pt-8 border-t border-slate-100">
+                    <a href="${data.link}" class="inline-flex items-center gap-2 text-sm font-bold text-white bg-dark hover:bg-primary px-6 py-3 rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        <i class="fa-brands fa-github"></i> View Repository
+                    </a>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            // Small delay to allow display:block to apply before animating opacity
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            const modal = document.getElementById('projectModal');
+            const modalContent = document.getElementById('projectModalContent');
+            
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
         function filterProjects(category) {
             // Update active state of buttons
             document.querySelectorAll('.project-filter-btn').forEach(btn => {
