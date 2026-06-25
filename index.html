@@ -60,6 +60,7 @@
             box-shadow: 0 0 0 2px #8b5cf6;
         }
     </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body class="antialiased selection:bg-secondary selection:text-white relative z-0">
     <!-- Ambient Background Gradients -->
@@ -73,14 +74,35 @@
     <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-lg z-50 border-b border-slate-200 shadow-sm">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="font-serif text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Ashutosh Kumar</a>
-            <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-600">
-                <a href="#about" class="hover:text-primary transition-colors">About</a>
-                <a href="#education" class="hover:text-primary transition-colors">Education</a>
-                <a href="#projects" class="hover:text-primary transition-colors">Research</a>
-                <a href="#skills" class="hover:text-primary transition-colors">Skills</a>
-                <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+            <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-600 items-center">
+                <a href="#about" class="hover:text-primary transition-colors" data-i18n="nav-about">About</a>
+                <a href="#education" class="hover:text-primary transition-colors" data-i18n="nav-education">Education</a>
+                <a href="#projects" class="hover:text-primary transition-colors" data-i18n="nav-projects">Research</a>
+                <a href="#skills" class="hover:text-primary transition-colors" data-i18n="nav-skills">Skills</a>
+                <a href="#contact" class="hover:text-primary transition-colors" data-i18n="nav-contact">Contact</a>
+                
+                <!-- Search Bar -->
+                <div class="relative ml-2">
+                    <input type="text" id="searchInput" placeholder="Search projects..." class="pl-8 pr-3 py-1.5 rounded-full border border-slate-200 text-xs focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-48 transition-all bg-slate-50 text-slate-700 placeholder-slate-400">
+                    <i class="fa-solid fa-search absolute left-3 top-2 text-slate-400 text-xs"></i>
+                    
+                    <!-- Search Results Dropdown -->
+                    <div id="searchResults" class="absolute top-full mt-2 left-0 w-64 bg-white rounded-xl shadow-xl border border-slate-100 hidden flex-col max-h-64 overflow-y-auto z-50">
+                        <!-- Results injected here via JS -->
+                    </div>
+                </div>
+
+                <!-- Language Toggle -->
+                <button id="langToggleBtn" class="ml-4 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full hover:bg-secondary transition-colors shadow-sm">
+                    EN / HI
+                </button>
             </div>
-            <a href="#contact" class="md:hidden text-primary"><i class="fa-solid fa-bars text-xl"></i></a>
+            <div class="md:hidden flex items-center gap-4">
+                <button id="langToggleBtnMobile" class="px-3 py-1 bg-primary text-white text-xs font-bold rounded-full hover:bg-secondary transition-colors shadow-sm">
+                    EN / HI
+                </button>
+                <a href="#contact" class="text-primary"><i class="fa-solid fa-bars text-xl"></i></a>
+            </div>
         </div>
     </nav>
 
@@ -212,6 +234,12 @@
                         <button onclick="filterProjects('transportation')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-dark transition-all" data-filter="transportation">Transportation</button>
                         <button onclick="filterProjects('materials')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-dark transition-all" data-filter="materials">Materials</button>
                     </div>
+                </div>
+
+                <!-- D3.js Vertical Timeline Container -->
+                <div id="d3-timeline" class="w-full mb-12 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                    <h3 class="text-lg font-bold text-slate-700 mb-6 flex items-center gap-2"><i class="fa-solid fa-timeline text-primary"></i> Project Timeline</h3>
+                    <div id="d3-timeline-container" class="w-full relative"></div>
                 </div>
                 
                 <div class="space-y-6" id="projects-container">
@@ -413,6 +441,11 @@
         </footer>
     </main>
 
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-primary to-secondary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center opacity-0 translate-y-10 pointer-events-none transition-all duration-300 z-50 hover:shadow-xl hover:shadow-primary/50 hover:-translate-y-1" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up text-xl"></i>
+    </button>
+
     <script>
         function filterProjects(category) {
             // Update active state of buttons
@@ -459,6 +492,295 @@
             document.querySelectorAll('.timeline-item').forEach(item => {
                 observer.observe(item);
             });
+
+            // Back to Top Button Logic
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                }
+            });
+
+            // Language Toggle Logic
+            const dictionary = {
+                "About": "परिचय",
+                "Education": "शिक्षा",
+                "Research": "अनुसंधान",
+                "Skills": "कौशल",
+                "Contact": "संपर्क",
+                "PhD Scholar at IIT Mandi": "आईआईटी मंडी में पीएचडी स्कॉलर",
+                "Advancing": "उन्नत कर रहे हैं",
+                "Transportation": "परिवहन",
+                "Infrastructure.": "बुनियादी ढांचा।",
+                "I am a PhD Student specializing in": "मैं एक पीएचडी छात्र हूँ जो विशेषज्ञता रखता है",
+                "Transportation Engineering and Pavement Materials": "परिवहन इंजीनियरिंग और फुटपाथ सामग्री",
+                "at the School of Civil and Environmental Engineering, supervised by": "स्कूल ऑफ सिविल एंड एनवायर्नमेंटल इंजीनियरिंग में, जिनके पर्यवेक्षक हैं",
+                "Dr. Kaustav Sarkar": "डॉ. कौस्तव सरकार",
+                "Current Research Focus": "वर्तमान शोध फोकस",
+                "Life Cycle Assessment (LCA) of Pavements & Hygrothermal Analysis of Concrete Pavements.": "फुटपाथ का जीवन चक्र मूल्यांकन (LCA) और कंक्रीट फुटपाथ का हाइग्रोथर्मल विश्लेषण।",
+                "Download CV": "सीवी डाउनलोड करें",
+                "Official Profile": "आधिकारिक प्रोफ़ाइल",
+                "Institution": "संस्थान",
+                "SCENE Branch": "SCENE शाखा",
+                "Civil & Env Eng.": "सिविल और पर्यावरण इंजीनियरिंग",
+                "Publications": "प्रकाशन",
+                "Google Scholar": "गूगल स्कॉलर",
+                "Ongoing": "वर्तमान",
+                "PhD in Transportation Engineering": "परिवहन इंजीनियरिंग में पीएचडी",
+                "IIT Mandi": "आईआईटी मंडी",
+                "Focusing on pavement materials and advanced transportation infrastructure solutions.": "फुटपाथ सामग्री और उन्नत परिवहन बुनियादी ढांचा समाधानों पर ध्यान केंद्रित कर रहा हूँ।",
+                "M.Tech in Traffic & Transportation Planning": "यातायात और परिवहन योजना में एम.टेक",
+                "National Institute of Technology Calicut (NITC)": "राष्ट्रीय प्रौद्योगिकी संस्थान कालीकट (NITC)",
+                "CGPA: 8.41/10": "सीजीपीए: 8.41/10",
+                "B.Tech in Civil Engineering": "सिविल इंजीनियरिंग में बी.टेक",
+                "College of Technology and Engineering, Udaipur": "प्रौद्योगिकी और इंजीनियरिंग कॉलेज, उदयपुर",
+                "CGPA: 6.77/10": "सीजीपीए: 6.77/10",
+                "Senior Secondary (XII)": "वरिष्ठ माध्यमिक (XII)",
+                "Science Degree College Supaul": "विज्ञान डिग्री कॉलेज सुपौल",
+                "68.8%": "68.8%",
+                "Secondary (X)": "माध्यमिक (X)",
+                "Jawahar Navodaya Vidyalaya Supaul": "जवाहर नवोदय विद्यालय सुपौल",
+                "CGPA: 10.00/10": "सीजीपीए: 10.00/10",
+                "Research & Projects": "अनुसंधान और परियोजनाएं",
+                "All": "सभी",
+                "Materials": "सामग्री",
+                "Research Internship": "अनुसंधान इंटर्नशिप",
+                "CSIR-Central Road Research Institute (CRRI)": "CSIR-केंद्रीय सड़क अनुसंधान संस्थान (CRRI)",
+                "New Delhi": "नई दिल्ली",
+                "\"Impact of geosynthetics on reflective cracking performance life of asphalt concrete overlays\"": "\"डामर कंक्रीट ओवरले के परावर्तक क्रैकिंग प्रदर्शन जीवन पर जियोसिंथेटिक्स का प्रभाव\"",
+                "M.Tech Major": "एम.टेक मेजर",
+                "Influence of Pavement Surface Characteristics on the Speeds of Different Classes of Vehicles (Pavement Distress And Roughness)": "विभिन्न वर्गों के वाहनों की गति पर फुटपाथ सतह की विशेषताओं का प्रभाव (फुटपाथ संकट और खुरदरापन)",
+                "M.Tech Minor": "एम.टेक माइनर",
+                "Identification of accidents black spot in Thiruvananthapuram using GIS Software (Arc GIS & QGIS)": "जीआईएस सॉफ्टवेयर (आर्क जीआईएस और क्यूजीआईएस) का उपयोग करके तिरुवनंतपुरम में दुर्घटनाओं के ब्लैक स्पॉट की पहचान",
+                "B.Tech Major": "बी.टेक मेजर",
+                "Design and analysis of multi story car parking of steel as material using ETabs": "ईटैब्स (ETabs) का उपयोग करके सामग्री के रूप में स्टील की बहुमंजिला कार पार्किंग का डिजाइन और विश्लेषण",
+                "B.Tech Minor": "बी.टेक माइनर",
+                "Study about self healing concrete": "स्व-उपचार कंक्रीट के बारे में अध्ययन",
+                "Research Highlights": "अनुसंधान हाइलाइट्स",
+                "Key Paper": "प्रमुख पेपर",
+                "Life Cycle Assessment (LCA) of Pavements": "फुटपाथ का जीवन चक्र मूल्यांकन (LCA)",
+                "An in-depth analysis of environmental impacts associated with different pavement materials throughout their life cycle.": "अपने जीवन चक्र के दौरान विभिन्न फुटपाथ सामग्रियों से जुड़े पर्यावरणीय प्रभावों का गहन विश्लेषण।",
+                "Read Publication": "प्रकाशन पढ़ें",
+                "Technical Poster": "तकनीकी पोस्टर",
+                "Hygrothermal Analysis of Concrete": "कंक्रीट का हाइग्रोथर्मल विश्लेषण",
+                "Evaluation of heat and moisture transfer in concrete pavements to optimize structural durability and resilience under varying climatic conditions.": "विभिन्न जलवायु परिस्थितियों में संरचनात्मक स्थायित्व और लचीलेपन को अनुकूलित करने के लिए कंक्रीट फुटपाथों में गर्मी और नमी हस्तांतरण का मूल्यांकन।",
+                "View Poster": "पोस्टर देखें",
+                "Expertise": "विशेषज्ञता",
+                "Technical proficiencies and certifications acquired through rigorous academic research and practical application.": "कठोर शैक्षणिक अनुसंधान और व्यावहारिक अनुप्रयोग के माध्यम से प्राप्त तकनीकी दक्षता और प्रमाणपत्र।",
+                "Software Skills": "सॉफ्टवेयर कौशल",
+                "Languages": "भाषाएँ",
+                "English": "अंग्रेज़ी",
+                "Hindi": "हिंदी",
+                "Core Certifications": "प्रमुख प्रमाणपत्र",
+                "Bituminous Pavement Design (3-Day Short Course)": "बिटुमिनस फुटपाथ डिजाइन (3-दिवसीय लघु पाठ्यक्रम)",
+                "Tools for Transportation Data Analysis & Modelling (6-Day STTP at CTR, NIT Calicut)": "परिवहन डेटा विश्लेषण और मॉडलिंग के लिए उपकरण (CTR, NIT कालीकट में 6-दिवसीय STTP)",
+                "Extra-Curricular": "अतिरिक्त पाठयक्रम",
+                "Student coordinator for International Conference RAID-2024 at NIT Calicut": "एनआईटी कालीकट में अंतर्राष्ट्रीय सम्मेलन RAID-2024 के लिए छात्र समन्वयक",
+                "2-Year NSS Volunteer": "2-वर्षीय एनएसएस स्वयंसेवक",
+                "Let's Connect": "आइए जुड़ें",
+                "Open to academic discussions, research collaborations, and professional opportunities in transportation engineering.": "परिवहन इंजीनियरिंग में शैक्षणिक चर्चाओं, अनुसंधान सहयोग और पेशेवर अवसरों के लिए खुला हूँ।",
+                "Supaul, Bihar, 852131": "सुपौल, बिहार, 852131",
+                "Scholar": "स्कॉलर",
+                "LinkedIn": "लिंक्डइन",
+                "Instagram": "इंस्टाग्राम",
+                "Facebook": "फेसबुक",
+                "Ashutosh Kumar": "आशुतोष कुमार"
+            };
+
+            let currentLang = 'en';
+            const translatableNodes = [];
+
+            function walkDOM(node) {
+                if (node.nodeType === 3) {
+                    const text = node.nodeValue.trim();
+                    if (text && dictionary[text]) {
+                        translatableNodes.push({
+                            node: node,
+                            en: text,
+                            hi: dictionary[text]
+                        });
+                    }
+                } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
+                    for (let i = 0; i < node.childNodes.length; i++) {
+                        walkDOM(node.childNodes[i]);
+                    }
+                }
+            }
+
+            // Start walking from the body
+            walkDOM(document.body);
+
+            function toggleLanguage() {
+                currentLang = currentLang === 'en' ? 'hi' : 'en';
+                
+                translatableNodes.forEach(item => {
+                    // Replaces only the matched text, keeping surrounding whitespace
+                    item.node.nodeValue = item.node.nodeValue.replace(
+                        currentLang === 'hi' ? item.en : item.hi,
+                        currentLang === 'hi' ? item.hi : item.en
+                    );
+                });
+
+                // Update button texts
+                document.getElementById('langToggleBtn').innerText = currentLang === 'en' ? 'EN / HI' : 'HI / EN';
+                document.getElementById('langToggleBtnMobile').innerText = currentLang === 'en' ? 'EN / HI' : 'HI / EN';
+            }
+
+            document.getElementById('langToggleBtn').addEventListener('click', toggleLanguage);
+            document.getElementById('langToggleBtnMobile').addEventListener('click', toggleLanguage);
+
+            // Search Logic
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            
+            // Collect searchable items
+            const searchableItems = Array.from(document.querySelectorAll('.project-card, #research-highlights > div > div')).map(el => {
+                const titleEl = el.querySelector('h3, p');
+                return {
+                    element: el,
+                    text: el.innerText.toLowerCase(),
+                    title: titleEl ? titleEl.innerText : 'Project'
+                };
+            });
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                searchResults.innerHTML = '';
+                
+                if (query.length < 2) {
+                    searchResults.classList.add('hidden');
+                    searchResults.classList.remove('flex');
+                    return;
+                }
+                
+                const matches = searchableItems.filter(item => item.text.includes(query));
+                
+                if (matches.length > 0) {
+                    matches.forEach(match => {
+                        const div = document.createElement('div');
+                        div.className = 'p-3 hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-0 text-sm text-slate-700 font-medium transition-colors';
+                        div.innerText = match.title.length > 60 ? match.title.substring(0, 60) + '...' : match.title;
+                        div.addEventListener('click', () => {
+                            match.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            
+                            // Highlight effect
+                            match.element.classList.add('ring-4', 'ring-primary', 'ring-opacity-50', 'scale-[1.02]');
+                            setTimeout(() => match.element.classList.remove('ring-4', 'ring-primary', 'ring-opacity-50', 'scale-[1.02]'), 2000);
+                            
+                            searchResults.classList.add('hidden');
+                            searchResults.classList.remove('flex');
+                            searchInput.value = '';
+                        });
+                        searchResults.appendChild(div);
+                    });
+                } else {
+                    const noRes = document.createElement('div');
+                    noRes.className = 'p-3 text-sm text-slate-500 text-center';
+                    noRes.innerText = 'No results found';
+                    searchResults.appendChild(noRes);
+                }
+                
+                searchResults.classList.remove('hidden');
+                searchResults.classList.add('flex');
+            });
+            
+            // Close search dropdown on outside click
+            document.addEventListener('click', (e) => {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.add('hidden');
+                    searchResults.classList.remove('flex');
+                }
+            });
+
+            // D3.js Vertical Timeline
+            function renderTimeline() {
+                const timelineData = [
+                    { year: "2024", title: "M.Tech Major: Pavement Surface Characteristics", category: "transportation", color: "#8b5cf6" },
+                    { year: "2023", title: "CSIR-CRRI Research Internship", category: "materials", color: "#4f46e5" },
+                    { year: "2022", title: "M.Tech Minor: Accident Black Spot Identification", category: "transportation", color: "#ec4899" },
+                    { year: "2020", title: "B.Tech Major: Multi-Story Car Parking Design", category: "materials", color: "#4f46e5" },
+                    { year: "2019", title: "B.Tech Minor: Self-Healing Concrete", category: "materials", color: "#ec4899" }
+                ];
+
+                const container = d3.select("#d3-timeline-container");
+                container.selectAll("*").remove(); // Clear previous
+
+                const width = container.node().getBoundingClientRect().width;
+                const height = timelineData.length * 80 + 20;
+
+                const svg = container.append("svg")
+                    .attr("width", "100%")
+                    .attr("height", height)
+                    .attr("viewBox", `0 0 ${width} ${height}`)
+                    .style("max-width", "100%");
+
+                const g = svg.append("g")
+                    .attr("transform", `translate(20, 20)`);
+
+                // Draw vertical line
+                g.append("line")
+                    .attr("x1", 20)
+                    .attr("y1", 0)
+                    .attr("x2", 20)
+                    .attr("y2", height - 40)
+                    .attr("stroke", "#e2e8f0")
+                    .attr("stroke-width", 2)
+                    .attr("stroke-dasharray", "4 4");
+
+                // Create nodes
+                const nodes = g.selectAll(".node")
+                    .data(timelineData)
+                    .enter()
+                    .append("g")
+                    .attr("class", "node cursor-pointer")
+                    .attr("transform", (d, i) => `translate(20, ${i * 80})`);
+
+                // Add circles
+                nodes.append("circle")
+                    .attr("r", 6)
+                    .attr("fill", d => d.color)
+                    .attr("stroke", "#ffffff")
+                    .attr("stroke-width", 2)
+                    .style("transition", "all 0.3s ease")
+                    .on("mouseover", function() {
+                        d3.select(this).attr("r", 9).attr("stroke", d => d.color).attr("fill", "#fff");
+                    })
+                    .on("mouseout", function(e, d) {
+                        d3.select(this).attr("r", 6).attr("stroke", "#ffffff").attr("fill", d.color);
+                    });
+
+                // Add Year labels
+                nodes.append("text")
+                    .attr("x", 25)
+                    .attr("y", 0)
+                    .attr("dy", "0.32em")
+                    .attr("font-size", "12px")
+                    .attr("font-weight", "bold")
+                    .attr("fill", "#64748b")
+                    .text(d => d.year);
+
+                // Add Title labels
+                nodes.append("text")
+                    .attr("x", 70)
+                    .attr("y", 0)
+                    .attr("dy", "0.32em")
+                    .attr("font-size", "14px")
+                    .attr("font-weight", "600")
+                    .attr("fill", "#334155")
+                    .text(d => {
+                        const maxLen = width < 500 ? 30 : 60;
+                        return d.title.length > maxLen ? d.title.substring(0, maxLen) + "..." : d.title;
+                    });
+            }
+
+            // Render on load and on resize
+            renderTimeline();
+            window.addEventListener('resize', renderTimeline);
+
         });
     </script>
 </body>
