@@ -9,17 +9,18 @@
     <!-- Tailwind Config for Custom Colors/Fonts -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Outfit', 'sans-serif'], // Replaced serif with a modern display font
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        primary: '#4f46e5', /* Indigo 600 */
+                        primary: '#3b82f6', /* Blue 500 - more tech/modern */
                         secondary: '#8b5cf6', /* Violet 500 */
-                        tertiary: '#0ea5e9', /* Sky 500 */
+                        tertiary: '#06b6d4', /* Cyan 500 */
                         dark: '#0f172a', /* Slate 900 */
                         surface: '#ffffff',
                         background: '#f8fafc', /* Slate 50 */
@@ -31,7 +32,7 @@
     <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     
     <script>
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -46,21 +47,21 @@
             --bg-surface: #ffffff;
             --bg-surface-hover: #f1f5f9;
             --border-color: #e2e8f0;
-            --nav-bg: rgba(255, 255, 255, 0.8);
+            --nav-bg: rgba(255, 255, 255, 0.7);
         }
         
         html.dark {
-            --bg-body: #0f172a;
+            --bg-body: #09090b;
             --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --bg-surface: #1e293b;
-            --bg-surface-hover: #334155;
-            --border-color: #334155;
-            --nav-bg: rgba(15, 23, 42, 0.8);
+            --text-muted: #a1a1aa;
+            --bg-surface: #18181b;
+            --bg-surface-hover: #27272a;
+            --border-color: #27272a;
+            --nav-bg: rgba(9, 9, 11, 0.7);
         }
         
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; transition: background-color 0.3s, color 0.3s; }
-        h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        h1, h2, h3, .font-serif { font-family: 'Outfit', sans-serif; letter-spacing: -0.02em; }
         
         /* Dark mode overrides using CSS variables */
         html.dark .bg-white { background-color: var(--bg-surface) !important; }
@@ -69,15 +70,44 @@
         html.dark .bg-slate-50, html.dark .bg-slate-100 { background-color: var(--bg-surface-hover) !important; }
         html.dark .border-slate-100, html.dark .border-slate-200 { border-color: var(--border-color) !important; }
         html.dark .bg-white\/80 { background-color: var(--nav-bg) !important; }
-        html.dark .bg-white\/60 { background-color: rgba(30, 41, 59, 0.6) !important; }
-        html.dark .bg-white\/50 { background-color: rgba(30, 41, 59, 0.5) !important; }
-        html.dark .from-slate-50 { --tw-gradient-from: var(--bg-surface-hover) !important; --tw-gradient-to: rgb(51 65 85 / 0) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
+        html.dark .bg-white\/60 { background-color: rgba(24, 24, 27, 0.6) !important; }
+        html.dark .bg-white\/50 { background-color: rgba(24, 24, 27, 0.5) !important; }
+        html.dark .from-slate-50 { --tw-gradient-from: var(--bg-surface-hover) !important; --tw-gradient-to: rgb(24 24 27 / 0) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
         html.dark .to-white { --tw-gradient-to: var(--bg-surface) !important; }
+
+        /* Smooth reveal animations */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        /* Ambient Blobs Animation */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob { animation: blob 15s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+        
+        /* Modern glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+        html.dark .glass-card {
+            background: rgba(24, 24, 27, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
         
         /* Modern Timeline */
         .timeline-container { border-left: 2px dashed #cbd5e1; margin-left: 0.5rem; padding-left: 2rem; }
         .timeline-item { position: relative; padding-bottom: 3rem; opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .timeline-item.animate-in { opacity: 1; transform: translateY(0); }
+        .timeline-item.active { opacity: 1; transform: translateY(0); }
         .timeline-item:last-child { padding-bottom: 0; }
         .timeline-item::before {
             content: '';
@@ -102,14 +132,15 @@
 </head>
 <body class="antialiased selection:bg-secondary selection:text-white relative z-0">
     <!-- Ambient Background Gradients -->
-    <div class="absolute inset-0 z-[-1] overflow-hidden pointer-events-none">
-        <div class="absolute -top-[10%] -right-[5%] w-[500px] h-[500px] rounded-full bg-secondary/20 blur-[100px]"></div>
-        <div class="absolute top-[20%] -left-[10%] w-[400px] h-[400px] rounded-full bg-primary/20 blur-[100px]"></div>
-        <div class="absolute top-[60%] right-[10%] w-[600px] h-[600px] rounded-full bg-tertiary/10 blur-[120px]"></div>
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none transition-opacity duration-1000">
+        <div class="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] rounded-full bg-secondary/15 blur-[100px] animate-blob"></div>
+        <div class="absolute top-[10%] -left-[10%] w-[500px] h-[500px] rounded-full bg-primary/15 blur-[100px] animate-blob animation-delay-2000"></div>
+        <div class="absolute top-[40%] right-[20%] w-[400px] h-[400px] rounded-full bg-tertiary/15 blur-[100px] animate-blob animation-delay-4000"></div>
+        <div class="absolute bottom-[-10%] left-[10%] w-[600px] h-[600px] rounded-full bg-primary/15 blur-[100px] animate-blob"></div>
     </div>
 
     <!-- Top Navigation -->
-    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-lg z-50 border-b border-slate-200 shadow-sm">
+    <nav class="fixed top-0 w-full glass-card z-50 border-b border-white/20 shadow-sm transition-all duration-300">
         <!-- Scroll Progress Bar -->
         <div class="absolute top-0 left-0 w-full h-1 bg-transparent">
             <div id="scrollProgressBar" class="h-full bg-gradient-to-r from-primary to-secondary w-0 rounded-r-full"></div>
@@ -158,51 +189,52 @@
 
     <main class="pt-28 pb-0">
         <!-- 1. HERO SECTION -->
-        <section id="about" class="max-w-6xl mx-auto px-6 py-12 md:py-24">
+        <section id="about" class="max-w-6xl mx-auto px-6 py-16 md:py-32 relative">
             <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-20">
                 <!-- Text Content -->
-                <div class="flex-1 space-y-6">
+                <div class="flex-1 space-y-8 reveal active">
                     <div class="flex flex-wrap gap-3 mb-2">
-                        <div class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-indigo-50 text-primary border border-indigo-100 shadow-sm">
+                        <div class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-primary/10 text-primary border border-primary/20 shadow-sm backdrop-blur-sm">
                             <span class="w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"></span> PhD Scholar at IIT Mandi
                         </div>
-                        <div class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-slate-50 text-slate-500 border border-slate-200 shadow-sm">
+                        <div class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-slate-100/80 text-slate-500 border border-slate-200 shadow-sm backdrop-blur-sm">
                             <i class="fa-regular fa-clock mr-2"></i> <span id="readingTimeText">1 min read</span>
                         </div>
                     </div>
-                    <h1 class="text-5xl md:text-7xl font-bold leading-tight text-dark">
+                    <h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] text-dark tracking-tight">
                         Advancing <br> <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-tertiary">Transportation</span> <br> Infrastructure.
                     </h1>
-                    <p class="text-lg text-slate-600 leading-relaxed max-w-xl">
-                        I am a PhD Student specializing in <strong class="text-primary font-semibold">Transportation Engineering and Pavement Materials</strong> at the School of Civil and Environmental Engineering, supervised by 
-                        <a href="https://scene.iitmandi.ac.in/pages/faculty_details/NA==" target="_blank" rel="noopener noreferrer" class="text-secondary font-semibold hover:text-primary transition-all">Dr. Kaustav Sarkar</a>.
+                    <p class="text-lg md:text-xl text-slate-600 leading-relaxed max-w-xl font-medium">
+                        I am a PhD Student specializing in <strong class="text-primary font-bold">Transportation Engineering and Pavement Materials</strong> at the School of Civil and Environmental Engineering, supervised by 
+                        <a href="https://scene.iitmandi.ac.in/pages/faculty_details/NA==" target="_blank" rel="noopener noreferrer" class="text-secondary font-bold hover:text-primary hover:underline underline-offset-4 decoration-2 transition-all">Dr. Kaustav Sarkar</a>.
                     </p>
-                    <div class="bg-white/60 backdrop-blur-md p-5 border border-slate-200/60 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden group">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-secondary"></div>
-                        <strong class="text-dark font-serif text-lg flex items-center gap-2"><i class="fa-solid fa-microscope text-primary"></i> Current Research Focus</strong>
-                        <p class="text-slate-700 mt-2 font-medium">Life Cycle Assessment (LCA) of Pavements & Hygrothermal Analysis of Concrete Pavements.</p>
+                    <div class="glass-card p-6 rounded-2xl shadow-xl relative overflow-hidden group">
+                        <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-primary to-secondary"></div>
+                        <strong class="text-dark font-serif text-xl flex items-center gap-3"><i class="fa-solid fa-microscope text-primary"></i> Current Research Focus</strong>
+                        <p class="text-slate-700 mt-3 font-medium leading-relaxed">Life Cycle Assessment (LCA) of Pavements & Hygrothermal Analysis of Concrete Pavements.</p>
                     </div>
                     
                     <div class="pt-4 flex flex-wrap gap-4 items-center">
-                        <a href="#" onclick="openPdfModal('', 'Curriculum Vitae'); return false;" class="px-8 py-3.5 bg-gradient-to-r from-primary to-secondary text-white text-sm font-bold rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5 transition-all">
-                            <i class="fa-solid fa-file-pdf mr-2"></i> View CV
+                        <a href="#" onclick="openPdfModal('', 'Curriculum Vitae'); return false;" class="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white text-sm font-bold rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-1 transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-file-pdf"></i> View CV
                         </a>
-                        <a href="https://scene.iitmandi.ac.in/pages/student_details/OTE1" target="_blank" rel="noopener noreferrer" class="px-8 py-3.5 bg-white text-dark text-sm font-bold border-2 border-slate-200 rounded-xl hover:border-primary hover:text-primary transition-all shadow-sm">
-                            Official Profile
+                        <a href="https://scene.iitmandi.ac.in/pages/student_details/OTE1" target="_blank" rel="noopener noreferrer" class="px-8 py-4 glass-card text-dark text-sm font-bold border-2 border-slate-200/50 rounded-xl hover:border-primary hover:text-primary hover:-translate-y-1 transition-all shadow-sm flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Official Profile
                         </a>
                     </div>
                 </div>
 
                 <!-- Image Area -->
-                <div class="relative w-72 md:w-96 flex-shrink-0 group">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-primary to-tertiary translate-x-4 translate-y-4 rounded-3xl opacity-70 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-500"></div>
-                    <img src="src/assets/images/profile.jpg" alt="Ashutosh Kumar" class="relative z-10 w-full h-auto object-cover rounded-3xl border-4 border-white shadow-2xl group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="relative w-80 md:w-[450px] flex-shrink-0 group reveal active delay-200">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary to-tertiary translate-x-6 translate-y-6 rounded-3xl opacity-50 blur-lg group-hover:opacity-70 group-hover:translate-x-8 group-hover:translate-y-8 transition-all duration-700"></div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary to-tertiary translate-x-4 translate-y-4 rounded-3xl opacity-80 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-500"></div>
+                    <img src="src/assets/images/profile.jpg" alt="Ashutosh Kumar" class="relative z-10 w-full h-auto object-cover rounded-3xl border-4 border-white/80 shadow-2xl group-hover:scale-[1.02] transition-transform duration-500 backdrop-blur-sm">
                 </div>
             </div>
         </section>
 
         <!-- 2. RESEARCH PROFILE ALIGNMENT -->
-        <section class="max-w-6xl mx-auto px-6 py-16">
+        <section class="max-w-6xl mx-auto px-6 py-16 reveal">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <a href="https://www.iitmandi.ac.in/" target="_blank" rel="noopener noreferrer" class="group flex items-center p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-primary/30 transition-all hover:-translate-y-1">
                     <div class="w-14 h-14 flex items-center justify-center bg-indigo-50 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors mr-5 text-primary text-xl shadow-inner">
@@ -238,7 +270,7 @@
         <div class="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-12 gap-16">
             
             <!-- 3. EDUCATIONAL CHRONOLOGY -->
-            <section id="education" class="lg:col-span-5 scroll-mt-24">
+            <section id="education" class="lg:col-span-5 scroll-mt-24 reveal">
                 <h2 class="text-3xl font-serif text-dark mb-10 flex items-center gap-3"><i class="fa-solid fa-graduation-cap text-primary"></i> Education</h2>
                 <div class="timeline-container">
                     
@@ -280,7 +312,7 @@
             </section>
 
             <!-- 4. PROJECTS & RESEARCH EXPERIENCE -->
-            <section id="projects" class="lg:col-span-7 scroll-mt-24">
+            <section id="projects" class="lg:col-span-7 scroll-mt-24 reveal">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
                     <h2 class="text-3xl font-serif text-dark flex items-center gap-3"><i class="fa-solid fa-flask text-secondary"></i> Research & Projects</h2>
                     <!-- Category Filter -->
@@ -320,17 +352,17 @@
                             <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Influence of Pavement Surface Characteristics on the Speeds of Different Classes of Vehicles (Pavement Distress And Roughness)</p>
                             <button onclick="openProjectModal('mtech-major')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
                         </div>
-                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-secondary hover:shadow-lg group flex flex-col items-start" data-category="transportation">
+                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-secondary hover:shadow-lg group flex flex-col items-start" data-category="transportation">
                             <span class="text-xs font-bold text-secondary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-map-location-dot"></i> M.Tech Minor</span>
                             <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Identification of accidents black spot in Thiruvananthapuram using GIS Software (Arc GIS & QGIS)</p>
                             <button onclick="openProjectModal('mtech-minor')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-secondary border border-secondary hover:bg-secondary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
                         </div>
-                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-primary hover:shadow-lg group flex flex-col items-start" data-category="materials">
+                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-primary hover:shadow-lg group flex flex-col items-start" data-category="materials">
                             <span class="text-xs font-bold text-primary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-building"></i> B.Tech Major</span>
                             <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Design and analysis of multi story car parking of steel as material using ETabs</p>
                             <button onclick="openProjectModal('btech-major')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
                         </div>
-                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-tertiary hover:shadow-lg group flex flex-col items-start" data-category="materials">
+                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-tertiary hover:shadow-lg group flex flex-col items-start" data-category="materials">
                             <span class="text-xs font-bold text-tertiary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-leaf"></i> B.Tech Minor</span>
                             <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Study about self healing concrete</p>
                             <button onclick="openProjectModal('btech-minor')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-tertiary border border-tertiary hover:bg-tertiary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
@@ -341,80 +373,42 @@
         </div>
 
         <!-- RESEARCH HIGHLIGHTS -->
-        <section id="research-highlights" class="max-w-6xl mx-auto px-6 pb-24">
+        <section id="research-highlights" class="max-w-6xl mx-auto px-6 pb-24 reveal">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 gap-4">
-                <h2 class="text-3xl font-serif text-dark flex items-center gap-3"><i class="fa-solid fa-star text-primary"></i> Research Highlights</h2>
+                <h2 class="text-3xl font-serif text-dark flex items-center gap-3"><i class="fa-solid fa-book-open text-primary"></i> Publications & Conferences Attended</h2>
                 <button onclick="openPdfManagerModal()" class="text-sm font-bold text-slate-600 hover:text-primary transition-colors flex items-center gap-2 bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm hover:border-primary">
                     <i class="fa-solid fa-file-pdf"></i> Upload Local PDF
                 </button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="max-w-4xl mx-auto grid grid-cols-1 gap-8">
                 <!-- Highlight Card 1 -->
                 <div class="tilt-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200 hover:border-primary/50 hover:shadow-xl shadow-sm transition-all group relative overflow-hidden" style="transform-style: preserve-3d;">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full z-0 transition-transform group-hover:scale-110"></div>
                     <div class="flex items-center justify-between mb-4 relative z-10" style="transform: translateZ(20px);">
-                        <span class="inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md"><i class="fa-solid fa-file-pdf"></i> Key Paper</span>
-                        <span class="scholar-badge inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-slate-200 rounded-md text-xs font-bold text-slate-600 shadow-sm transition-all hover:border-primary hover:text-primary cursor-help" data-paper-title="Life Cycle Assessment (LCA) of Pavements" title="Citations from Google Scholar">
-                            <i class="fa-solid fa-graduation-cap text-primary"></i> <span class="citation-count"><i class="fa-solid fa-circle-notch fa-spin text-[10px]"></i></span>
-                        </span>
+                        <span class="inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md"><i class="fa-solid fa-file-pdf"></i> Conference Paper</span>
                     </div>
-                    <h3 class="text-xl font-bold text-dark mb-3 relative z-10 group-hover:text-primary transition-colors" style="transform: translateZ(30px);">Life Cycle Assessment (LCA) of Pavements</h3>
+                    <h3 class="text-xl font-bold text-dark mb-3 relative z-10 group-hover:text-primary transition-colors" style="transform: translateZ(30px);">CTSEM 2024 Conference Paper</h3>
                     <p class="text-slate-600 leading-relaxed font-medium mb-8 relative z-10" style="transform: translateZ(20px);">
-                        An in-depth analysis of environmental impacts associated with different pavement materials throughout their life cycle.
+                        Published in: CTSEM 2024 (Springer). M.Tech research paper on sustainable pavement engineering and materials.
                     </p>
                     <div class="flex items-center justify-between relative z-10 mt-auto" style="transform: translateZ(20px);">
-                        <a href="#" onclick="openPdfModal('https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', 'Life Cycle Assessment (LCA) of Pavements'); return false;" class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-secondary transition-colors">
-                            Read Publication <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
-                        </a>
-                        <div class="flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button onclick="shareTo('linkedin', 'Life Cycle Assessment (LCA) of Pavements', window.location.href)" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-[#0077b5] hover:text-white text-slate-500 flex items-center justify-center transition-colors" aria-label="Share on LinkedIn" title="Share on LinkedIn">
-                                <i class="fa-brands fa-linkedin-in text-xs"></i>
-                            </button>
-                            <button onclick="shareTo('twitter', 'Life Cycle Assessment (LCA) of Pavements', window.location.href)" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-[#1DA1F2] hover:text-white text-slate-500 flex items-center justify-center transition-colors" aria-label="Share on Twitter" title="Share on Twitter">
-                                <i class="fa-brands fa-x-twitter text-xs"></i>
-                            </button>
-                            <button onclick="shareTo('whatsapp', 'Life Cycle Assessment (LCA) of Pavements', window.location.href)" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-[#25D366] hover:text-white text-slate-500 flex items-center justify-center transition-colors" aria-label="Share on WhatsApp" title="Share on WhatsApp">
-                                <i class="fa-brands fa-whatsapp text-xs"></i>
-                            </button>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#" onclick="openPdfModal('', 'CTSEM 2024 Conference Paper'); return false;" class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-secondary transition-colors">
+                                View Local PDF <i class="fa-solid fa-file-pdf text-xs transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                            <a href="https://link.springer.com/chapter/10.1007/978-981-96-1984-9_27" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-emerald-600 hover:text-emerald-700 transition-colors">
+                                Springer Link <i class="fa-solid fa-external-link-alt text-xs transition-transform group-hover:translate-x-1"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Highlight Card 2 -->
-                <div class="tilt-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200 hover:border-secondary/50 hover:shadow-xl shadow-sm transition-all group relative overflow-hidden" style="transform-style: preserve-3d;">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-bl-full z-0 transition-transform group-hover:scale-110"></div>
-                    <div class="flex items-center justify-between mb-4 relative z-10" style="transform: translateZ(20px);">
-                        <span class="inline-flex items-center gap-2 text-xs font-bold text-secondary uppercase tracking-widest bg-purple-50 px-3 py-1 rounded-md"><i class="fa-solid fa-image"></i> Technical Poster</span>
-                        <span class="scholar-badge inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-slate-200 rounded-md text-xs font-bold text-slate-600 shadow-sm transition-all hover:border-secondary hover:text-secondary cursor-help" data-paper-title="Hygrothermal Analysis of Concrete" title="Citations from Google Scholar">
-                            <i class="fa-solid fa-graduation-cap text-secondary"></i> <span class="citation-count"><i class="fa-solid fa-circle-notch fa-spin text-[10px]"></i></span>
-                        </span>
-                    </div>
-                    <h3 class="text-xl font-bold text-dark mb-3 relative z-10 group-hover:text-secondary transition-colors" style="transform: translateZ(30px);">Hygrothermal Analysis of Concrete</h3>
-                    <p class="text-slate-600 leading-relaxed font-medium mb-8 relative z-10" style="transform: translateZ(20px);">
-                        Evaluation of heat and moisture transfer in concrete pavements to optimize structural durability and resilience under varying climatic conditions.
-                    </p>
-                    <div class="flex items-center justify-between relative z-10 mt-auto" style="transform: translateZ(20px);">
-                        <a href="#" onclick="openPdfModal('https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', 'Hygrothermal Analysis of Concrete'); return false;" class="inline-flex items-center gap-2 text-sm font-bold text-secondary hover:text-primary transition-colors">
-                            View Poster <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
-                        </a>
-                        <div class="flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button onclick="shareTo('linkedin', 'Hygrothermal Analysis of Concrete', window.location.href)" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-[#0077b5] hover:text-white text-slate-500 flex items-center justify-center transition-colors" aria-label="Share on LinkedIn" title="Share on LinkedIn">
-                                <i class="fa-brands fa-linkedin-in text-xs"></i>
-                            </button>
-                            <button onclick="shareTo('twitter', 'Hygrothermal Analysis of Concrete', window.location.href)" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-[#1DA1F2] hover:text-white text-slate-500 flex items-center justify-center transition-colors" aria-label="Share on Twitter" title="Share on Twitter">
-                                <i class="fa-brands fa-x-twitter text-xs"></i>
-                            </button>
-                            <button onclick="shareTo('whatsapp', 'Hygrothermal Analysis of Concrete', window.location.href)" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-[#25D366] hover:text-white text-slate-500 flex items-center justify-center transition-colors" aria-label="Share on WhatsApp" title="Share on WhatsApp">
-                                <i class="fa-brands fa-whatsapp text-xs"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </section>
 
         <!-- 5. TECHNICAL SKILLS & CERTIFICATIONS GRID -->
-        <section id="skills" class="bg-white scroll-mt-24 py-24 relative overflow-hidden">
+        <section id="skills" class="scroll-mt-24 py-24 relative overflow-hidden reveal">
             <!-- Background decorative element -->
             <div class="absolute top-0 right-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
             <div class="absolute bottom-0 right-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
@@ -502,6 +496,10 @@
                                 </li>
                                 <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
                                     <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
+                                    <span class="text-slate-700 font-medium leading-relaxed">Participant in CTSEM 2024 Conference at NIT Nagpur</span>
+                                </li>
+                                <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
+                                    <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
                                     <span class="text-slate-700 font-medium leading-relaxed">2-Year NSS Volunteer</span>
                                 </li>
                             </ul>
@@ -512,7 +510,7 @@
         </section>
 
         <!-- GitHub Contributions Section -->
-        <section id="github-contributions" class="bg-slate-50 py-24 relative overflow-hidden border-y border-slate-200">
+        <section id="github-contributions" class="bg-slate-50 py-24 relative overflow-hidden border-y border-slate-200 reveal">
             <div class="max-w-6xl mx-auto px-6 relative z-10">
                 <div class="flex flex-col md:flex-row gap-16 items-center">
                     <div class="md:w-1/3">
@@ -557,24 +555,31 @@
         </section>
 
         <!-- Global Footprint Map (Moved to bottom) -->
-        <section class="max-w-4xl mx-auto px-6 pb-24">
+        <section class="max-w-4xl mx-auto px-6 pb-24 reveal">
             <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-lg shadow-slate-200/40">
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
                     <h3 class="text-xl font-bold text-dark flex items-center gap-3"><span class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-primary text-sm"><i class="fa-solid fa-earth-americas"></i></span> Global Footprint</h3>
-                    <div class="flex gap-3 text-[10px] font-semibold text-slate-500 uppercase tracking-widest">
-                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-primary block"></span> Study / Work</span>
-                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-secondary block"></span> Conferences</span>
+                    <div class="flex gap-2 text-[10px] font-semibold text-slate-500 uppercase tracking-widest">
+                        <button id="filter-study" onclick="toggleMapFilter('study')" class="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white border border-slate-200 hover:border-primary transition-colors cursor-pointer map-filter-btn" data-active="true">
+                            <span class="w-2.5 h-2.5 rounded-full bg-primary block filter-dot transition-opacity"></span> Study / Work
+                        </button>
+                        <button id="filter-conference" onclick="toggleMapFilter('conference')" class="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white border border-slate-200 hover:border-secondary transition-colors cursor-pointer map-filter-btn" data-active="true">
+                            <span class="w-2.5 h-2.5 rounded-full bg-secondary block filter-dot transition-opacity"></span> Conferences
+                        </button>
                     </div>
                 </div>
-                <div id="world-map-container" class="w-full h-[250px] md:h-[300px] bg-slate-50 rounded-2xl overflow-hidden relative border border-slate-100">
+                <div id="world-map-container" class="w-full h-[250px] md:h-[300px] bg-slate-50 rounded-2xl overflow-hidden relative border border-slate-100 group transition-all duration-300 hover:shadow-lg hover:border-primary/30 hover:scale-[1.01]">
                     <div id="map-tooltip" class="absolute hidden bg-dark/90 backdrop-blur-sm text-white px-3 py-2 rounded-lg text-xs font-medium shadow-xl pointer-events-none z-20 border border-slate-700/50 max-w-[200px]"></div>
+                    <button id="reset-map-btn" class="absolute bottom-4 right-4 z-10 bg-white border border-slate-200 text-slate-600 hover:text-primary hover:border-primary shadow-sm rounded-lg px-3 py-1.5 text-xs font-bold flex items-center gap-2 transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0" aria-label="Reset Map View">
+                        <i class="fa-solid fa-compress"></i> Reset View
+                    </button>
                     <svg id="world-map-svg" class="w-full h-full"></svg>
                 </div>
             </div>
         </section>
 
         <!-- 6. CONTACT & CONNECTIVITY HUB -->
-        <section id="contact" class="relative bg-dark text-white py-24 scroll-mt-24 overflow-hidden">
+        <section id="contact" class="relative bg-dark text-white py-24 scroll-mt-24 overflow-hidden reveal">
             <!-- Cool abstract gradient overlay -->
             <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-[#1e1b4b] to-slate-900 z-0"></div>
             <div class="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-[100px] z-0"></div>
@@ -714,8 +719,11 @@
                             <label class="block text-sm font-semibold text-slate-700 mb-2">Select Paper Target</label>
                             <select id="pdfTargetSelect" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 focus:border-primary focus:ring-1 focus:ring-primary outline-none">
                                 <option value="Curriculum Vitae">Curriculum Vitae</option>
-                                <option value="Life Cycle Assessment (LCA) of Pavements">Life Cycle Assessment (LCA) of Pavements</option>
-                                <option value="Hygrothermal Analysis of Concrete">Hygrothermal Analysis of Concrete</option>
+                                <option value="Influence of Pavement Surface Characteristics on the Speeds of Different Classes of Vehicles">M.Tech Major Project</option>
+                                <option value="Identification of accidents black spot in Thiruvananthapuram">M.Tech Minor Project</option>
+                                <option value="Design and analysis of multi story car parking">B.Tech Major Project</option>
+                                <option value="Study about self healing concrete">B.Tech Minor Project</option>
+                                <option value="CTSEM 2024 Conference Paper">Conference Paper (CTSEM 2024)</option>
                             </select>
                         </div>
                         
@@ -811,32 +819,51 @@
             const modalContent = document.getElementById('projectModalContent');
             const modalBody = document.getElementById('projectModalBody');
 
-            modalBody.innerHTML = `
-                <span class="inline-flex items-center gap-2 text-xs font-bold text-primary mb-4 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md">
-                    <i class="fa-solid fa-folder-open"></i> ${data.category}
-                </span>
-                <h3 class="text-3xl font-bold text-dark mb-4">${data.title}</h3>
-                <p class="text-slate-500 font-medium text-sm mb-6 flex items-center gap-2"><i class="fa-solid fa-location-dot"></i> ${data.location}</p>
-                <div class="prose prose-slate prose-p:leading-relaxed max-w-none text-slate-700 mb-6">
-                    <p class="text-lg">${data.description}</p>
-                </div>
-                <div class="w-full h-[50vh] min-h-[400px] border border-slate-200 rounded-xl overflow-hidden mt-6 bg-slate-100 flex flex-col relative">
-                    <iframe src="${data.pdf}" class="w-full h-full border-0 absolute inset-0 z-10" onload="this.style.opacity=1;" style="opacity:0; transition: opacity 0.3s;"></iframe>
-                    <div class="absolute inset-0 flex items-center justify-center text-slate-400 z-0">
-                        <i class="fa-solid fa-circle-notch fa-spin text-3xl"></i>
+            function renderContent(pdfUrl) {
+                modalBody.innerHTML = `
+                    <span class="inline-flex items-center gap-2 text-xs font-bold text-primary mb-4 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md">
+                        <i class="fa-solid fa-folder-open"></i> ${data.category}
+                    </span>
+                    <h3 class="text-3xl font-bold text-dark mb-4">${data.title}</h3>
+                    <p class="text-slate-500 font-medium text-sm mb-6 flex items-center gap-2"><i class="fa-solid fa-location-dot"></i> ${data.location}</p>
+                    <div class="prose prose-slate prose-p:leading-relaxed max-w-none text-slate-700 mb-6">
+                        <p class="text-lg">${data.description}</p>
                     </div>
-                </div>
-            `;
+                    <div class="w-full h-[50vh] min-h-[400px] border border-slate-200 rounded-xl overflow-hidden mt-6 bg-slate-100 flex flex-col relative">
+                        <iframe src="${pdfUrl}" class="w-full h-full border-0 absolute inset-0 z-10" onload="this.style.opacity=1;" style="opacity:0; transition: opacity 0.3s;"></iframe>
+                        <div class="absolute inset-0 flex items-center justify-center text-slate-400 z-0">
+                            <i class="fa-solid fa-circle-notch fa-spin text-3xl"></i>
+                        </div>
+                    </div>
+                `;
 
-            modal.classList.remove('hidden');
-            // Small delay to allow display:block to apply before animating opacity
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
-            
-            // Prevent body scroll
-            document.body.style.overflow = 'hidden';
+                modal.classList.remove('hidden');
+                // Small delay to allow display:block to apply before animating opacity
+                setTimeout(() => {
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+                
+                // Prevent body scroll
+                document.body.style.overflow = 'hidden';
+            }
+
+            if (db) {
+                const transaction = db.transaction(["pdfs"], "readonly");
+                const store = transaction.objectStore("pdfs");
+                const req = store.get(data.title);
+                
+                req.onsuccess = (e) => {
+                    if (e.target.result && e.target.result.dataUrl) {
+                        renderContent(e.target.result.dataUrl);
+                    } else {
+                        renderContent(data.pdf);
+                    }
+                };
+                req.onerror = () => renderContent(data.pdf);
+            } else {
+                renderContent(data.pdf);
+            }
         }
 
         // IndexedDB PDF Storage
@@ -1055,8 +1082,28 @@
             });
         }
 
-        // Timeline Scroll Animation
+        // Timeline Scroll Animation and Modern Reveal
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // Modern reveal intersection observer
+            const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            // Observe elements that need revealing
+            document.querySelectorAll('.reveal, .timeline-item, .project-card, .tilt-card').forEach(el => {
+                if(!el.classList.contains('reveal') && !el.classList.contains('timeline-item')) {
+                    el.classList.add('reveal');
+                }
+                revealObserver.observe(el);
+            });
+
             // Fetch GitHub Stats
             async function fetchGitHubStats(username) {
                 try {
@@ -1118,7 +1165,7 @@
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-in');
+                        entry.target.classList.add('active');
                         observer.unobserve(entry.target);
                     }
                 });
@@ -1227,11 +1274,12 @@
                 "Design and analysis of multi story car parking of steel as material using ETabs": "ईटैब्स (ETabs) का उपयोग करके सामग्री के रूप में स्टील की बहुमंजिला कार पार्किंग का डिजाइन और विश्लेषण",
                 "B.Tech Minor": "बी.टेक माइनर",
                 "Study about self healing concrete": "स्व-उपचार कंक्रीट के बारे में अध्ययन",
-                "Research Highlights": "अनुसंधान हाइलाइट्स",
-                "Key Paper": "प्रमुख पेपर",
-                "Life Cycle Assessment (LCA) of Pavements": "फुटपाथ का जीवन चक्र मूल्यांकन (LCA)",
-                "An in-depth analysis of environmental impacts associated with different pavement materials throughout their life cycle.": "अपने जीवन चक्र के दौरान विभिन्न फुटपाथ सामग्रियों से जुड़े पर्यावरणीय प्रभावों का गहन विश्लेषण।",
-                "Read Publication": "प्रकाशन पढ़ें",
+                "Publications & Conferences Attended": "प्रकाशन और उपस्थित सम्मेलन",
+                "Conference Paper": "सम्मेलन पत्र",
+                "CTSEM 2024 Conference Paper": "CTSEM 2024 सम्मेलन पत्र",
+                "Published in: CTSEM 2024 (Springer). M.Tech research paper on sustainable pavement engineering and materials.": "CTSEM 2024 (स्प्रिंगर) में प्रकाशित। टिकाऊ फुटपाथ इंजीनियरिंग और सामग्री पर एम.टेक शोध पत्र।",
+                "View Local PDF": "स्थानीय पीडीएफ देखें",
+                "Springer Link": "स्प्रिंगर लिंक",
                 "Technical Poster": "तकनीकी पोस्टर",
                 "Hygrothermal Analysis of Concrete": "कंक्रीट का हाइग्रोथर्मल विश्लेषण",
                 "Evaluation of heat and moisture transfer in concrete pavements to optimize structural durability and resilience under varying climatic conditions.": "विभिन्न जलवायु परिस्थितियों में संरचनात्मक स्थायित्व और लचीलेपन को अनुकूलित करने के लिए कंक्रीट फुटपाथों में गर्मी और नमी हस्तांतरण का मूल्यांकन।",
@@ -1247,6 +1295,7 @@
                 "Tools for Transportation Data Analysis & Modelling (6-Day STTP at CTR, NIT Calicut)": "परिवहन डेटा विश्लेषण और मॉडलिंग के लिए उपकरण (CTR, NIT कालीकट में 6-दिवसीय STTP)",
                 "Extra-Curricular": "अतिरिक्त पाठयक्रम",
                 "Student coordinator for International Conference RAID-2024 at NIT Calicut": "एनआईटी कालीकट में अंतर्राष्ट्रीय सम्मेलन RAID-2024 के लिए छात्र समन्वयक",
+                "Participant in CTSEM 2024 Conference at NIT Nagpur": "एनआईटी नागपुर में CTSEM 2024 सम्मेलन में प्रतिभागी",
                 "2-Year NSS Volunteer": "2-वर्षीय एनएसएस स्वयंसेवक",
                 "Let's Connect": "आइए जुड़ें",
                 "Open to academic discussions, research collaborations, and professional opportunities in transportation engineering.": "परिवहन इंजीनियरिंग में शैक्षणिक चर्चाओं, अनुसंधान सहयोग और पेशेवर अवसरों के लिए खुला हूँ।",
@@ -1461,6 +1510,39 @@
             }
             calculateReadingTime();
 
+            // Global Map Filter State
+            let activeMapFilters = {
+                study: true,
+                conference: true
+            };
+
+            window.toggleMapFilter = function(type) {
+                activeMapFilters[type] = !activeMapFilters[type];
+                
+                const btn = document.getElementById(`filter-${type}`);
+                if (btn) {
+                    btn.setAttribute('data-active', activeMapFilters[type]);
+                    const dot = btn.querySelector('.filter-dot');
+                    if (activeMapFilters[type]) {
+                        btn.classList.remove('bg-slate-50', 'opacity-50', 'border-slate-100');
+                        btn.classList.add('bg-white', 'border-slate-200');
+                        dot.classList.remove('opacity-20');
+                    } else {
+                        btn.classList.remove('bg-white', 'border-slate-200');
+                        btn.classList.add('bg-slate-50', 'opacity-50', 'border-slate-100');
+                        dot.classList.add('opacity-20');
+                    }
+                }
+                
+                if (typeof d3 !== 'undefined') {
+                    d3.selectAll('.pin').each(function(d) {
+                        if (d && d.type) {
+                            d3.select(this).style('display', activeMapFilters[d.type] ? null : 'none');
+                        }
+                    });
+                }
+            };
+
             // D3.js Global Footprint Map
             async function renderWorldMap() {
                 const container = d3.select("#world-map-container");
@@ -1488,6 +1570,13 @@
                         g.attr("transform", event.transform);
                     });
                 svg.call(zoom);
+
+                // Reset Map Button Binding
+                d3.select("#reset-map-btn").on("click", () => {
+                    svg.transition()
+                        .duration(750)
+                        .call(zoom.transform, d3.zoomIdentity);
+                });
                 
                 try {
                     const worldData = await d3.json("https://unpkg.com/world-atlas@2.0.2/countries-110m.json");
@@ -1507,8 +1596,7 @@
                         { name: "NIT Calicut", type: "study", lat: 11.3216, lon: 75.9336, desc: "M.Tech Transportation" },
                         { name: "CTAE Udaipur", type: "study", lat: 24.5937, lon: 73.7314, desc: "B.Tech Civil" },
                         { name: "CSIR-CRRI New Delhi", type: "study", lat: 28.5524, lon: 77.2764, desc: "Research Internship" },
-                        { name: "San Francisco", type: "conference", lat: 37.7749, lon: -122.4194, desc: "Academic Symposium" },
-                        { name: "London", type: "conference", lat: 51.5074, lon: -0.1278, desc: "Transportation Summit" }
+                        { name: "NIT Nagpur", type: "conference", lat: 21.1458, lon: 79.0882, desc: "CTSEM 2024 Conference" }
                     ];
                     
                     const pins = g.selectAll(".pin")
@@ -1519,6 +1607,7 @@
                             const coords = projection([d.lon, d.lat]);
                             return coords ? `translate(${coords[0]},${coords[1]})` : "";
                         })
+                        .style("display", d => activeMapFilters[d.type] ? null : "none")
                         .style("cursor", "pointer");
                         
                     // Pin marker
@@ -1534,6 +1623,17 @@
                         .attr("r", 3)
                         .attr("cy", -16)
                         .attr("fill", "#ffffff");
+
+                    // Pin text label
+                    pins.append("text")
+                        .attr("x", 12)
+                        .attr("y", -8)
+                        .text(d => d.name)
+                        .attr("font-size", "10px")
+                        .attr("font-weight", "700")
+                        .attr("fill", "#1e293b")
+                        .attr("pointer-events", "none")
+                        .style("text-shadow", "0px 0px 4px white, 0px 0px 4px white, 0px 0px 4px white");
                         
                     // Hover effects
                     pins.on("mouseenter", function(event, d) {
@@ -1565,30 +1665,6 @@
                 clearTimeout(resizeMapTimer);
                 resizeMapTimer = setTimeout(renderWorldMap, 250);
             });
-
-            // Fetch Citation Counts (via OpenAlex proxy since we are a static site)
-            async function fetchCitations() {
-                const badges = document.querySelectorAll('.scholar-badge');
-                badges.forEach(async (badge) => {
-                    const title = badge.getAttribute('data-paper-title');
-                    const countSpan = badge.querySelector('.citation-count');
-                    try {
-                        const res = await fetch(`https://api.openalex.org/works?search=${encodeURIComponent(title)}`);
-                        if (!res.ok) throw new Error('API error');
-                        const data = await res.json();
-                        if (data.results && data.results.length > 0) {
-                            countSpan.textContent = data.results[0].cited_by_count + " Citations";
-                        } else {
-                            // Fallback if not found
-                            countSpan.textContent = "View on Scholar";
-                        }
-                    } catch (e) {
-                        console.error("Citation fetch error:", e);
-                        countSpan.textContent = "View on Scholar";
-                    }
-                });
-            }
-            fetchCitations();
 
             // Tilt effect for research highlight cards
             const tiltCards = document.querySelectorAll('.tilt-card');
