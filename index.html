@@ -435,24 +435,33 @@
             <section id="projects" class="lg:col-span-7 scroll-mt-24 reveal">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
                     <h2 class="text-3xl font-serif text-dark flex items-center gap-3"><i class="fa-solid fa-flask text-secondary"></i> Research & Projects</h2>
-                    <!-- Category Filter -->
-                    <div class="flex flex-wrap gap-2 items-center">
-                        <button onclick="filterProjects('all')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-primary text-white shadow-md transition-all active-filter" data-filter="all">All</button>
-                        <button onclick="filterProjects('transportation')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-dark transition-all" data-filter="transportation">Transportation</button>
-                        <button onclick="filterProjects('materials')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-dark transition-all" data-filter="materials">Materials</button>
-                        <button onclick="filterProjects('all')" id="clearFilterBtn" class="ml-2 px-3 py-1.5 text-sm font-bold rounded-full text-slate-500 hover:text-red-600 hover:bg-red-50 border border-transparent hover:border-red-100 transition-all flex items-center gap-1 hidden opacity-0">Clear Filters <i class="fa-solid fa-xmark ml-1"></i></button>
+                    
+                    <div class="flex items-center gap-4">
+                        <!-- View Toggle -->
+                        <div class="flex bg-slate-100 rounded-xl p-1 shadow-inner">
+                            <button onclick="toggleProjectView('cards')" id="btn-view-cards" class="px-4 py-2 text-sm font-bold rounded-lg bg-white text-primary shadow-sm transition-all" data-i18n="Cards View"><i class="fa-solid fa-border-all mr-1"></i> Cards</button>
+                            <button onclick="toggleProjectView('timeline')" id="btn-view-timeline" class="px-4 py-2 text-sm font-bold rounded-lg text-slate-500 hover:text-dark transition-all" data-i18n="Timeline View"><i class="fa-solid fa-chart-gantt mr-1"></i> Timeline</button>
+                        </div>
+                        
+                        <!-- Category Filter -->
+                        <div class="flex flex-wrap gap-2 items-center" id="project-filters">
+                            <button onclick="filterProjects('all')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-primary text-white shadow-md transition-all active-filter" data-filter="all">All</button>
+                            <button onclick="filterProjects('transportation')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-dark transition-all" data-filter="transportation">Transportation</button>
+                            <button onclick="filterProjects('materials')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-dark transition-all" data-filter="materials">Materials</button>
+                            <button onclick="filterProjects('all')" id="clearFilterBtn" class="ml-2 px-3 py-1.5 text-sm font-bold rounded-full text-slate-500 hover:text-red-600 hover:bg-red-50 border border-transparent hover:border-red-100 transition-all flex items-center gap-1 hidden opacity-0">Clear Filters <i class="fa-solid fa-xmark ml-1"></i></button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- D3.js Vertical Timeline Container -->
-                <div id="d3-timeline" class="w-full mb-12 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-                    <h3 class="text-lg font-bold text-slate-700 mb-6 flex items-center gap-2"><i class="fa-solid fa-timeline text-primary"></i> Project Timeline</h3>
-                    <div id="d3-timeline-container" class="w-full relative"></div>
+                <div id="d3-timeline" class="w-full mb-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm overflow-x-auto hidden">
+                    <h3 class="text-lg font-bold text-slate-700 mb-6 flex items-center gap-2"><i class="fa-solid fa-chart-gantt text-primary"></i> <span data-i18n="Research Chronology & Duration">Research Chronology & Duration</span></h3>
+                    <div id="d3-timeline-container" class="w-full relative min-w-[600px] h-[400px]"></div>
                 </div>
                 
                 <div class="space-y-6" id="projects-container">
                     <!-- Experience Card -->
-                    <div class="project-card transition-all duration-500 bg-gradient-to-br from-primary to-secondary p-1 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30" data-category="materials">
+                    <div class="project-card transition-all duration-500 bg-gradient-to-br from-primary to-secondary p-1 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30" data-category="materials" data-skills="matlab">
                         <div class="bg-white p-8 rounded-xl h-full relative overflow-hidden flex flex-col items-start">
                             <div class="absolute top-0 right-0 p-4 opacity-5"><i class="fa-solid fa-quote-right text-6xl text-primary"></i></div>
                             <span class="inline-flex items-center gap-2 text-xs font-bold text-primary mb-3 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md"><i class="fa-solid fa-briefcase"></i> Research Internship</span>
@@ -467,22 +476,22 @@
 
                     <!-- Academic Projects Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-primary hover:shadow-lg group flex flex-col items-start" data-category="transportation">
+                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-primary hover:shadow-lg group flex flex-col items-start" data-category="transportation" data-skills="vissim">
                             <span class="text-xs font-bold text-tertiary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-cogs"></i> M.Tech Major</span>
                             <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Influence of Pavement Surface Characteristics on the Speeds of Different Classes of Vehicles (Pavement Distress And Roughness)</p>
                             <button onclick="openProjectModal('mtech-major')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
                         </div>
-                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-secondary hover:shadow-lg group flex flex-col items-start" data-category="transportation">
+                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-secondary hover:shadow-lg group flex flex-col items-start" data-category="transportation" data-skills="arcgis,qgis">
                             <span class="text-xs font-bold text-secondary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-map-location-dot"></i> M.Tech Minor</span>
                             <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Identification of accidents black spot in Thiruvananthapuram using GIS Software (Arc GIS & QGIS)</p>
                             <button onclick="openProjectModal('mtech-minor')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-secondary border border-secondary hover:bg-secondary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
                         </div>
-                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-primary hover:shadow-lg group flex flex-col items-start" data-category="materials">
+                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-primary hover:shadow-lg group flex flex-col items-start" data-category="materials" data-skills="etabs,autocad">
                             <span class="text-xs font-bold text-primary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-building"></i> B.Tech Major</span>
                             <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Design and analysis of multi story car parking of steel as material using ETabs</p>
                             <button onclick="openProjectModal('btech-major')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
                         </div>
-                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-tertiary hover:shadow-lg group flex flex-col items-start" data-category="materials">
+                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-tertiary hover:shadow-lg group flex flex-col items-start" data-category="materials" data-skills="civil3d">
                             <span class="text-xs font-bold text-tertiary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-leaf"></i> B.Tech Minor</span>
                             <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Study about self healing concrete</p>
                             <button onclick="openProjectModal('btech-minor')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-tertiary border border-tertiary hover:bg-tertiary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
@@ -502,7 +511,7 @@
             </div>
             <div class="max-w-4xl mx-auto grid grid-cols-1 gap-8">
                 <!-- Highlight Card 1 -->
-                <div class="tilt-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200 hover:border-primary/50 hover:shadow-xl shadow-sm transition-all group relative overflow-hidden" style="transform-style: preserve-3d;">
+                <div class="tilt-card publication-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200 hover:border-primary/50 hover:shadow-xl shadow-sm transition-all group relative overflow-hidden" data-skills="powerbi,matlab" style="transform-style: preserve-3d;">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full z-0 transition-transform group-hover:scale-110"></div>
                     <div class="flex items-center justify-between mb-4 relative z-10" style="transform: translateZ(20px);">
                         <span class="inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md"><i class="fa-solid fa-file-pdf"></i> Conference Paper</span>
@@ -524,6 +533,56 @@
                 </div>
 
 
+            </div>
+        </section>
+
+        <!-- RESEARCH GALLERY -->
+        <section id="research-gallery" class="max-w-6xl mx-auto px-6 pb-24 reveal">
+            <div class="mb-10 text-center">
+                <h2 class="text-3xl font-serif text-dark flex items-center justify-center gap-3"><i class="fa-solid fa-images text-primary"></i> <span data-i18n="Research Gallery">Research Gallery</span></h2>
+                <p class="text-slate-600 mt-4 max-w-2xl mx-auto" data-i18n="Visualizing key concepts in transportation infrastructure, pavement sustainability, and advanced material engineering.">Visualizing key concepts in transportation infrastructure, pavement sustainability, and advanced material engineering.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Gallery Item 1 -->
+                <div class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all aspect-video">
+                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/40 transition-colors z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1517737812598-1a43d0ef2a60?q=80&w=1470&auto=format&fit=crop" alt="Sustainable Pavements" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900/90 to-transparent z-20 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <h3 class="text-white font-bold text-xl mb-1" data-i18n="Sustainable Pavements">Sustainable Pavements</h3>
+                        <p class="text-slate-300 text-sm font-medium" data-i18n="Eco-friendly road materials and life cycle assessment.">Eco-friendly road materials and life cycle assessment.</p>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 2 -->
+                <div class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all aspect-video">
+                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/40 transition-colors z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1494522855154-9297ac14b55f?q=80&w=1470&auto=format&fit=crop" alt="Traffic Flow Optimization" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900/90 to-transparent z-20 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <h3 class="text-white font-bold text-xl mb-1" data-i18n="Traffic Flow Optimization">Traffic Flow Optimization</h3>
+                        <p class="text-slate-300 text-sm font-medium" data-i18n="Analyzing heterogeneous traffic patterns and simulation.">Analyzing heterogeneous traffic patterns and simulation.</p>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 3 -->
+                <div class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all aspect-video">
+                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/40 transition-colors z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1470&auto=format&fit=crop" alt="Advanced Geotechnical Materials" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900/90 to-transparent z-20 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <h3 class="text-white font-bold text-xl mb-1" data-i18n="Hygrothermal Analysis">Hygrothermal Analysis</h3>
+                        <p class="text-slate-300 text-sm font-medium" data-i18n="Modeling heat and moisture gradients in concrete.">Modeling heat and moisture gradients in concrete.</p>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 4 -->
+                <div class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all aspect-video">
+                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/40 transition-colors z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1470&auto=format&fit=crop" alt="Data & Analytics" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900/90 to-transparent z-20 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <h3 class="text-white font-bold text-xl mb-1" data-i18n="Data & Spatial Analytics">Data & Spatial Analytics</h3>
+                        <p class="text-slate-300 text-sm font-medium" data-i18n="GIS methodologies and structural performance evaluation.">GIS methodologies and structural performance evaluation.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -646,35 +705,35 @@
                             <h3 class="text-sm font-bold text-primary uppercase tracking-widest mb-5 flex items-center gap-2"><i class="fa-solid fa-laptop-code"></i> Software Skills</h3>
                             <div class="flex flex-wrap gap-2.5">
                                 <div class="relative group">
-                                    <span class="block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">AutoCAD</span>
+                                    <button onclick="highlightSkillProjects('autocad')" data-skill="autocad" class="skill-tag-btn block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-pointer transition-colors">AutoCAD</button>
                                     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 bg-dark text-white text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20 shadow-lg after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-dark">Advanced • 4 Years</div>
                                 </div>
                                 <div class="relative group">
-                                    <span class="block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">ETabs</span>
+                                    <button onclick="highlightSkillProjects('etabs')" data-skill="etabs" class="skill-tag-btn block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-pointer transition-colors">ETabs</button>
                                     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 bg-dark text-white text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20 shadow-lg after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-dark">Intermediate • 2 Years</div>
                                 </div>
                                 <div class="relative group">
-                                    <span class="block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">ArcGIS</span>
+                                    <button onclick="highlightSkillProjects('arcgis')" data-skill="arcgis" class="skill-tag-btn block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-pointer transition-colors">ArcGIS</button>
                                     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 bg-dark text-white text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20 shadow-lg after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-dark">Advanced • 3 Years</div>
                                 </div>
                                 <div class="relative group">
-                                    <span class="block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">QGIS</span>
+                                    <button onclick="highlightSkillProjects('qgis')" data-skill="qgis" class="skill-tag-btn block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-pointer transition-colors">QGIS</button>
                                     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 bg-dark text-white text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20 shadow-lg after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-dark">Advanced • 3 Years</div>
                                 </div>
                                 <div class="relative group">
-                                    <span class="block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">VISSIM</span>
+                                    <button onclick="highlightSkillProjects('vissim')" data-skill="vissim" class="skill-tag-btn block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-pointer transition-colors">VISSIM</button>
                                     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 bg-dark text-white text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20 shadow-lg after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-dark">Intermediate • 1 Year</div>
                                 </div>
                                 <div class="relative group">
-                                    <span class="block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">MATLAB</span>
+                                    <button onclick="highlightSkillProjects('matlab')" data-skill="matlab" class="skill-tag-btn block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-pointer transition-colors">MATLAB</button>
                                     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 bg-dark text-white text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20 shadow-lg after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-dark">Intermediate • 2 Years</div>
                                 </div>
                                 <div class="relative group">
-                                    <span class="block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">Civil 3D</span>
+                                    <button onclick="highlightSkillProjects('civil3d')" data-skill="civil3d" class="skill-tag-btn block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-pointer transition-colors">Civil 3D</button>
                                     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 bg-dark text-white text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20 shadow-lg after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-dark">Advanced • 3 Years</div>
                                 </div>
                                 <div class="relative group">
-                                    <span class="block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">Power BI</span>
+                                    <button onclick="highlightSkillProjects('powerbi')" data-skill="powerbi" class="skill-tag-btn block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-pointer transition-colors">Power BI</button>
                                     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 bg-dark text-white text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20 shadow-lg after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-dark">Intermediate • 1 Year</div>
                                 </div>
                             </div>
@@ -699,13 +758,26 @@
                         <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/40">
                             <h3 class="text-xl font-bold text-dark mb-6 flex items-center gap-3"><span class="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-primary"><i class="fa-solid fa-certificate"></i></span> Core Certifications</h3>
                             <ul class="space-y-5">
-                                <li class="flex items-start bg-slate-50 p-4 rounded-xl border border-slate-100 hover:border-secondary transition-colors">
-                                    <span class="text-secondary mt-0.5 mr-4 text-xl"><i class="fa-solid fa-circle-check"></i></span>
-                                    <span class="text-slate-800 font-medium leading-relaxed">Bituminous Pavement Design (3-Day Short Course)</span>
+                                <li class="flex items-start bg-slate-50 p-5 rounded-xl border border-slate-100 hover:border-secondary transition-colors shadow-sm">
+                                    <span class="text-secondary mt-1 mr-4 text-2xl drop-shadow-sm"><i class="fa-solid fa-award"></i></span>
+                                    <div class="flex-1">
+                                        <h4 class="text-slate-800 font-bold text-lg leading-tight mb-1.5">Short Course on Principles and Practices of Bituminous Pavement Design</h4>
+                                        <p class="text-sm font-semibold text-primary mb-2 flex items-center gap-1.5"><i class="fa-solid fa-building-columns text-xs"></i> IIT Kanpur (Centre for Continuing Education and Dept. of Civil Engineering)</p>
+                                        <div class="flex items-center gap-4 mb-3">
+                                            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 bg-slate-200/50 px-2.5 py-1 rounded-md"><i class="fa-regular fa-calendar text-secondary"></i> February 17–19, 2025</span>
+                                        </div>
+                                        <p class="text-sm text-slate-600 leading-relaxed border-l-2 border-slate-200 pl-3">Completed a comprehensive three-day program focusing on advanced design methodologies and practical applications for bituminous pavements, led by academic and industry experts.</p>
+                                    </div>
                                 </li>
-                                <li class="flex items-start bg-slate-50 p-4 rounded-xl border border-slate-100 hover:border-secondary transition-colors">
-                                    <span class="text-secondary mt-0.5 mr-4 text-xl"><i class="fa-solid fa-circle-check"></i></span>
-                                    <span class="text-slate-800 font-medium leading-relaxed">Tools for Transportation Data Analysis & Modelling (6-Day STTP at CTR, NIT Calicut)</span>
+                                <li class="flex items-start bg-slate-50 p-5 rounded-xl border border-slate-100 hover:border-secondary transition-colors shadow-sm">
+                                    <span class="text-secondary mt-1 mr-4 text-2xl drop-shadow-sm"><i class="fa-solid fa-award"></i></span>
+                                    <div class="flex-1">
+                                        <h4 class="text-slate-800 font-bold text-lg leading-tight mb-1.5">Tools for Transportation Data Analysis & Modelling</h4>
+                                        <p class="text-sm font-semibold text-primary mb-2 flex items-center gap-1.5"><i class="fa-solid fa-building-columns text-xs"></i> CTR, NIT Calicut</p>
+                                        <div class="flex items-center gap-4 mb-3">
+                                            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 bg-slate-200/50 px-2.5 py-1 rounded-md"><i class="fa-solid fa-chalkboard-user text-secondary"></i> 6-Day STTP</span>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -1286,6 +1358,11 @@
                 }
             }
 
+            // If a skill is active, reset it
+            if (window.activeSkill) {
+                window.highlightSkillProjects(window.activeSkill); // toggles it off
+            }
+
             // Filter project cards
             document.querySelectorAll('.project-card').forEach(card => {
                 if (category === 'all' || card.getAttribute('data-category') === category) {
@@ -1307,6 +1384,83 @@
                 }
             });
         }
+
+        window.activeSkill = null;
+
+        window.highlightSkillProjects = function(skillId) {
+            if (window.activeSkill === skillId) {
+                window.activeSkill = null;
+                // Reset styling
+                document.querySelectorAll('.skill-tag-btn').forEach(btn => {
+                    btn.classList.remove('bg-primary', 'text-white', 'border-primary');
+                    btn.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
+                });
+                document.querySelectorAll('.project-card, .publication-card').forEach(card => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                    card.classList.remove('ring-4', 'ring-primary/30', 'border-primary');
+                    if (card.classList.contains('project-card')) {
+                        // Restore filtering based on active category
+                        const activeCategory = document.querySelector('.project-filter-btn.active-filter')?.getAttribute('data-filter') || 'all';
+                        if (activeCategory !== 'all' && card.getAttribute('data-category') !== activeCategory) {
+                             card.style.display = 'none';
+                        } else {
+                             card.style.display = '';
+                        }
+                    }
+                });
+                return;
+            }
+
+            window.activeSkill = skillId;
+            
+            // Highlight skill button
+            document.querySelectorAll('.skill-tag-btn').forEach(btn => {
+                if (btn.getAttribute('data-skill') === skillId) {
+                    btn.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
+                    btn.classList.add('bg-primary', 'text-white', 'border-primary');
+                } else {
+                    btn.classList.remove('bg-primary', 'text-white', 'border-primary');
+                    btn.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
+                }
+            });
+
+            // If cards view is not active, switch to it for project highlighting
+            const cardsContainer = document.getElementById('projects-container');
+            if (cardsContainer && cardsContainer.classList.contains('hidden')) {
+                toggleProjectView('cards');
+            }
+
+            // Highlight matches
+            document.querySelectorAll('.project-card, .publication-card').forEach(card => {
+                const skillsAttr = card.getAttribute('data-skills');
+                const hasSkill = skillsAttr && skillsAttr.split(',').includes(skillId);
+                
+                // Show if it was hidden by category filter
+                card.style.display = '';
+                
+                if (hasSkill) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(-8px) scale(1.02)';
+                    card.classList.add('ring-4', 'ring-primary/30', 'border-primary');
+                    card.style.zIndex = '10';
+                } else {
+                    card.style.opacity = '0.3';
+                    card.style.transform = 'translateY(0) scale(0.98)';
+                    card.classList.remove('ring-4', 'ring-primary/30', 'border-primary');
+                    card.style.zIndex = '1';
+                }
+                card.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+
+            // Scroll smoothly to projects section
+            const projectsSection = document.getElementById('projects');
+            if (projectsSection) {
+                const yOffset = -100;
+                const y = projectsSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({top: y, behavior: 'smooth'});
+            }
+        };
 
         // Timeline Scroll Animation and Modern Reveal
         document.addEventListener('DOMContentLoaded', () => {
@@ -1480,6 +1634,19 @@
                 "Computational analysis of thermal/moisture gradients, ETABS (Structural Analysis).": "थर्मल/नमी ग्रेडिएंट्स का कम्प्यूटेशनल विश्लेषण, ईटीएबीएस (संरचनात्मक विश्लेषण)।",
                 "Spatial & Traffic": "स्थानिक और यातायात",
                 "Arc GIS, QGIS, and VISSIM traffic simulation software.": "आर्क जीआईएस, क्यूजीआईएस, और विस्सिम ट्रैफिक सिमुलेशन सॉफ्टवेयर।",
+                "Research Gallery": "अनुसंधान गैलरी",
+                "Visualizing key concepts in transportation infrastructure, pavement sustainability, and advanced material engineering.": "परिवहन बुनियादी ढांचे, फुटपाथ स्थिरता और उन्नत सामग्री इंजीनियरिंग में प्रमुख अवधारणाओं की कल्पना करना।",
+                "Sustainable Pavements": "टिकाऊ फुटपाथ",
+                "Eco-friendly road materials and life cycle assessment.": "पर्यावरण के अनुकूल सड़क सामग्री और जीवन चक्र मूल्यांकन।",
+                "Traffic Flow Optimization": "यातायात प्रवाह अनुकूलन",
+                "Analyzing heterogeneous traffic patterns and simulation.": "विषम यातायात पैटर्न और सिमुलेशन का विश्लेषण करना।",
+                "Hygrothermal Analysis": "हाइग्रोथर्मल विश्लेषण",
+                "Modeling heat and moisture gradients in concrete.": "कंक्रीट में गर्मी और नमी के ग्रेडिएंट्स का मॉडलिंग।",
+                "Data & Spatial Analytics": "डेटा और स्थानिक विश्लेषिकी",
+                "GIS methodologies and structural performance evaluation.": "जीआईएस कार्यप्रणाली और संरचनात्मक प्रदर्शन मूल्यांकन।",
+                "Cards View": "कार्ड दृश्य",
+                "Timeline View": "टाइमलाइन दृश्य",
+                "Research Chronology & Duration": "अनुसंधान कालक्रम और अवधि",
                 "About": "परिचय",
                 "Education": "शिक्षा",
                 "Research": "अनुसंधान",
@@ -1673,21 +1840,64 @@
                 }
             });
 
-            // D3.js Vertical Timeline
+            // View Toggle State
+            window.toggleProjectView = function(view) {
+                const cardsBtn = document.getElementById('btn-view-cards');
+                const timelineBtn = document.getElementById('btn-view-timeline');
+                const cardsContainer = document.getElementById('projects-container');
+                const timelineContainer = document.getElementById('d3-timeline');
+                const filtersContainer = document.getElementById('project-filters');
+
+                if (view === 'cards') {
+                    // Update buttons
+                    cardsBtn.classList.replace('text-slate-500', 'text-primary');
+                    cardsBtn.classList.add('bg-white', 'shadow-sm');
+                    cardsBtn.classList.remove('hover:text-dark');
+                    
+                    timelineBtn.classList.replace('text-primary', 'text-slate-500');
+                    timelineBtn.classList.remove('bg-white', 'shadow-sm');
+                    timelineBtn.classList.add('hover:text-dark');
+
+                    // Update visibility
+                    cardsContainer.classList.remove('hidden');
+                    timelineContainer.classList.add('hidden');
+                    filtersContainer.classList.remove('hidden');
+                } else {
+                    // Update buttons
+                    timelineBtn.classList.replace('text-slate-500', 'text-primary');
+                    timelineBtn.classList.add('bg-white', 'shadow-sm');
+                    timelineBtn.classList.remove('hover:text-dark');
+                    
+                    cardsBtn.classList.replace('text-primary', 'text-slate-500');
+                    cardsBtn.classList.remove('bg-white', 'shadow-sm');
+                    cardsBtn.classList.add('hover:text-dark');
+
+                    // Update visibility
+                    cardsContainer.classList.add('hidden');
+                    timelineContainer.classList.remove('hidden');
+                    filtersContainer.classList.add('hidden');
+                    
+                    // Render timeline when visible so width is calculated correctly
+                    renderTimeline();
+                }
+            };
+
+            // D3.js Gantt Chart Timeline
             function renderTimeline() {
                 const timelineData = [
-                    { year: "2024", title: "M.Tech Major: Pavement Surface Characteristics", category: "transportation", color: "#8b5cf6" },
-                    { year: "2023", title: "CSIR-CRRI Research Internship", category: "materials", color: "#4f46e5" },
-                    { year: "2022", title: "M.Tech Minor: Accident Black Spot Identification", category: "transportation", color: "#ec4899" },
-                    { year: "2020", title: "B.Tech Major: Multi-Story Car Parking Design", category: "materials", color: "#4f46e5" },
-                    { year: "2019", title: "B.Tech Minor: Self-Healing Concrete", category: "materials", color: "#ec4899" }
+                    { start: 2023.5, end: 2024.5, title: "M.Tech Major: Pavement Surface Characteristics", category: "transportation", color: "#8b5cf6" },
+                    { start: 2023, end: 2023.5, title: "CSIR-CRRI Research Internship", category: "materials", color: "#4f46e5" },
+                    { start: 2022.5, end: 2023, title: "M.Tech Minor: Accident Black Spot Identification", category: "transportation", color: "#ec4899" },
+                    { start: 2020, end: 2021, title: "B.Tech Major: Multi-Story Car Parking Design", category: "materials", color: "#4f46e5" },
+                    { start: 2019, end: 2020, title: "B.Tech Minor: Self-Healing Concrete", category: "materials", color: "#ec4899" }
                 ];
 
                 const container = d3.select("#d3-timeline-container");
+                if (container.node().getBoundingClientRect().width === 0) return; // Hidden
                 container.selectAll("*").remove(); // Clear previous
 
                 const width = container.node().getBoundingClientRect().width;
-                const height = timelineData.length * 80 + 20;
+                const height = timelineData.length * 60 + 50;
 
                 const svg = container.append("svg")
                     .attr("width", "100%")
@@ -1695,63 +1905,108 @@
                     .attr("viewBox", `0 0 ${width} ${height}`)
                     .style("max-width", "100%");
 
+                const margin = { top: 20, right: 30, bottom: 20, left: 180 };
+                // Adjust left margin for smaller screens
+                if (width < 600) margin.left = 120;
+                
+                const innerWidth = width - margin.left - margin.right;
+                const innerHeight = height - margin.top - margin.bottom;
+
                 const g = svg.append("g")
-                    .attr("transform", `translate(20, 20)`);
+                    .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-                // Draw vertical line
-                g.append("line")
-                    .attr("x1", 20)
-                    .attr("y1", 0)
-                    .attr("x2", 20)
-                    .attr("y2", height - 40)
-                    .attr("stroke", "#e2e8f0")
-                    .attr("stroke-width", 2)
-                    .attr("stroke-dasharray", "4 4");
+                const xScale = d3.scaleLinear()
+                    .domain([2018.5, 2025])
+                    .range([0, innerWidth]);
 
-                // Create nodes
-                const nodes = g.selectAll(".node")
+                const yScale = d3.scaleBand()
+                    .domain(timelineData.map(d => d.title))
+                    .range([0, innerHeight])
+                    .padding(0.3);
+
+                // Add X Axis
+                g.append("g")
+                    .attr("transform", `translate(0, ${innerHeight})`)
+                    .call(d3.axisBottom(xScale).tickFormat(d3.format("d")).ticks(7))
+                    .selectAll("text")
+                    .attr("font-size", "12px")
+                    .attr("fill", "#64748b");
+                
+                // Add Y Axis labels manually for better wrapping/styling
+                const yLabels = g.selectAll(".y-label")
                     .data(timelineData)
                     .enter()
-                    .append("g")
-                    .attr("class", "node cursor-pointer")
-                    .attr("transform", (d, i) => `translate(20, ${i * 80})`);
-
-                // Add circles
-                nodes.append("circle")
-                    .attr("r", 6)
-                    .attr("fill", d => d.color)
-                    .attr("stroke", "#ffffff")
-                    .attr("stroke-width", 2)
-                    .style("transition", "all 0.3s ease")
-                    .on("mouseover", function() {
-                        d3.select(this).attr("r", 9).attr("stroke", d => d.color).attr("fill", "#fff");
-                    })
-                    .on("mouseout", function(e, d) {
-                        d3.select(this).attr("r", 6).attr("stroke", "#ffffff").attr("fill", d.color);
-                    });
-
-                // Add Year labels
-                nodes.append("text")
-                    .attr("x", 25)
-                    .attr("y", 0)
+                    .append("text")
+                    .attr("class", "y-label")
+                    .attr("x", -10)
+                    .attr("y", d => yScale(d.title) + yScale.bandwidth() / 2)
                     .attr("dy", "0.32em")
+                    .attr("text-anchor", "end")
                     .attr("font-size", "12px")
-                    .attr("font-weight", "bold")
-                    .attr("fill", "#64748b")
-                    .text(d => d.year);
-
-                // Add Title labels
-                nodes.append("text")
-                    .attr("x", 70)
-                    .attr("y", 0)
-                    .attr("dy", "0.32em")
-                    .attr("font-size", "14px")
-                    .attr("font-weight", "600")
+                    .attr("font-weight", "500")
                     .attr("fill", "#334155")
                     .text(d => {
-                        const maxLen = width < 500 ? 30 : 60;
+                        const maxLen = width < 600 ? 15 : 25;
                         return d.title.length > maxLen ? d.title.substring(0, maxLen) + "..." : d.title;
-                    });
+                    })
+                    .append("title")
+                    .text(d => d.title);
+                
+                // Add Gridlines
+                const xGrid = d3.axisBottom(xScale)
+                    .tickSize(-innerHeight)
+                    .tickFormat("")
+                    .ticks(7);
+                g.append("g")
+                    .attr("class", "grid")
+                    .attr("transform", `translate(0, ${innerHeight})`)
+                    .attr("opacity", 0.1)
+                    .call(xGrid);
+
+                // Draw Rectangles (Bars)
+                g.selectAll(".bar")
+                    .data(timelineData)
+                    .enter()
+                    .append("rect")
+                    .attr("class", "bar cursor-pointer")
+                    .attr("x", d => xScale(d.start))
+                    .attr("y", d => yScale(d.title))
+                    .attr("width", 0) // start at 0 for animation
+                    .attr("height", yScale.bandwidth())
+                    .attr("rx", 6)
+                    .attr("fill", d => d.color)
+                    .attr("opacity", 0.8)
+                    .style("transition", "opacity 0.3s")
+                    .on("mouseover", function() {
+                        d3.select(this).attr("opacity", 1);
+                    })
+                    .on("mouseout", function() {
+                        d3.select(this).attr("opacity", 0.8);
+                    })
+                    .transition()
+                    .duration(1000)
+                    .attr("width", d => Math.max(xScale(d.end) - xScale(d.start), 5));
+                    
+                // Add Duration Text on bars
+                g.selectAll(".duration-text")
+                    .data(timelineData)
+                    .enter()
+                    .append("text")
+                    .attr("class", "duration-text pointer-events-none")
+                    .attr("x", d => xScale(d.start) + 8)
+                    .attr("y", d => yScale(d.title) + yScale.bandwidth() / 2)
+                    .attr("dy", "0.32em")
+                    .attr("fill", "#ffffff")
+                    .attr("font-size", "11px")
+                    .attr("font-weight", "bold")
+                    .attr("opacity", 0)
+                    .text(d => {
+                        return width < 600 ? "" : (d.start === d.end ? d.start : `${d.start}-${d.end}`);
+                    })
+                    .transition()
+                    .delay(1000)
+                    .duration(500)
+                    .attr("opacity", 1);
             }
 
             // Render on load and on resize
