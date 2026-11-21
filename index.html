@@ -19,9 +19,9 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        primary: '#3b82f6', /* Blue 500 - more tech/modern */
-                        secondary: '#8b5cf6', /* Violet 500 */
-                        tertiary: '#06b6d4', /* Cyan 500 */
+                        primary: '#0f766e', /* Deep teal 700 */
+                        secondary: '#115e59', /* Teal 800 */
+                        tertiary: '#14b8a6', /* Teal 500 */
                         dark: '#0f172a', /* Slate 900 */
                         surface: '#ffffff',
                         background: '#f8fafc', /* Slate 50 */
@@ -90,7 +90,7 @@
         .rfig svg { font-family: inherit; }
 
         /* Smooth reveal animations */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal { opacity: 0; transform: translateY(12px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
         /* Ambient Blobs Animation */
@@ -106,17 +106,21 @@
         
         /* Modern glassmorphism */
         .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
         }
         html.dark .glass-card {
-            background: rgba(24, 24, 27, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            box-shadow: none;
         }
+        nav.glass-card { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-width: 0 0 1px 0; }
+        html.dark nav.glass-card { background: rgba(9, 9, 11, 0.92); }
+        html.dark .bg-teal-50 { background-color: rgba(20, 184, 166, 0.12) !important; }
+        html.dark .text-teal-700 { color: #5eead4 !important; }
+        html.dark .bg-teal-100 { background-color: rgba(20, 184, 166, 0.22) !important; }
+        html.dark .border-teal-100 { border-color: rgba(20, 184, 166, 0.3) !important; }
         
         /* Modern Timeline */
         .timeline-container { border-left: 2px dashed #cbd5e1; margin-left: 0.5rem; padding-left: 2rem; }
@@ -131,14 +135,14 @@
             width: 1rem;
             height: 1rem;
             border-radius: 50%;
-            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            background: #0f766e;
             border: 3px solid #f8fafc;
             box-shadow: 0 0 0 2px #e2e8f0;
             transition: all 0.3s ease;
         }
         .timeline-item:hover::before {
-            transform: scale(1.3);
-            box-shadow: 0 0 0 2px #8b5cf6;
+            transform: none;
+            box-shadow: 0 0 0 2px #0f766e;
         }
     </style>
     <!-- Exact versions + integrity fingerprints: the browser refuses these files if their content ever changes -->
@@ -146,105 +150,99 @@
     <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha256-Jc0CrkhsxQY+AhWk5M+xXeg3AMh6xIusTVfcaq8+u4k=" crossorigin="anonymous"></script>
 </head>
 <body class="antialiased selection:bg-secondary selection:text-white relative z-0">
-    <!-- Ambient Background Gradients -->
-    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none transition-opacity duration-1000">
-        <div class="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] rounded-full bg-secondary/15 blur-[100px] animate-blob"></div>
-        <div class="absolute top-[10%] -left-[10%] w-[500px] h-[500px] rounded-full bg-primary/15 blur-[100px] animate-blob animation-delay-2000"></div>
-        <div class="absolute top-[40%] right-[20%] w-[400px] h-[400px] rounded-full bg-tertiary/15 blur-[100px] animate-blob animation-delay-4000"></div>
-        <div class="absolute bottom-[-10%] left-[10%] w-[600px] h-[600px] rounded-full bg-primary/15 blur-[100px] animate-blob"></div>
-    </div>
-
     <!-- Top Navigation -->
-    <nav class="fixed top-0 w-full glass-card z-50 border-b border-white/20 shadow-sm transition-all duration-300">
+    <nav class="fixed top-0 w-full glass-card z-50 transition-all duration-300">
         <!-- Scroll Progress Bar -->
-        <div class="absolute top-0 left-0 w-full h-1 bg-transparent">
-            <div id="scrollProgressBar" class="h-full bg-gradient-to-r from-primary to-secondary w-0 rounded-r-full"></div>
+        <div class="absolute top-0 left-0 w-full h-0.5 bg-transparent">
+            <div id="scrollProgressBar" class="h-full bg-primary w-0"></div>
         </div>
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="font-serif text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Ashutosh Kumar</a>
-            <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-600 items-center">
-                <a href="#about" class="hover:text-primary transition-colors" data-i18n="nav-about">About</a>
-                <a href="#education" class="hover:text-primary transition-colors" data-i18n="nav-education">Education</a>
-                <a href="#projects" class="hover:text-primary transition-colors" data-i18n="nav-projects">Research</a>
-                <a href="#skills" class="hover:text-primary transition-colors" data-i18n="nav-skills">Skills</a>
-                <a href="#gallery" id="navGalleryLink" hidden class="hover:text-primary transition-colors">Gallery</a>
-                <a href="#contact" class="hover:text-primary transition-colors" data-i18n="nav-contact">Contact</a>
-                
-                <!-- Search Bar -->
-                <div class="relative ml-2">
-                    <input type="text" id="searchInput" placeholder="Search projects..." class="pl-8 pr-3 py-1.5 rounded-full border border-slate-200 text-xs focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-48 transition-all bg-slate-50 text-slate-700 placeholder-slate-400">
-                    <i class="fa-solid fa-search absolute left-3 top-2 text-slate-400 text-xs"></i>
-                    
-                    <!-- Search Results Dropdown -->
-                    <div id="searchResults" class="absolute top-full mt-2 left-0 w-64 bg-white rounded-xl shadow-xl border border-slate-100 hidden flex-col max-h-64 overflow-y-auto z-50">
-                        <!-- Results injected here via JS -->
-                    </div>
-                </div>
-
-                <!-- Language Toggle -->
-                <button id="langToggleBtn" class="ml-4 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full hover:bg-secondary transition-colors shadow-sm">
-                    EN / HI
-                </button>
-                
-                <!-- Dark Mode Toggle -->
-                <button id="darkModeToggleBtn" class="ml-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors shadow-sm" aria-label="Toggle Dark Mode">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
+        <div class="max-w-6xl mx-auto px-6 py-3.5 flex justify-between items-center gap-6">
+            <a href="#about" class="text-lg font-bold tracking-tight text-dark hover:text-primary transition-colors">Ashutosh Kumar</a>
+            <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600">
+                <a href="#research-interests" class="hover:text-primary transition-colors">Research</a>
+                <a href="#research-highlights" class="hover:text-primary transition-colors">Publications</a>
+                <a href="#education" class="hover:text-primary transition-colors">Education</a>
+                <a href="#projects" class="hover:text-primary transition-colors">Projects</a>
+                <a href="#academic-activities" class="hover:text-primary transition-colors">Activities</a>
+                <a href="#skills" class="hover:text-primary transition-colors">Skills</a>
+                <a href="#gallery" id="navGalleryLink" data-gallery-link hidden class="hover:text-primary transition-colors">Gallery</a>
+                <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
             </div>
-            <div class="md:hidden flex items-center gap-3">
-                <button id="darkModeToggleBtnMobile" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors shadow-sm" aria-label="Toggle Dark Mode">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-                <button id="langToggleBtnMobile" class="px-3 py-1 bg-primary text-white text-xs font-bold rounded-full hover:bg-secondary transition-colors shadow-sm">
-                    EN / HI
-                </button>
-                <a href="#contact" class="text-primary"><i class="fa-solid fa-bars text-xl"></i></a>
+            <div class="flex items-center gap-2">
+                <button id="langToggleBtn" class="hidden lg:inline-flex px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-700 hover:border-primary hover:text-primary transition-colors">EN / HI</button>
+                <button id="darkModeToggleBtn" class="hidden lg:flex w-8 h-8 rounded-lg border border-slate-200 text-slate-600 hover:border-primary hover:text-primary items-center justify-center transition-colors" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+                <button id="langToggleBtnMobile" class="lg:hidden px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-700">EN / HI</button>
+                <button id="darkModeToggleBtnMobile" class="lg:hidden w-8 h-8 rounded-lg border border-slate-200 text-slate-600 flex items-center justify-center" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+                <button id="menuToggleBtn" class="lg:hidden w-9 h-9 rounded-lg border border-slate-200 text-dark flex items-center justify-center" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><i class="fa-solid fa-bars"></i></button>
             </div>
         </div>
+        <!-- Phone / tablet menu -->
+        <div id="mobileMenu" class="lg:hidden hidden border-t border-slate-200 bg-white">
+            <div class="max-w-6xl mx-auto px-6 py-3 grid grid-cols-2 gap-1 text-sm font-medium text-slate-700">
+                <a href="#research-interests" class="px-3 py-2.5 rounded-lg hover:bg-slate-100">Research</a>
+                <a href="#research-highlights" class="px-3 py-2.5 rounded-lg hover:bg-slate-100">Publications</a>
+                <a href="#education" class="px-3 py-2.5 rounded-lg hover:bg-slate-100">Education</a>
+                <a href="#projects" class="px-3 py-2.5 rounded-lg hover:bg-slate-100">Projects</a>
+                <a href="#academic-activities" class="px-3 py-2.5 rounded-lg hover:bg-slate-100">Activities</a>
+                <a href="#skills" class="px-3 py-2.5 rounded-lg hover:bg-slate-100">Skills</a>
+                <a href="#gallery" data-gallery-link hidden class="px-3 py-2.5 rounded-lg hover:bg-slate-100">Gallery</a>
+                <a href="#contact" class="px-3 py-2.5 rounded-lg hover:bg-slate-100">Contact</a>
+            </div>
+        </div>
+        <script>
+            (function () {
+                const btn = document.getElementById('menuToggleBtn');
+                const menu = document.getElementById('mobileMenu');
+                function setOpen(open) {
+                    menu.classList.toggle('hidden', !open);
+                    btn.setAttribute('aria-expanded', String(open));
+                    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+                    btn.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+                }
+                btn.addEventListener('click', () => setOpen(menu.classList.contains('hidden')));
+                menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+                document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+            })();
+        </script>
     </nav>
-
     <main class="pt-28 pb-0">
         <!-- 1. HERO SECTION -->
-        <section id="about" class="max-w-6xl mx-auto px-6 py-16 md:py-32 relative">
-            <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-20">
+        <section id="about" class="max-w-6xl mx-auto px-6 pt-10 pb-16 md:pt-20 md:pb-24 scroll-mt-24">
+            <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-16">
                 <!-- Text Content -->
-                <div class="flex-1 space-y-8 reveal active">
-                    <div class="flex flex-wrap gap-3 mb-2">
-                        <div class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-primary/10 text-primary border border-primary/20 shadow-sm backdrop-blur-sm">
-                            <span class="w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"></span> PhD Scholar at IIT Mandi
-                        </div>
-                        <div class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-slate-100/80 text-slate-500 border border-slate-200 shadow-sm backdrop-blur-sm">
-                            <i class="fa-regular fa-clock mr-2"></i> <span id="readingTimeText">1 min read</span>
-                        </div>
-                    </div>
-                    <h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] text-dark tracking-tight">
-                        Advancing <br> <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-tertiary">Transportation</span> <br> Infrastructure.
-                    </h1>
-                    <p class="text-lg md:text-xl text-slate-600 leading-relaxed max-w-xl font-medium">
-                        I am a PhD Student specializing in <strong class="text-primary font-bold">Transportation Engineering and Pavement Materials</strong> at the School of Civil and Environmental Engineering, supervised by 
-                        <a href="https://scene.iitmandi.ac.in/pages/faculty_details/NA==" target="_blank" rel="noopener noreferrer" class="text-secondary font-bold hover:text-primary hover:underline underline-offset-4 decoration-2 transition-all">Dr. Kaustav Sarkar</a>.
+                <div class="flex-1 reveal active">
+                    <p class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-teal-50 text-teal-700 border border-teal-100 mb-6">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> <span>PhD Scholar · IIT Mandi</span>
                     </p>
-                    <div class="glass-card p-6 rounded-2xl shadow-xl relative overflow-hidden group">
-                        <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-primary to-secondary"></div>
-                        <strong class="text-dark font-serif text-xl flex items-center gap-3"><i class="fa-solid fa-microscope text-primary"></i> Current Research Focus</strong>
-                        <p class="text-slate-700 mt-3 font-medium leading-relaxed">Life Cycle Assessment (LCA) of Pavements & Hygrothermal Analysis of Concrete Pavements.</p>
-                    </div>
-                    
-                    <div class="pt-4 flex flex-wrap gap-4 items-center">
-                        <a href="cv/Ashutosh-Kumar-CV.pdf" target="_blank" rel="noopener" onclick="openPdfModal('cv/Ashutosh-Kumar-CV.pdf', 'Ashutosh Kumar CV'); return false;" class="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white text-sm font-bold rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-1 transition-all flex items-center gap-2">
-                            <i class="fa-solid fa-file-pdf"></i> View CV
+                    <h1 class="text-5xl md:text-6xl font-bold leading-[1.05] text-dark tracking-tight">Ashutosh Kumar</h1>
+                    <p class="mt-5 text-xl md:text-2xl text-slate-700 leading-snug font-medium max-w-2xl">Researching durable, climate-resilient concrete pavements and their life cycle environmental impact.</p>
+                    <p class="mt-4 text-base text-slate-600 leading-relaxed max-w-2xl">
+                        <span>PhD student in Transportation Engineering and Pavement Materials at the School of Civil and Environmental Engineering, supervised by</span>
+                        <a href="https://scene.iitmandi.ac.in/pages/faculty_details/NA==" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:underline underline-offset-4">Dr. Kaustav Sarkar</a>.
+                    </p>
+                    <ul class="mt-6 flex flex-wrap gap-2 text-sm">
+                        <li class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-medium">Life Cycle Assessment</li>
+                        <li class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-medium">Hygrothermal Analysis</li>
+                        <li class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-medium">Concrete Durability</li>
+                        <li class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-medium">Pavement Engineering</li>
+                    </ul>
+                    <div class="mt-8 flex flex-wrap gap-3 items-center">
+                        <a href="cv/Ashutosh-Kumar-CV.pdf" target="_blank" rel="noopener" onclick="openPdfModal('cv/Ashutosh-Kumar-CV.pdf', 'Ashutosh Kumar CV'); return false;" class="px-5 py-3 bg-primary hover:bg-secondary text-white text-sm font-semibold rounded-xl shadow-sm transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-file-lines"></i> <span>View CV</span>
                         </a>
-                        <a href="https://scene.iitmandi.ac.in/pages/student_details/OTE1" target="_blank" rel="noopener noreferrer" class="px-8 py-4 glass-card text-dark text-sm font-bold border-2 border-slate-200/50 rounded-xl hover:border-primary hover:text-primary hover:-translate-y-1 transition-all shadow-sm flex items-center gap-2">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Official Profile
+                        <a href="https://scholar.google.com/citations?user=ZM5CxJoAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer" class="px-5 py-3 bg-white text-dark text-sm font-semibold border border-slate-200 rounded-xl hover:border-primary hover:text-primary transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap"></i> <span>Google Scholar</span>
+                        </a>
+                        <a href="https://scene.iitmandi.ac.in/pages/student_details/OTE1" target="_blank" rel="noopener noreferrer" class="px-5 py-3 text-slate-600 text-sm font-semibold rounded-xl hover:text-primary transition-colors flex items-center gap-2">
+                            <span>Official Profile</span> <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Image Area -->
-                <div class="relative w-80 md:w-[450px] flex-shrink-0 group reveal active delay-200">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-primary to-tertiary translate-x-6 translate-y-6 rounded-3xl opacity-50 blur-lg group-hover:opacity-70 group-hover:translate-x-8 group-hover:translate-y-8 transition-all duration-700"></div>
-                    <div class="absolute inset-0 bg-gradient-to-tr from-primary to-tertiary translate-x-4 translate-y-4 rounded-3xl opacity-80 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-500"></div>
-                    <img src="src/assets/images/profile.jpg" alt="Ashutosh Kumar" class="relative z-10 w-full h-auto object-cover rounded-3xl border-4 border-white/80 shadow-2xl group-hover:scale-[1.02] transition-transform duration-500 backdrop-blur-sm">
+                <div class="relative w-64 sm:w-72 md:w-[360px] flex-shrink-0 reveal active">
+                    <div class="absolute inset-0 translate-x-3 translate-y-3 rounded-3xl bg-teal-100"></div>
+                    <img src="src/assets/images/profile.jpg" alt="Ashutosh Kumar" width="675" height="900" class="relative z-10 w-full h-auto object-cover rounded-3xl border border-slate-200 shadow-lg">
                 </div>
             </div>
         </section>
@@ -252,43 +250,9 @@
         <!-- RESEARCH INTERESTS & TRAJECTORY -->
         <section id="research-interests" class="max-w-6xl mx-auto px-6 py-16 reveal">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
-                <h2 class="text-3xl font-serif text-dark flex items-center gap-3"><i class="fa-solid fa-lightbulb text-tertiary"></i> Research Interests & Trajectory</h2>
+                <h2 class="text-3xl font-serif text-dark flex items-center gap-3"><i class="fa-solid fa-lightbulb text-tertiary"></i> Research</h2>
             </div>
             
-            <div class="mb-12">
-                <h3 class="text-2xl font-serif text-dark mb-6 flex items-center gap-2"><i class="fa-solid fa-bullseye text-primary"></i> Core Focus Areas</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="glass-card p-6 rounded-2xl border border-slate-100 hover:border-primary/50 hover:shadow-xl transition-all group">
-                        <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary transition-all shadow-inner">
-                            <i class="fa-solid fa-leaf text-xl text-primary group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h4 class="text-lg font-bold text-dark mb-2 group-hover:text-primary transition-colors">Sustainable Transportation Infrastructure</h4>
-                        <p class="text-slate-600 leading-relaxed font-medium text-sm">Evaluating the long-term ecological footprint of transportation networks through advanced pavement design and materials engineering.</p>
-                    </div>
-                    <div class="glass-card p-6 rounded-2xl border border-slate-100 hover:border-secondary/50 hover:shadow-xl transition-all group">
-                        <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-secondary transition-all shadow-inner">
-                            <i class="fa-solid fa-recycle text-xl text-secondary group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h4 class="text-lg font-bold text-dark mb-2 group-hover:text-secondary transition-colors">Pavement Sustainability & Life Cycle Assessment</h4>
-                        <p class="text-slate-600 leading-relaxed font-medium text-sm">Quantifying environmental burdens (carbon footprint, energy consumption, and raw material depletion) of pavements from extraction to recycling.</p>
-                    </div>
-                    <div class="glass-card p-6 rounded-2xl border border-slate-100 hover:border-tertiary/50 hover:shadow-xl transition-all group">
-                        <div class="w-12 h-12 bg-tertiary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-tertiary transition-all shadow-inner">
-                            <i class="fa-solid fa-temperature-half text-xl text-tertiary group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h4 class="text-lg font-bold text-dark mb-2 group-hover:text-tertiary transition-colors">Multiphysics Performance of Concrete Pavements</h4>
-                        <p class="text-slate-600 leading-relaxed font-medium text-sm">Modeling and analyzing coupled moisture and heat transfer (hygrothermal performance) in rigid pavements to assess concrete durability and predict service life, toward climate-resilient infrastructure.</p>
-                    </div>
-                    <div class="glass-card p-6 rounded-2xl border border-slate-100 hover:border-emerald-500/50 hover:shadow-xl transition-all group">
-                        <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-emerald-500 transition-all shadow-inner">
-                            <i class="fa-solid fa-car text-xl text-emerald-600 group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h4 class="text-lg font-bold text-dark mb-2 group-hover:text-emerald-600 transition-colors">Pavement Surface Dynamics & Traffic Operations</h4>
-                        <p class="text-slate-600 leading-relaxed font-medium text-sm">Investigating the complex interaction between pavement surface deterioration (roughness, distresses) and real-world vehicle operating speeds.</p>
-                    </div>
-                </div>
-            </div>
-
             <div class="bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200 shadow-sm mb-12 relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-bl-full z-0"></div>
                 <div class="relative z-10">
@@ -299,10 +263,9 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="grid grid-cols-1 gap-8 mb-12">
                 <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm relative group">
-                    <div class="absolute -left-4 -top-4 w-12 h-12 bg-primary text-white font-bold rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform text-xl">1</div>
-                    <h4 class="text-xl font-bold text-dark mb-6 ml-4 group-hover:text-primary transition-colors">Current Doctoral Research <span class="block text-sm text-slate-500 font-medium mt-1">IIT Mandi</span></h4>
+                    <h4 class="text-xl font-bold text-dark mb-6 group-hover:text-primary transition-colors">Current Doctoral Research <span class="block text-sm text-slate-500 font-medium mt-1">IIT Mandi</span></h4>
                     <ul class="space-y-6">
                         <li class="text-sm">
                             <strong class="text-primary block mb-2 text-base">Life Cycle Assessment (LCA) of Pavements</strong>
@@ -314,248 +277,8 @@
                         </li>
                     </ul>
                 </div>
-
-                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm relative group">
-                    <div class="absolute -left-4 -top-4 w-12 h-12 bg-secondary text-white font-bold rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform text-xl">2</div>
-                    <h4 class="text-xl font-bold text-dark mb-6 ml-4 group-hover:text-secondary transition-colors">Master's Research & Foundations <span class="block text-sm text-slate-500 font-medium mt-1">NIT Calicut & CSIR-CRRI</span></h4>
-                    <ul class="space-y-6">
-                        <li class="text-sm">
-                            <strong class="text-secondary block mb-2 text-base">Pavement Material Longevity</strong>
-                            <span class="text-slate-600 leading-relaxed font-medium">Investigated the structural mitigation of reflective cracking in asphalt concrete overlays. This work focused on analyzing the performance-enhancing lifespan of geosynthetics in overlay systems.</span>
-                        </li>
-                        <li class="text-sm">
-                            <strong class="text-secondary block mb-2 text-base">Sustainable Bituminous Binders</strong>
-                            <span class="text-slate-600 leading-relaxed font-medium">Contributed to the CSIR-CRRI project on developing bio-binders for sustainable bituminous roads.</span>
-                        </li>
-                        <li class="text-sm">
-                            <strong class="text-secondary block mb-2 text-base">Vehicle-Pavement Interaction</strong>
-                            <span class="text-slate-600 leading-relaxed font-medium">Conducted empirical research on how pavement macro-texture degradation, structural distress, and cumulative roughness dictate the operating speeds of various vehicle classifications.</span>
-                        </li>
-                        <li class="text-sm">
-                            <strong class="text-secondary block mb-2 text-base">Spatial Data & Safety Modeling</strong>
-                            <span class="text-slate-600 leading-relaxed font-medium">Developed geospatial methodologies to identify, map, and analyze high-density accident black spots using Arc GIS and QGIS frameworks, linking infrastructure safety with spatial analytics.</span>
-                        </li>
-                    </ul>
-                </div>
             </div>
 
-            <div class="bg-slate-900 text-white p-8 rounded-3xl shadow-xl relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-tertiary"></div>
-                <h3 class="text-2xl font-serif mb-6 flex items-center gap-3"><i class="fa-solid fa-code text-tertiary"></i> Key Technical Competencies in Research</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div>
-                        <h5 class="font-bold text-primary mb-2 text-sm uppercase tracking-wider">Pavement Engineering</h5>
-                        <p class="text-slate-400 text-sm leading-relaxed">Bituminous (flexible) and concrete pavement design, overlay design, distress evaluation, pavement evaluation and rehabilitation, laboratory testing, and surveying.</p>
-                    </div>
-                    <div>
-                        <h5 class="font-bold text-secondary mb-2 text-sm uppercase tracking-wider">Sustainability Tools</h5>
-                        <p class="text-slate-400 text-sm leading-relaxed">Lifecycle assessment methodologies, inventory data analysis, statistical data analysis.</p>
-                    </div>
-                    <div>
-                        <h5 class="font-bold text-tertiary mb-2 text-sm uppercase tracking-wider">Simulation & Modeling</h5>
-                        <p class="text-slate-400 text-sm leading-relaxed">Computational analysis of thermal/moisture gradients, ETABS (Structural Analysis).</p>
-                    </div>
-                    <div>
-                        <h5 class="font-bold text-emerald-400 mb-2 text-sm uppercase tracking-wider">Spatial & Traffic</h5>
-                        <p class="text-slate-400 text-sm leading-relaxed">Arc GIS, QGIS, and VISSIM traffic simulation software.</p>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- 2. RESEARCH PROFILE ALIGNMENT -->
-        <section class="max-w-6xl mx-auto px-6 py-16 reveal">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <a href="https://www.iitmandi.ac.in/" target="_blank" rel="noopener noreferrer" class="group flex items-center p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-primary/30 transition-all hover:-translate-y-1">
-                    <div class="w-14 h-14 flex items-center justify-center bg-indigo-50 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors mr-5 text-primary text-xl shadow-inner">
-                        <i class="fa-solid fa-landmark"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-lg text-dark group-hover:text-primary transition-colors">IIT Mandi</h4>
-                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-widest mt-1">Institution</p>
-                    </div>
-                </a>
-                <a href="https://scene.iitmandi.ac.in/" target="_blank" rel="noopener noreferrer" class="group flex items-center p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-secondary/30 transition-all hover:-translate-y-1">
-                    <div class="w-14 h-14 flex items-center justify-center bg-purple-50 rounded-xl group-hover:bg-secondary group-hover:text-white transition-colors mr-5 text-secondary text-xl shadow-inner">
-                        <i class="fa-solid fa-road"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-lg text-dark group-hover:text-secondary transition-colors">SCENE Branch</h4>
-                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-widest mt-1">Civil & Env Eng.</p>
-                    </div>
-                </a>
-                <a href="https://scholar.google.com/citations?user=ZM5CxJoAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" class="group flex items-center p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-tertiary/30 transition-all hover:-translate-y-1">
-                    <div class="w-14 h-14 flex items-center justify-center bg-sky-50 rounded-xl group-hover:bg-tertiary group-hover:text-white transition-colors mr-5 text-tertiary text-xl shadow-inner">
-                        <i class="fa-solid fa-book-open-reader"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-lg text-dark group-hover:text-tertiary transition-colors">Publications</h4>
-                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-widest mt-1">Google Scholar</p>
-                    </div>
-                </a>
-                <a href="https://orcid.org/0009-0004-9496-5002" target="_blank" rel="noopener noreferrer" class="group flex items-center p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-[#A6CE39]/30 transition-all hover:-translate-y-1">
-                    <div class="w-14 h-14 flex items-center justify-center bg-lime-50 rounded-xl group-hover:bg-[#A6CE39] group-hover:text-white transition-colors mr-5 text-[#A6CE39] text-xl shadow-inner">
-                        <i class="fa-brands fa-orcid"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-lg text-dark group-hover:text-[#A6CE39] transition-colors">ORCID</h4>
-                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-widest mt-1">Researcher ID</p>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- TWO COLUMN LAYOUT: EDUCATION & PROJECTS -->
-        <div class="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-12 gap-16">
-            
-            <!-- 3. EDUCATIONAL CHRONOLOGY -->
-            <section id="education" class="lg:col-span-5 scroll-mt-24 reveal">
-                <h2 class="text-3xl font-serif text-dark mb-10 flex items-center gap-3"><i class="fa-solid fa-graduation-cap text-primary"></i> Education</h2>
-                <div class="timeline-container">
-                    
-                    <div class="timeline-item group">
-                        <span class="inline-block px-3 py-1 bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold rounded-full mb-3 shadow-md">Aug 2024 &mdash; Present</span>
-                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">PhD in Transportation Engineering</h3>
-                        <p class="text-primary font-semibold mt-1">IIT Mandi</p>
-                        <p class="text-sm text-slate-600 mt-2 leading-relaxed bg-white/50 p-3 rounded-lg border border-slate-100">Focusing on pavement materials and advanced transportation infrastructure solutions.</p>
-                    </div>
-                    
-                    <div class="timeline-item group">
-                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full mb-3 border border-slate-200">2022 &mdash; 2024</span>
-                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">M.Tech in Traffic & Transportation Planning</h3>
-                        <a href="https://nitc.ac.in/" target="_blank" rel="noopener noreferrer" class="block text-slate-600 font-medium hover:text-secondary transition-colors mt-1">National Institute of Technology Calicut (NITC)</a>
-                        <p class="text-sm font-bold text-secondary mt-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> CGPA: 8.41/10</p>
-                    </div>
-
-                    <div class="timeline-item group">
-                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full mb-3 border border-slate-200">2017 &mdash; 2021</span>
-                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">B.Tech in Civil Engineering</h3>
-                        <a href="https://www.ctae.ac.in/" target="_blank" rel="noopener noreferrer" class="block text-slate-600 font-medium hover:text-secondary transition-colors mt-1">College of Technology and Engineering, Udaipur</a>
-                        <p class="text-sm font-bold text-secondary mt-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> CGPA: 6.77/10</p>
-                    </div>
-
-                    <div class="timeline-item group">
-                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full mb-3 border border-slate-200">2016</span>
-                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">Senior Secondary (XII)</h3>
-                        <p class="text-slate-600 font-medium mt-1">Science Degree College Supaul</p>
-                        <p class="text-sm font-bold text-secondary mt-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> 68.8%</p>
-                    </div>
-
-                    <div class="timeline-item group">
-                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full mb-3 border border-slate-200">2014</span>
-                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">Secondary (X)</h3>
-                        <a href="https://www.facebook.com/JNVSupaul/" target="_blank" rel="noopener noreferrer" class="block text-slate-600 font-medium hover:text-secondary transition-colors mt-1">Jawahar Navodaya Vidyalaya Supaul</a>
-                        <p class="text-sm font-bold text-secondary mt-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> CGPA: 10.00/10</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 4. PROJECTS & RESEARCH EXPERIENCE -->
-            <section id="projects" class="lg:col-span-7 scroll-mt-24 reveal">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
-                    <h2 class="text-3xl font-serif text-dark flex items-center gap-3"><i class="fa-solid fa-flask text-secondary"></i> Research & Projects</h2>
-                    
-                    <div class="flex items-center gap-4">
-                        <!-- View Toggle -->
-                        <div class="flex bg-slate-100 rounded-xl p-1 shadow-inner">
-                            <button onclick="toggleProjectView('cards')" id="btn-view-cards" class="px-4 py-2 text-sm font-bold rounded-lg bg-white text-primary shadow-sm transition-all" data-i18n="Cards View"><i class="fa-solid fa-border-all mr-1"></i> Cards</button>
-                            <button onclick="toggleProjectView('timeline')" id="btn-view-timeline" class="px-4 py-2 text-sm font-bold rounded-lg text-slate-500 hover:text-dark transition-all" data-i18n="Timeline View"><i class="fa-solid fa-chart-gantt mr-1"></i> Timeline</button>
-                        </div>
-                        
-                        <!-- Category Filter -->
-                        <div class="flex flex-wrap gap-2 items-center" id="project-filters">
-                            <button onclick="filterProjects('all')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-primary text-white shadow-md transition-all active-filter" data-filter="all">All</button>
-                            <button onclick="filterProjects('transportation')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-dark transition-all" data-filter="transportation">Transportation</button>
-                            <button onclick="filterProjects('materials')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-dark transition-all" data-filter="materials">Materials</button>
-                            <button onclick="filterProjects('all')" id="clearFilterBtn" class="ml-2 px-3 py-1.5 text-sm font-bold rounded-full text-slate-500 hover:text-red-600 hover:bg-red-50 border border-transparent hover:border-red-100 transition-all flex items-center gap-1 hidden opacity-0">Clear Filters <i class="fa-solid fa-xmark ml-1"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- D3.js Vertical Timeline Container -->
-                <div id="d3-timeline" class="w-full mb-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm overflow-x-auto hidden">
-                    <h3 class="text-lg font-bold text-slate-700 mb-6 flex items-center gap-2"><i class="fa-solid fa-chart-gantt text-primary"></i> <span data-i18n="Research Chronology & Duration">Research Chronology & Duration</span></h3>
-                    <div id="d3-timeline-container" class="w-full relative min-w-[600px] h-[400px]"></div>
-                </div>
-                
-                <div class="space-y-6" id="projects-container">
-                    <!-- Experience Card -->
-                    <div class="project-card transition-all duration-500 bg-gradient-to-br from-primary to-secondary p-1 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30" data-category="materials" data-skills="matlab">
-                        <div class="bg-white p-8 rounded-xl h-full relative overflow-hidden flex flex-col items-start">
-                            <div class="absolute top-0 right-0 p-4 opacity-5"><i class="fa-solid fa-quote-right text-6xl text-primary"></i></div>
-                            <span class="inline-flex items-center gap-2 text-xs font-bold text-primary mb-3 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md"><i class="fa-solid fa-briefcase"></i> Research Internship</span>
-                            <h3 class="text-2xl font-bold text-dark mb-1">CSIR-Central Road Research Institute (CRRI)</h3>
-                            <p class="text-slate-500 font-medium text-sm mb-2 flex items-center gap-2"><i class="fa-solid fa-location-dot"></i> New Delhi</p>
-                            <p class="text-slate-500 font-medium text-sm mb-2 flex items-center gap-2"><i class="fa-regular fa-calendar"></i> <span>1 June – 28 July 2023</span></p>
-                            <p class="text-slate-500 font-medium text-sm mb-6 flex items-center gap-2"><i class="fa-solid fa-user-tie"></i> <span>Supervisor: Dr. G. Bharath, Senior Scientist (FPD)</span></p>
-                            <p class="text-slate-800 leading-relaxed font-serif italic text-lg border-l-4 border-secondary pl-5 py-1 mb-6">
-                                "Impact of geosynthetics on reflective cracking performance life of asphalt concrete overlays"
-                            </p>
-                            <button onclick="openProjectModal('crri')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-white bg-primary hover:bg-secondary px-5 py-2.5 rounded-lg transition-colors shadow-sm" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- Academic Projects Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-primary hover:shadow-lg group flex flex-col items-start" data-category="transportation" data-skills="vissim">
-                            <span class="text-xs font-bold text-tertiary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-cogs"></i> M.Tech Major</span>
-                            <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Influence of Pavement Surface Characteristics on the Speeds of Different Classes of Vehicles (Pavement Distress And Roughness)</p>
-                            <button onclick="openProjectModal('mtech-major')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
-                        </div>
-                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-secondary hover:shadow-lg group flex flex-col items-start" data-category="transportation" data-skills="arcgis,qgis">
-                            <span class="text-xs font-bold text-secondary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-map-location-dot"></i> M.Tech Minor</span>
-                            <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Identification of accidents black spot in Thiruvananthapuram using GIS Software (Arc GIS & QGIS)</p>
-                            <button onclick="openProjectModal('mtech-minor')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-secondary border border-secondary hover:bg-secondary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
-                        </div>
-                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-primary hover:shadow-lg group flex flex-col items-start" data-category="materials" data-skills="etabs,autocad">
-                            <span class="text-xs font-bold text-primary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-building"></i> B.Tech Major</span>
-                            <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Design and analysis of multi story car parking of steel as material using ETabs</p>
-                            <button onclick="openProjectModal('btech-major')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
-                        </div>
-                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-tertiary hover:shadow-lg group flex flex-col items-start" data-category="materials" data-skills="civil3d">
-                            <span class="text-xs font-bold text-tertiary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-leaf"></i> B.Tech Minor</span>
-                            <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Study about self healing concrete</p>
-                            <button onclick="openProjectModal('btech-minor')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-tertiary border border-tertiary hover:bg-tertiary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- RESEARCH HIGHLIGHTS -->
-        <section id="research-highlights" class="max-w-6xl mx-auto px-6 pb-24 reveal">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 gap-4">
-                <h2 class="text-3xl font-serif text-dark flex items-center gap-3"><i class="fa-solid fa-book-open text-primary"></i> Publications & Conferences Attended</h2>
-                <button onclick="openPdfManagerModal()" class="text-sm font-bold text-slate-600 hover:text-primary transition-colors flex items-center gap-2 bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm hover:border-primary">
-                    <i class="fa-solid fa-file-pdf"></i> Upload Local PDF
-                </button>
-            </div>
-            <div class="max-w-4xl mx-auto grid grid-cols-1 gap-8">
-                <!-- Highlight Card 1 -->
-                <div class="tilt-card publication-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200 hover:border-primary/50 hover:shadow-xl shadow-sm transition-all group relative overflow-hidden" data-skills="powerbi,matlab" style="transform-style: preserve-3d;">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full z-0 transition-transform group-hover:scale-110"></div>
-                    <div class="flex items-center justify-between mb-4 relative z-10" style="transform: translateZ(20px);">
-                        <span class="inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md"><i class="fa-solid fa-file-pdf"></i> Conference Paper</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-dark mb-3 relative z-10 group-hover:text-primary transition-colors" style="transform: translateZ(30px);">CTSEM 2024 Conference Paper</h3>
-                    <p class="text-slate-600 leading-relaxed font-medium mb-8 relative z-10" style="transform: translateZ(20px);">
-                        Published in: CTSEM 2024 (Springer). M.Tech research paper on sustainable pavement engineering and materials.
-                    </p>
-                    <div class="flex items-center justify-between relative z-10 mt-auto" style="transform: translateZ(20px);">
-                        <div class="flex flex-wrap gap-4">
-                            <a href="#" onclick="openPdfModal('', 'CTSEM 2024 Conference Paper'); return false;" class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-secondary transition-colors">
-                                View Local PDF <i class="fa-solid fa-file-pdf text-xs transition-transform group-hover:translate-x-1"></i>
-                            </a>
-                            <a href="https://link.springer.com/chapter/10.1007/978-981-96-1984-9_27" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-emerald-600 hover:text-emerald-700 transition-colors">
-                                Springer Link <i class="fa-solid fa-external-link-alt text-xs transition-transform group-hover:translate-x-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
         </section>
 
         <!-- RESEARCH GALLERY -->
@@ -726,112 +449,181 @@
             </div>
         </section>
 
-        <!-- PHOTO GALLERY: your own photos. Hidden automatically until at least one photo is added. -->
-        <section id="gallery" hidden class="max-w-6xl mx-auto px-6 pb-24 scroll-mt-24 reveal">
-            <div class="mb-10 text-center">
-                <h2 class="text-3xl font-serif text-dark flex items-center justify-center gap-3"><i class="fa-solid fa-camera-retro text-secondary"></i> <span>Gallery</span></h2>
-                <p class="text-slate-600 mt-4 max-w-2xl mx-auto">Moments from conferences, field visits, and academic events.</p>
+        <!-- RESEARCH HIGHLIGHTS -->
+        <section id="research-highlights" class="max-w-6xl mx-auto px-6 pb-24 reveal">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 gap-4">
+                <h2 class="text-3xl font-serif text-dark flex items-center gap-3"><i class="fa-solid fa-book-open text-primary"></i> Publications</h2>
             </div>
+            <div class="max-w-4xl mx-auto grid grid-cols-1 gap-8">
+                <!-- Highlight Card 1 -->
+                <div class="publication-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200 hover:border-primary/50 hover:shadow-xl shadow-sm transition-all group relative overflow-hidden" data-skills="powerbi,matlab" style="transform-style: preserve-3d;">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full z-0 transition-transform group-hover:scale-110"></div>
+                    <div class="flex items-center justify-between mb-4 relative z-10" style="transform: translateZ(20px);">
+                        <span class="inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-widest bg-teal-50 px-3 py-1 rounded-md"><i class="fa-solid fa-file-pdf"></i> Conference Paper</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3 relative z-10 group-hover:text-primary transition-colors" style="transform: translateZ(30px);">CTSEM 2024 Conference Paper</h3>
+                    <p class="text-slate-600 leading-relaxed font-medium mb-8 relative z-10" style="transform: translateZ(20px);">
+                        Published in: CTSEM 2024 (Springer). M.Tech research paper on sustainable pavement engineering and materials.
+                    </p>
+                    <div class="flex items-center justify-between relative z-10 mt-auto" style="transform: translateZ(20px);">
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://link.springer.com/chapter/10.1007/978-981-96-1984-9_27" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-teal-700 hover:text-teal-800 transition-colors">
+                                Springer Link <i class="fa-solid fa-external-link-alt text-xs transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-            <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!--
-                  HOW TO ADD A PHOTO: copy this block, put the photo in src/assets/images/gallery/,
-                  and fill in the file name, title and "place · date" line.
 
-                <figure class="gallery-item group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl overflow-hidden transition-all">
-                    <button type="button" onclick="openGalleryPhoto(this)" class="block w-full overflow-hidden cursor-zoom-in" aria-label="View larger photo">
-                        <img src="src/assets/images/gallery/FILE-NAME.jpg" alt="TITLE" loading="lazy" class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500">
-                    </button>
-                    <figcaption class="p-4">
-                        <span class="block font-bold text-dark leading-snug">TITLE</span>
-                        <span class="block text-xs font-semibold text-slate-500 mt-1">PLACE · DATE</span>
-                    </figcaption>
-                </figure>
-                -->
             </div>
         </section>
 
-        <!-- Gallery photo viewer (opens when a photo is clicked) -->
-        <div id="galleryViewer" class="fixed inset-0 z-[110] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Photo viewer">
-            <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm" onclick="closeGalleryPhoto()"></div>
-            <figure class="relative z-10 max-w-5xl w-full flex flex-col items-center">
-                <img id="galleryViewerImg" src="" alt="" class="max-h-[78vh] w-auto max-w-full rounded-2xl shadow-2xl object-contain">
-                <figcaption id="galleryViewerCaption" class="mt-4 text-center text-white font-semibold"></figcaption>
-            </figure>
-            <button type="button" onclick="closeGalleryPhoto()" class="absolute top-4 right-4 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center" aria-label="Close"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <button type="button" onclick="stepGalleryPhoto(-1)" class="gallery-nav absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center" aria-label="Previous photo"><i class="fa-solid fa-chevron-left"></i></button>
-            <button type="button" onclick="stepGalleryPhoto(1)" class="gallery-nav absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center" aria-label="Next photo"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
+        <!-- TWO COLUMN LAYOUT: EDUCATION & PROJECTS -->
+        <div class="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-12 gap-16">
+            
+            <!-- 3. EDUCATIONAL CHRONOLOGY -->
+            <section id="education" class="lg:col-span-5 scroll-mt-24 reveal">
+                <h2 class="text-3xl font-serif text-dark mb-10 flex items-center gap-3"><i class="fa-solid fa-graduation-cap text-primary"></i> Education</h2>
+                <div class="timeline-container">
+                    
+                    <div class="timeline-item group">
+                        <span class="inline-block px-3 py-1 bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold rounded-full mb-3 shadow-md">Aug 2024 &mdash; Present</span>
+                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">PhD in Transportation Engineering</h3>
+                        <p class="text-primary font-semibold mt-1">IIT Mandi</p>
+                        <p class="text-sm text-slate-600 mt-2 leading-relaxed bg-white/50 p-3 rounded-lg border border-slate-100">Focusing on pavement materials and advanced transportation infrastructure solutions.</p>
+                    </div>
+                    
+                    <div class="timeline-item group">
+                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full mb-3 border border-slate-200">2022 &mdash; 2024</span>
+                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">M.Tech in Traffic & Transportation Planning</h3>
+                        <a href="https://nitc.ac.in/" target="_blank" rel="noopener noreferrer" class="block text-slate-600 font-medium hover:text-secondary transition-colors mt-1">National Institute of Technology Calicut (NITC)</a>
+                        <p class="text-sm font-bold text-secondary mt-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> CGPA: 8.41/10</p>
+                    </div>
 
-        <script>
-            (function () {
-                const items = () => Array.from(document.querySelectorAll('#galleryGrid .gallery-item'));
-                // Show the section and its menu link only when there is at least one photo
-                if (items().length > 0) {
-                    document.getElementById('gallery').hidden = false;
-                    document.getElementById('navGalleryLink').hidden = false;
-                }
-                let current = 0;
-                const viewer = document.getElementById('galleryViewer');
-                function show(i) {
-                    const list = items();
-                    current = (i + list.length) % list.length;
-                    const img = list[current].querySelector('img');
-                    const caption = list[current].querySelector('figcaption');
-                    document.getElementById('galleryViewerImg').src = img.currentSrc || img.src;
-                    document.getElementById('galleryViewerImg').alt = img.alt;
-                    document.getElementById('galleryViewerCaption').textContent = caption ? caption.innerText.replace(/\n+/g, ' · ') : '';
-                    viewer.querySelectorAll('.gallery-nav').forEach(b => b.style.display = list.length > 1 ? '' : 'none');
-                }
-                window.openGalleryPhoto = function (btn) {
-                    show(items().indexOf(btn.closest('.gallery-item')));
-                    viewer.classList.remove('hidden');
-                    viewer.classList.add('flex');
-                    document.body.style.overflow = 'hidden';
-                };
-                window.closeGalleryPhoto = function () {
-                    viewer.classList.add('hidden');
-                    viewer.classList.remove('flex');
-                    document.body.style.overflow = '';
-                };
-                window.stepGalleryPhoto = function (d) { show(current + d); };
-                document.addEventListener('keydown', function (e) {
-                    if (viewer.classList.contains('hidden')) return;
-                    if (e.key === 'Escape') closeGalleryPhoto();
-                    if (e.key === 'ArrowRight') stepGalleryPhoto(1);
-                    if (e.key === 'ArrowLeft') stepGalleryPhoto(-1);
-                });
-            })();
-        </script>
+                    <div class="timeline-item group">
+                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full mb-3 border border-slate-200">2017 &mdash; 2021</span>
+                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">B.Tech in Civil Engineering</h3>
+                        <a href="https://www.ctae.ac.in/" target="_blank" rel="noopener noreferrer" class="block text-slate-600 font-medium hover:text-secondary transition-colors mt-1">College of Technology and Engineering, Udaipur</a>
+                        <p class="text-sm font-bold text-secondary mt-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> CGPA: 6.77/10</p>
+                    </div>
+
+                    <div class="timeline-item group">
+                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full mb-3 border border-slate-200">2016</span>
+                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">Senior Secondary (XII)</h3>
+                        <p class="text-slate-600 font-medium mt-1">Science Degree College Supaul</p>
+                        <p class="text-sm font-bold text-secondary mt-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> 68.8%</p>
+                    </div>
+
+                    <div class="timeline-item group">
+                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full mb-3 border border-slate-200">2014</span>
+                        <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">Secondary (X)</h3>
+                        <a href="https://www.facebook.com/JNVSupaul/" target="_blank" rel="noopener noreferrer" class="block text-slate-600 font-medium hover:text-secondary transition-colors mt-1">Jawahar Navodaya Vidyalaya Supaul</a>
+                        <p class="text-sm font-bold text-secondary mt-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> CGPA: 10.00/10</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. PROJECTS & RESEARCH EXPERIENCE -->
+            <section id="projects" class="lg:col-span-7 scroll-mt-24 reveal">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
+                    <h2 class="text-3xl font-serif text-dark flex items-center gap-3"><i class="fa-solid fa-flask text-secondary"></i> Projects</h2>
+                    
+                    <div class="flex items-center gap-4">
+                        <!-- View Toggle -->
+                        <div class="flex bg-slate-100 rounded-xl p-1 shadow-inner">
+                            <button onclick="toggleProjectView('cards')" id="btn-view-cards" class="px-4 py-2 text-sm font-bold rounded-lg bg-white text-primary shadow-sm transition-all" data-i18n="Cards View"><i class="fa-solid fa-border-all mr-1"></i> Cards</button>
+                            <button onclick="toggleProjectView('timeline')" id="btn-view-timeline" class="px-4 py-2 text-sm font-bold rounded-lg text-slate-500 hover:text-dark transition-all" data-i18n="Timeline View"><i class="fa-solid fa-chart-gantt mr-1"></i> Timeline</button>
+                        </div>
+                        
+                        <!-- Category Filter -->
+                        <div class="flex flex-wrap gap-2 items-center" id="project-filters">
+                            <button onclick="filterProjects('all')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-primary text-white shadow-md transition-all active-filter" data-filter="all">All</button>
+                            <button onclick="filterProjects('transportation')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-dark transition-all" data-filter="transportation">Transportation</button>
+                            <button onclick="filterProjects('materials')" class="project-filter-btn px-4 py-1.5 text-sm font-bold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-dark transition-all" data-filter="materials">Materials</button>
+                            <button onclick="filterProjects('all')" id="clearFilterBtn" class="ml-2 px-3 py-1.5 text-sm font-bold rounded-full text-slate-500 hover:text-red-600 hover:bg-red-50 border border-transparent hover:border-red-100 transition-all flex items-center gap-1 hidden opacity-0">Clear Filters <i class="fa-solid fa-xmark ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- D3.js Vertical Timeline Container -->
+                <div id="d3-timeline" class="w-full mb-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm overflow-x-auto hidden">
+                    <h3 class="text-lg font-bold text-slate-700 mb-6 flex items-center gap-2"><i class="fa-solid fa-chart-gantt text-primary"></i> <span data-i18n="Research Chronology & Duration">Research Chronology & Duration</span></h3>
+                    <div id="d3-timeline-container" class="w-full relative min-w-[600px] h-[400px]"></div>
+                </div>
+                
+                <div class="space-y-6" id="projects-container">
+                    <!-- Experience Card -->
+                    <div class="project-card transition-all duration-500 bg-gradient-to-br from-primary to-secondary p-1 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30" data-category="materials" data-skills="matlab">
+                        <div class="bg-white p-8 rounded-xl h-full relative overflow-hidden flex flex-col items-start">
+                            <div class="absolute top-0 right-0 p-4 opacity-5"><i class="fa-solid fa-quote-right text-6xl text-primary"></i></div>
+                            <span class="inline-flex items-center gap-2 text-xs font-bold text-primary mb-3 uppercase tracking-widest bg-teal-50 px-3 py-1 rounded-md"><i class="fa-solid fa-briefcase"></i> Research Internship</span>
+                            <h3 class="text-2xl font-bold text-dark mb-1">CSIR-Central Road Research Institute (CRRI)</h3>
+                            <p class="text-slate-500 font-medium text-sm mb-2 flex items-center gap-2"><i class="fa-solid fa-location-dot"></i> New Delhi</p>
+                            <p class="text-slate-500 font-medium text-sm mb-2 flex items-center gap-2"><i class="fa-regular fa-calendar"></i> <span>1 June – 28 July 2023</span></p>
+                            <p class="text-slate-500 font-medium text-sm mb-6 flex items-center gap-2"><i class="fa-solid fa-user-tie"></i> <span>Supervisor: Dr. G. Bharath, Senior Scientist (FPD)</span></p>
+                            <p class="text-slate-800 leading-relaxed font-serif italic text-lg border-l-4 border-secondary pl-5 py-1 mb-6">
+                                "Impact of geosynthetics on reflective cracking performance life of asphalt concrete overlays"
+                            </p>
+                            <p class="text-sm text-slate-600 -mt-3 mb-6"><span class="font-semibold text-slate-700">Also worked on:</span> <span>Development of Bio-Binders for Sustainable Bituminous Roads</span></p>
+                            <button onclick="openProjectModal('crri')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-white bg-primary hover:bg-secondary px-5 py-2.5 rounded-lg transition-colors shadow-sm" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Academic Projects Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                        <div class="project-card transition-all duration-500 bg-white p-6 rounded-2xl border border-slate-200 hover:border-primary hover:shadow-lg group flex flex-col items-start" data-category="transportation" data-skills="vissim">
+                            <span class="text-xs font-bold text-tertiary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-cogs"></i> M.Tech Major</span>
+                            <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Influence of Pavement Surface Characteristics on the Speeds of Different Classes of Vehicles (Pavement Distress And Roughness)</p>
+                            <button onclick="openProjectModal('mtech-major')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
+                        </div>
+                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-secondary hover:shadow-lg group flex flex-col items-start" data-category="transportation" data-skills="arcgis,qgis">
+                            <span class="text-xs font-bold text-secondary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-map-location-dot"></i> M.Tech Minor</span>
+                            <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Identification of accidents black spot in Thiruvananthapuram using GIS Software (Arc GIS & QGIS)</p>
+                            <button onclick="openProjectModal('mtech-minor')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-secondary border border-secondary hover:bg-secondary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
+                        </div>
+                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-primary hover:shadow-lg group flex flex-col items-start" data-category="materials" data-skills="etabs,autocad">
+                            <span class="text-xs font-bold text-primary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-building"></i> B.Tech Major</span>
+                            <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Design and analysis of multi story car parking of steel as material using ETabs</p>
+                            <button onclick="openProjectModal('btech-major')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
+                        </div>
+                        <div class="project-card transition-all duration-500 glass-card p-6 rounded-2xl border-white hover:border-tertiary hover:shadow-lg group flex flex-col items-start" data-category="materials" data-skills="civil3d">
+                            <span class="text-xs font-bold text-tertiary uppercase tracking-wider mb-3 block flex items-center gap-2"><i class="fa-solid fa-leaf"></i> B.Tech Minor</span>
+                            <p class="text-sm text-slate-700 leading-relaxed font-medium mb-6">Study about self healing concrete</p>
+                            <button onclick="openProjectModal('btech-minor')" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-tertiary border border-tertiary hover:bg-tertiary hover:text-white px-4 py-2 rounded-lg transition-colors" data-i18n="View Project">View Project <i class="fa-solid fa-arrow-right text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
         <!-- ACADEMIC & PROFESSIONAL RECOGNITION -->
         <section id="academic-activities" class="scroll-mt-24 py-20 bg-slate-50/50 reveal border-y border-slate-100">
             <div class="max-w-6xl mx-auto px-6">
                 
-                <h2 class="text-3xl font-serif text-dark mb-12 text-center" data-i18n="Academic & Professional Activities">Academic & Professional Activities</h2>
+                <h2 class="text-3xl font-serif text-dark mb-12 text-center" >Activities &amp; Honors</h2>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     
                     <!-- Honors & Recognitions -->
-                    <div class="glass-card p-8 rounded-3xl border border-slate-200 hover:border-yellow-400/50 hover:shadow-xl transition-all">
-                        <h3 class="text-2xl font-bold text-dark mb-6 flex items-center gap-3"><i class="fa-solid fa-award text-yellow-500"></i> <span data-i18n="Honors & Recognitions">Honors & Recognitions</span></h3>
+                    <div class="glass-card p-8 rounded-3xl border border-slate-200 hover:border-primary/50 hover:shadow-xl transition-all">
+                        <h3 class="text-2xl font-bold text-dark mb-6 flex items-center gap-3"><i class="fa-solid fa-award text-primary"></i> <span data-i18n="Honors & Recognitions">Honors & Recognitions</span></h3>
                         <ul class="space-y-4">
                             <li class="flex gap-4">
-                                <div class="w-2 h-2 rounded-full bg-yellow-500 mt-2 flex-shrink-0"></div>
+                                <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
                                 <div>
                                     <h4 class="font-bold text-dark" data-i18n="MoE Doctoral Fellowship">MoE Doctoral Fellowship</h4>
                                     <p class="text-sm text-slate-500 mt-1" data-i18n="Awarded for pursuing Ph.D. research at IIT Mandi.">Awarded for pursuing Ph.D. research at IIT Mandi.</p>
                                 </div>
                             </li>
                             <li class="flex gap-4">
-                                <div class="w-2 h-2 rounded-full bg-yellow-500 mt-2 flex-shrink-0"></div>
+                                <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
                                 <div>
                                     <h4 class="font-bold text-dark" data-i18n="GATE Qualified">GATE Qualified</h4>
                                     <p class="text-sm text-slate-500 mt-1" data-i18n="Qualified Graduate Aptitude Test in Engineering with a high percentile.">Qualified Graduate Aptitude Test in Engineering with a high percentile.</p>
                                 </div>
                             </li>
                              <li class="flex gap-4">
-                                <div class="w-2 h-2 rounded-full bg-yellow-500 mt-2 flex-shrink-0"></div>
+                                <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
                                 <div>
                                     <h4 class="font-bold text-dark" data-i18n="Academic Excellence Award">Academic Excellence Award</h4>
                                     <p class="text-sm text-slate-500 mt-1" data-i18n="Recognized for outstanding academic performance during M.Tech at NIT Calicut.">Recognized for outstanding academic performance during M.Tech at NIT Calicut.</p>
@@ -841,49 +633,28 @@
                     </div>
 
                     <!-- Teaching & Mentorship -->
-                    <div class="glass-card p-8 rounded-3xl border border-slate-200 hover:border-emerald-500/50 hover:shadow-xl transition-all">
-                        <h3 class="text-2xl font-bold text-dark mb-6 flex items-center gap-3"><i class="fa-solid fa-chalkboard-user text-emerald-500"></i> <span data-i18n="Teaching & Mentorship">Teaching & Mentorship</span></h3>
+                    <div class="glass-card p-8 rounded-3xl border border-slate-200 hover:border-primary/50 hover:shadow-xl transition-all">
+                        <h3 class="text-2xl font-bold text-dark mb-6 flex items-center gap-3"><i class="fa-solid fa-chalkboard-user text-primary"></i> <span data-i18n="Teaching & Mentorship">Teaching & Mentorship</span></h3>
                         <ul class="space-y-4">
                             <li class="flex gap-4">
-                                <div class="w-2 h-2 rounded-full bg-emerald-500 mt-2 flex-shrink-0"></div>
+                                <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
                                 <div>
                                     <h4 class="font-bold text-dark" data-i18n="Teaching Assistant - Pavement Engineering">Teaching Assistant - Pavement Engineering</h4>
                                     <p class="text-sm text-slate-500 mt-1" data-i18n="IIT Mandi (Aug 2024 – Present) | Assisting in undergraduate and postgraduate courses, conducting lab sessions, and grading assignments.">IIT Mandi (Aug 2024 – Present) | Assisting in undergraduate and postgraduate courses, conducting lab sessions, and grading assignments.</p>
                                 </div>
                             </li>
                             <li class="flex gap-4">
-                                <div class="w-2 h-2 rounded-full bg-emerald-500 mt-2 flex-shrink-0"></div>
+                                <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
                                 <div>
                                     <h4 class="font-bold text-dark" data-i18n="Teaching Assistant - Transportation Engineering">Teaching Assistant - Transportation Engineering</h4>
                                     <p class="text-sm text-slate-500 mt-1" data-i18n="NIT Calicut (Jan 2023 – Jul 2024) | Supported transportation engineering courses and the transportation engineering laboratory.">NIT Calicut (Jan 2023 – Jul 2024) | Supported transportation engineering courses and the transportation engineering laboratory.</p>
                                 </div>
                             </li>
                             <li class="flex gap-4">
-                                <div class="w-2 h-2 rounded-full bg-emerald-500 mt-2 flex-shrink-0"></div>
+                                <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
                                 <div>
                                     <h4 class="font-bold text-dark" data-i18n="B.Tech Project Co-Mentorship">B.Tech Project Co-Mentorship</h4>
                                     <p class="text-sm text-slate-500 mt-1" data-i18n="Guiding undergraduate students in their final year research projects related to sustainable pavement materials.">Guiding undergraduate students in their final year research projects related to sustainable pavement materials.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Research Projects (Sponsored/Consultancy) -->
-                    <div class="glass-card p-8 rounded-3xl border border-slate-200 hover:border-primary/50 hover:shadow-xl transition-all">
-                        <h3 class="text-2xl font-bold text-dark mb-6 flex items-center gap-3"><i class="fa-solid fa-flask-vial text-primary"></i> <span data-i18n="Research & Consultancy Projects">Research & Consultancy Projects</span></h3>
-                        <ul class="space-y-4">
-                            <li class="flex gap-4">
-                                <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
-                                <div>
-                                    <h4 class="font-bold text-dark" data-i18n="NHAI Sponsored Pavement Evaluation">NHAI Sponsored Pavement Evaluation</h4>
-                                    <p class="text-sm text-slate-500 mt-1" data-i18n="Involved in structural health monitoring and non-destructive testing of highway sections.">Involved in structural health monitoring and non-destructive testing of highway sections.</p>
-                                </div>
-                            </li>
-                            <li class="flex gap-4">
-                                <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
-                                <div>
-                                    <h4 class="font-bold text-dark" data-i18n="Sustainable Materials Consultancy">Sustainable Materials Consultancy</h4>
-                                    <p class="text-sm text-slate-500 mt-1" data-i18n="Material characterization and mix design optimization for local infrastructure projects.">Material characterization and mix design optimization for local infrastructure projects.</p>
                                 </div>
                             </li>
                         </ul>
@@ -896,23 +667,33 @@
                             <li class="flex gap-4">
                                 <div class="w-2 h-2 rounded-full bg-secondary mt-2 flex-shrink-0"></div>
                                 <div>
-                                    <h4 class="font-bold text-dark" data-i18n="Conference Organizing Committee">Conference Organizing Committee</h4>
-                                    <p class="text-sm text-slate-500 mt-1" data-i18n="Assisted in organizing national seminars and workshops on sustainable transportation at IIT Mandi.">Assisted in organizing national seminars and workshops on sustainable transportation at IIT Mandi.</p>
-                                </div>
-                            </li>
-                            <li class="flex gap-4">
-                                <div class="w-2 h-2 rounded-full bg-secondary mt-2 flex-shrink-0"></div>
-                                <div>
                                     <h4 class="font-bold text-dark" data-i18n="Full-Depth Reclamation (FDR) Field Visit">Full-Depth Reclamation (FDR) Field Visit</h4>
                                     <p class="text-sm text-slate-500 mt-1" data-i18n="With the Sustainable Pavement Research Group, IIT Mandi: joined PWD engineers at a road construction site for a proposal discussion on rehabilitating an existing road using FDR, and visited an FDR trial section.">With the Sustainable Pavement Research Group, IIT Mandi: joined PWD engineers at a road construction site for a proposal discussion on rehabilitating an existing road using FDR, and visited an FDR trial section.</p>
                                 </div>
                             </li>
-                            <li class="flex gap-4">
-                                <div class="w-2 h-2 rounded-full bg-secondary mt-2 flex-shrink-0"></div>
-                                <div>
-                                    <h4 class="font-bold text-dark" data-i18n="Peer Reviewer">Peer Reviewer</h4>
-                                    <p class="text-sm text-slate-500 mt-1" data-i18n="Contributed to peer-reviewing technical articles for domestic symposiums and student conferences.">Contributed to peer-reviewing technical articles for domestic symposiums and student conferences.</p>
+                        </ul>
+                    </div>
+
+                    <!-- Extra-Curricular -->
+                    
+                    <div class="glass-card p-8 rounded-3xl border border-slate-200 hover:border-primary/50 hover:shadow-xl transition-all">
+                        <h3 class="text-xl font-bold text-dark mb-6 flex items-center gap-3"><span class="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center text-tertiary"><i class="fa-solid fa-users"></i></span> Extra-Curricular</h3>
+                        <ul class="space-y-5">
+                            <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
+                                <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
+                                <div class="flex-1">
+                                    <span class="block text-slate-800 font-bold leading-snug">ACES 2.0 – Annual Civil Engineering Symposium 2026</span>
+                                    <span class="block text-sm font-semibold text-primary mt-1">School of Civil &amp; Environmental Engineering (SCEnE), IIT Mandi · 8–10 October 2026</span>
+                                    <span class="block text-sm text-slate-600 mt-1"><span class="font-semibold text-slate-700">Role:</span> <span>Organising Committee Member</span></span>
                                 </div>
+                            </li>
+                            <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
+                                <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
+                                <span class="text-slate-700 font-medium leading-relaxed">Student coordinator for International Conference RAID-2024 at NIT Calicut</span>
+                            </li>
+                            <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
+                                <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
+                                <span class="text-slate-700 font-medium leading-relaxed">2-Year NSS Volunteer</span>
                             </li>
                         </ul>
                     </div>
@@ -993,7 +774,7 @@
                     
                     <div class="md:w-2/3 space-y-10">
                         <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/40">
-                            <h3 class="text-xl font-bold text-dark mb-6 flex items-center gap-3"><span class="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-primary"><i class="fa-solid fa-certificate"></i></span> Core Certifications</h3>
+                            <h3 class="text-xl font-bold text-dark mb-6 flex items-center gap-3"><span class="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center text-primary"><i class="fa-solid fa-certificate"></i></span> Core Certifications</h3>
                             <ul class="space-y-5">
                                 <li class="flex items-start bg-slate-50 p-5 rounded-xl border border-slate-100 hover:border-secondary transition-colors shadow-sm">
                                     <span class="text-secondary mt-1 mr-4 text-2xl drop-shadow-sm"><i class="fa-solid fa-award"></i></span>
@@ -1018,81 +799,131 @@
                                 </li>
                             </ul>
                         </div>
-                        
-                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/40">
-                            <h3 class="text-xl font-bold text-dark mb-6 flex items-center gap-3"><span class="w-10 h-10 rounded-full bg-sky-50 flex items-center justify-center text-tertiary"><i class="fa-solid fa-users"></i></span> Extra-Curricular</h3>
-                            <ul class="space-y-5">
-                                <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
-                                    <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
-                                    <div class="flex-1">
-                                        <span class="block text-slate-800 font-bold leading-snug">ACES 2.0 – Annual Civil Engineering Symposium 2026</span>
-                                        <span class="block text-sm font-semibold text-primary mt-1">School of Civil &amp; Environmental Engineering (SCEnE), IIT Mandi · 8–10 October 2026</span>
-                                        <span class="block text-sm text-slate-600 mt-1"><span class="font-semibold text-slate-700">Role:</span> <span>Organising Committee Member</span></span>
-                                    </div>
-                                </li>
-                                <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
-                                    <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
-                                    <span class="text-slate-700 font-medium leading-relaxed">Student coordinator for International Conference RAID-2024 at NIT Calicut</span>
-                                </li>
-                                <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
-                                    <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
-                                    <span class="text-slate-700 font-medium leading-relaxed">Participant in CTSEM 2024 Conference at NIT Nagpur</span>
-                                </li>
-                                <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
-                                    <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
-                                    <span class="text-slate-700 font-medium leading-relaxed">2-Year NSS Volunteer</span>
-                                </li>
-                            </ul>
+                    </div>
+                </div>
+                <div class="mt-14">
+                <div class="bg-slate-900 text-white p-8 rounded-3xl shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-tertiary"></div>
+                    <h3 class="text-2xl font-serif mb-6 flex items-center gap-3"><i class="fa-solid fa-code text-tertiary"></i> Key Technical Competencies in Research</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div>
+                            <h5 class="font-bold text-primary mb-2 text-sm uppercase tracking-wider">Pavement Engineering</h5>
+                            <p class="text-slate-400 text-sm leading-relaxed">Bituminous (flexible) and concrete pavement design, overlay design, distress evaluation, pavement evaluation and rehabilitation, laboratory testing, and surveying.</p>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-secondary mb-2 text-sm uppercase tracking-wider">Sustainability Tools</h5>
+                            <p class="text-slate-400 text-sm leading-relaxed">Lifecycle assessment methodologies, inventory data analysis, statistical data analysis.</p>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-tertiary mb-2 text-sm uppercase tracking-wider">Simulation & Modeling</h5>
+                            <p class="text-slate-400 text-sm leading-relaxed">Computational analysis of thermal and moisture gradients, and structural analysis.</p>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-teal-300 mb-2 text-sm uppercase tracking-wider">Spatial & Traffic</h5>
+                            <p class="text-slate-400 text-sm leading-relaxed">Geospatial crash analysis and traffic simulation.</p>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </section>
 
-        <!-- Global Footprint Map (Moved to bottom) -->
-        <section class="max-w-4xl mx-auto px-6 pb-24 reveal">
-            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-lg shadow-slate-200/40">
-                <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
-                    <h3 class="text-xl font-bold text-dark flex items-center gap-3"><span class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-primary text-sm"><i class="fa-solid fa-earth-americas"></i></span> Global Footprint</h3>
-                    <div class="flex gap-2 text-[10px] font-semibold text-slate-500 uppercase tracking-widest">
-                        <button id="filter-study" onclick="toggleMapFilter('study')" class="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white border border-slate-200 hover:border-primary transition-colors cursor-pointer map-filter-btn" data-active="true">
-                            <span class="w-2.5 h-2.5 rounded-full bg-primary block filter-dot transition-opacity"></span> Study / Work
-                        </button>
-                        <button id="filter-conference" onclick="toggleMapFilter('conference')" class="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white border border-slate-200 hover:border-secondary transition-colors cursor-pointer map-filter-btn" data-active="true">
-                            <span class="w-2.5 h-2.5 rounded-full bg-secondary block filter-dot transition-opacity"></span> Conferences
-                        </button>
-                    </div>
-                </div>
-                <div id="world-map-container" class="w-full h-[250px] md:h-[300px] bg-slate-50 rounded-2xl overflow-hidden relative border border-slate-100 group transition-all duration-300 hover:shadow-lg hover:border-primary/30 hover:scale-[1.01]">
-                    <div id="map-tooltip" class="absolute hidden bg-dark/90 backdrop-blur-sm text-white px-3 py-2 rounded-lg text-xs font-medium shadow-xl pointer-events-none z-20 border border-slate-700/50 max-w-[260px]"></div>
-                    <button id="reset-map-btn" class="absolute bottom-4 right-4 z-10 bg-white border border-slate-200 text-slate-600 hover:text-primary hover:border-primary shadow-sm rounded-lg px-3 py-1.5 text-xs font-bold flex items-center gap-2 transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0" aria-label="Reset Map View">
-                        <i class="fa-solid fa-compress"></i> Reset View
+        <!-- PHOTO GALLERY: your own photos. Hidden automatically until at least one photo is added. -->
+        <section id="gallery" hidden class="max-w-6xl mx-auto px-6 pb-24 scroll-mt-24 reveal">
+            <div class="mb-10 text-center">
+                <h2 class="text-3xl font-serif text-dark flex items-center justify-center gap-3"><i class="fa-solid fa-camera-retro text-secondary"></i> <span>Gallery</span></h2>
+                <p class="text-slate-600 mt-4 max-w-2xl mx-auto">Moments from conferences, field visits, and academic events.</p>
+            </div>
+
+            <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!--
+                  HOW TO ADD A PHOTO: copy this block, put the photo in src/assets/images/gallery/,
+                  and fill in the file name, title and "place · date" line.
+
+                <figure class="gallery-item group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl overflow-hidden transition-all">
+                    <button type="button" onclick="openGalleryPhoto(this)" class="block w-full overflow-hidden cursor-zoom-in" aria-label="View larger photo">
+                        <img src="src/assets/images/gallery/FILE-NAME.jpg" alt="TITLE" loading="lazy" class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500">
                     </button>
-                    <svg id="world-map-svg" class="w-full h-full"></svg>
-                </div>
+                    <figcaption class="p-4">
+                        <span class="block font-bold text-dark leading-snug">TITLE</span>
+                        <span class="block text-xs font-semibold text-slate-500 mt-1">PLACE · DATE</span>
+                    </figcaption>
+                </figure>
+                -->
             </div>
         </section>
+
+        <!-- Gallery photo viewer (opens when a photo is clicked) -->
+        <div id="galleryViewer" class="fixed inset-0 z-[110] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Photo viewer">
+            <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm" onclick="closeGalleryPhoto()"></div>
+            <figure class="relative z-10 max-w-5xl w-full flex flex-col items-center">
+                <img id="galleryViewerImg" src="" alt="" class="max-h-[78vh] w-auto max-w-full rounded-2xl shadow-2xl object-contain">
+                <figcaption id="galleryViewerCaption" class="mt-4 text-center text-white font-semibold"></figcaption>
+            </figure>
+            <button type="button" onclick="closeGalleryPhoto()" class="absolute top-4 right-4 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center" aria-label="Close"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <button type="button" onclick="stepGalleryPhoto(-1)" class="gallery-nav absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center" aria-label="Previous photo"><i class="fa-solid fa-chevron-left"></i></button>
+            <button type="button" onclick="stepGalleryPhoto(1)" class="gallery-nav absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center" aria-label="Next photo"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+
+        <script>
+            (function () {
+                const items = () => Array.from(document.querySelectorAll('#galleryGrid .gallery-item'));
+                // Show the section and its menu link only when there is at least one photo
+                if (items().length > 0) {
+                    document.getElementById('gallery').hidden = false;
+                    document.querySelectorAll('[data-gallery-link]').forEach(l => l.hidden = false);
+                }
+                let current = 0;
+                const viewer = document.getElementById('galleryViewer');
+                function show(i) {
+                    const list = items();
+                    current = (i + list.length) % list.length;
+                    const img = list[current].querySelector('img');
+                    const caption = list[current].querySelector('figcaption');
+                    document.getElementById('galleryViewerImg').src = img.currentSrc || img.src;
+                    document.getElementById('galleryViewerImg').alt = img.alt;
+                    document.getElementById('galleryViewerCaption').textContent = caption ? caption.innerText.replace(/\n+/g, ' · ') : '';
+                    viewer.querySelectorAll('.gallery-nav').forEach(b => b.style.display = list.length > 1 ? '' : 'none');
+                }
+                window.openGalleryPhoto = function (btn) {
+                    show(items().indexOf(btn.closest('.gallery-item')));
+                    viewer.classList.remove('hidden');
+                    viewer.classList.add('flex');
+                    document.body.style.overflow = 'hidden';
+                };
+                window.closeGalleryPhoto = function () {
+                    viewer.classList.add('hidden');
+                    viewer.classList.remove('flex');
+                    document.body.style.overflow = '';
+                };
+                window.stepGalleryPhoto = function (d) { show(current + d); };
+                document.addEventListener('keydown', function (e) {
+                    if (viewer.classList.contains('hidden')) return;
+                    if (e.key === 'Escape') closeGalleryPhoto();
+                    if (e.key === 'ArrowRight') stepGalleryPhoto(1);
+                    if (e.key === 'ArrowLeft') stepGalleryPhoto(-1);
+                });
+            })();
+        </script>
 
         <!-- 6. CONTACT & CONNECTIVITY HUB -->
         <section id="contact" class="relative bg-dark text-white py-24 scroll-mt-24 overflow-hidden reveal">
             <!-- Cool abstract gradient overlay -->
-            <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-[#1e1b4b] to-slate-900 z-0"></div>
-            <div class="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-[100px] z-0"></div>
-            <div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary/20 rounded-full blur-[100px] z-0"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-[#042f2e] to-slate-900 z-0"></div>
 
             <div class="max-w-6xl mx-auto px-6 relative z-10">
                 <div class="flex flex-col md:flex-row justify-between items-start gap-16">
                     
                     <div class="md:w-1/2">
                         <h2 class="text-5xl font-serif text-white mb-6">Let's Connect</h2>
-                        <p class="text-indigo-200/80 mb-10 max-w-md leading-relaxed text-lg">Open to academic discussions, research collaborations, and professional opportunities in transportation engineering.</p>
+                        <p class="text-teal-100/80 mb-10 max-w-md leading-relaxed text-lg">Open to academic discussions, research collaborations, and professional opportunities in transportation engineering.</p>
                         
                         <ul class="space-y-6">
                             <li>
                                 <a href="mailto:d24098@students.iitmandi.ac.in" class="flex items-center text-slate-300 hover:text-white transition-colors group bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-primary/50 hover:bg-white/10 shadow-lg">
                                     <div class="w-12 h-12 flex-shrink-0 bg-primary/20 text-primary rounded-xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-building-columns text-xl"></i></div>
                                     <span class="min-w-0">
-                                        <span class="block text-xs font-semibold uppercase tracking-widest text-indigo-200/70 mb-0.5">Official · IIT Mandi</span>
+                                        <span class="block text-xs font-semibold uppercase tracking-widest text-teal-100/70 mb-0.5">Official · IIT Mandi</span>
                                         <span class="block font-mono text-sm tracking-wide break-all">d24098@students.iitmandi.ac.in</span>
                                     </span>
                                 </a>
@@ -1117,19 +948,19 @@
 
                         <!-- Social Links Row -->
                         <div class="mt-10 flex flex-wrap gap-4">
-                            <a href="https://scholar.google.com/citations?user=ZM5CxJoAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-tertiary transition-all text-slate-400 hover:text-tertiary shadow-lg hover:-translate-y-1" aria-label="Google Scholar">
+                            <a href="https://scholar.google.com/citations?user=ZM5CxJoAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-tertiary transition-all text-slate-400 hover:text-tertiary shadow-lg" aria-label="Google Scholar">
                                 <i class="fa-brands fa-google text-xl"></i>
                             </a>
-                            <a href="https://orcid.org/0009-0004-9496-5002" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-[#A6CE39] transition-all text-slate-400 hover:text-[#A6CE39] shadow-lg hover:-translate-y-1" aria-label="ORCID">
+                            <a href="https://orcid.org/0009-0004-9496-5002" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-[#A6CE39] transition-all text-slate-400 hover:text-[#A6CE39] shadow-lg" aria-label="ORCID">
                                 <i class="fa-brands fa-orcid text-xl"></i>
                             </a>
-                            <a href="https://www.linkedin.com/in/ashutosh-kumar-7a8644244/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-[#0A66C2] transition-all text-slate-400 hover:text-[#0A66C2] shadow-lg hover:-translate-y-1" aria-label="LinkedIn">
+                            <a href="https://www.linkedin.com/in/ashutosh-kumar-7a8644244/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-[#0A66C2] transition-all text-slate-400 hover:text-[#0A66C2] shadow-lg" aria-label="LinkedIn">
                                 <i class="fa-brands fa-linkedin text-xl"></i>
                             </a>
-                            <a href="https://www.instagram.com/ashutosh_kr66/?hl=en" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-[#E1306C] transition-all text-slate-400 hover:text-[#E1306C] shadow-lg hover:-translate-y-1" aria-label="Instagram">
+                            <a href="https://www.instagram.com/ashutosh_kr66/?hl=en" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-[#E1306C] transition-all text-slate-400 hover:text-[#E1306C] shadow-lg" aria-label="Instagram">
                                 <i class="fa-brands fa-instagram text-xl"></i>
                             </a>
-                            <a href="https://m.facebook.com/profile.php?id=100007421173927" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-[#1877F2] transition-all text-slate-400 hover:text-[#1877F2] shadow-lg hover:-translate-y-1" aria-label="Facebook">
+                            <a href="https://m.facebook.com/profile.php?id=100007421173927" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-[#1877F2] transition-all text-slate-400 hover:text-[#1877F2] shadow-lg" aria-label="Facebook">
                                 <i class="fa-brands fa-facebook text-xl"></i>
                             </a>
                         </div>
@@ -1157,7 +988,7 @@
                                     <label for="message" class="block text-sm font-medium text-slate-300 mb-1.5">Message</label>
                                     <textarea id="message" name="message" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder-slate-500 resize-none" placeholder="Your message..."></textarea>
                                 </div>
-                                <button type="submit" class="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-3.5 px-6 rounded-xl hover:shadow-lg hover:shadow-primary/30 transition-all transform hover:-translate-y-0.5 mt-2 flex items-center justify-center gap-2">
+                                <button type="submit" class="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-3.5 px-6 rounded-xl hover:shadow-lg hover:shadow-primary/30 transition-all transform mt-2 flex items-center justify-center gap-2">
                                     Send Message <i class="fa-solid fa-paper-plane"></i>
                                 </button>
                             </div>
@@ -1165,11 +996,35 @@
                     </div>
 
                 </div>
+
+                <!-- Global Footprint Map (inside Contact) -->
+                <div class="mt-16 max-w-4xl mx-auto reveal">
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-lg shadow-slate-200/40">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
+                    <h3 class="text-xl font-bold text-dark flex items-center gap-3"><span class="w-8 h-8 rounded-full bg-teal-50 flex items-center justify-center text-primary text-sm"><i class="fa-solid fa-earth-americas"></i></span> Global Footprint</h3>
+                    <div class="flex gap-2 text-[10px] font-semibold text-slate-500 uppercase tracking-widest">
+                        <button id="filter-study" onclick="toggleMapFilter('study')" class="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white border border-slate-200 hover:border-primary transition-colors cursor-pointer map-filter-btn" data-active="true">
+                            <span class="w-2.5 h-2.5 rounded-full bg-primary block filter-dot transition-opacity"></span> Study / Work
+                        </button>
+                        <button id="filter-conference" onclick="toggleMapFilter('conference')" class="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white border border-slate-200 hover:border-amber-600 transition-colors cursor-pointer map-filter-btn" data-active="true">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-600 block filter-dot transition-opacity"></span> Conferences
+                        </button>
+                    </div>
+                </div>
+                <div id="world-map-container" class="w-full h-[250px] md:h-[300px] bg-slate-50 rounded-2xl overflow-hidden relative border border-slate-100 group transition-all duration-300 hover:shadow-lg hover:border-primary/30 hover:scale-[1.01]">
+                    <div id="map-tooltip" class="absolute hidden bg-dark/90 backdrop-blur-sm text-white px-3 py-2 rounded-lg text-xs font-medium shadow-xl pointer-events-none z-20 border border-slate-700/50 max-w-[260px]"></div>
+                    <button id="reset-map-btn" class="absolute bottom-4 right-4 z-10 bg-white border border-slate-200 text-slate-600 hover:text-primary hover:border-primary shadow-sm rounded-lg px-3 py-1.5 text-xs font-bold flex items-center gap-2 transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0" aria-label="Reset Map View">
+                        <i class="fa-solid fa-compress"></i> Reset View
+                    </button>
+                    <svg id="world-map-svg" class="w-full h-full"></svg>
+                </div>
+            </div>
+                </div>
             </div>
         </section>
         
         <footer class="bg-black py-8 text-center text-xs text-slate-500 font-semibold tracking-widest uppercase">
-            <p>&copy; 2024 Ashutosh Kumar. All rights reserved.</p>
+            <p>&copy; 2026 Ashutosh Kumar</p>
         </footer>
 
         <!-- Project Modal -->
@@ -1255,7 +1110,7 @@
     </main>
 
     <!-- Back to Top Button -->
-    <button id="backToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-primary to-secondary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center opacity-0 translate-y-10 pointer-events-none transition-all duration-300 z-50 hover:shadow-xl hover:shadow-primary/50 hover:-translate-y-1" aria-label="Back to top">
+    <button id="backToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-primary to-secondary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center opacity-0 translate-y-10 pointer-events-none transition-all duration-300 z-50 hover:shadow-xl hover:shadow-primary/50" aria-label="Back to top">
         <i class="fa-solid fa-arrow-up text-xl"></i>
     </button>
 
@@ -1329,7 +1184,7 @@
 
             function renderContent(pdfUrl) {
                 modalBody.innerHTML = `
-                    <span class="inline-flex items-center gap-2 text-xs font-bold text-primary mb-4 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md">
+                    <span class="inline-flex items-center gap-2 text-xs font-bold text-primary mb-4 uppercase tracking-widest bg-teal-50 px-3 py-1 rounded-md">
                         <i class="fa-solid fa-folder-open"></i> ${data.category}
                     </span>
                     <h3 class="text-3xl font-bold text-dark mb-4">${data.title}</h3>
@@ -1451,7 +1306,7 @@
                 
                 putReq.onsuccess = () => {
                     status.innerText = "Successfully saved locally!";
-                    status.className = "text-sm font-medium text-center py-2 rounded-lg bg-green-50 text-green-600 mt-4 block";
+                    status.className = "text-sm font-medium text-center py-2 rounded-lg bg-teal-50 text-teal-700 mt-4 block";
                     setTimeout(() => closePdfManagerModal(), 1500);
                 };
                 putReq.onerror = () => {
@@ -1791,10 +1646,21 @@
                 "Sustainability Tools": "स्थिरता उपकरण",
                 "Lifecycle assessment methodologies, inventory data analysis, statistical data analysis.": "जीवनचक्र मूल्यांकन पद्धतियां, इन्वेंटरी डेटा विश्लेषण, सांख्यिकीय डेटा विश्लेषण।",
                 "Simulation & Modeling": "सिमुलेशन और मॉडलिंग",
-                "Computational analysis of thermal/moisture gradients, ETABS (Structural Analysis).": "थर्मल/नमी ग्रेडिएंट्स का कम्प्यूटेशनल विश्लेषण, ईटीएबीएस (संरचनात्मक विश्लेषण)।",
+                "Computational analysis of thermal and moisture gradients, and structural analysis.": "तापीय और नमी ग्रेडिएंट्स का कम्प्यूटेशनल विश्लेषण, तथा संरचनात्मक विश्लेषण।",
                 "Spatial & Traffic": "स्थानिक और यातायात",
-                "Arc GIS, QGIS, and VISSIM traffic simulation software.": "आर्क जीआईएस, क्यूजीआईएस, और विस्सिम ट्रैफिक सिमुलेशन सॉफ्टवेयर।",
+                "Geospatial crash analysis and traffic simulation.": "भू-स्थानिक दुर्घटना विश्लेषण और यातायात सिमुलेशन।",
                 "Research Gallery": "अनुसंधान गैलरी",
+                "Also worked on:": "इस पर भी काम किया:",
+                "Development of Bio-Binders for Sustainable Bituminous Roads": "सतत बिटुमिनस सड़कों के लिए बायो-बाइंडर का विकास",
+                "PhD Scholar · IIT Mandi": "पीएचडी स्कॉलर · आईआईटी मंडी",
+                "Researching durable, climate-resilient concrete pavements and their life cycle environmental impact.": "टिकाऊ, जलवायु-अनुकूल कंक्रीट फुटपाथों और उनके जीवन चक्र पर्यावरणीय प्रभाव पर शोध।",
+                "PhD student in Transportation Engineering and Pavement Materials at the School of Civil and Environmental Engineering, supervised by": "सिविल और पर्यावरण इंजीनियरिंग स्कूल में परिवहन इंजीनियरिंग और फुटपाथ सामग्री में पीएचडी छात्र, पर्यवेक्षक",
+                "Life Cycle Assessment": "जीवन चक्र मूल्यांकन",
+                "Concrete Durability": "कंक्रीट स्थायित्व",
+                "View CV": "सीवी देखें",
+                "Projects": "परियोजनाएं",
+                "Activities": "गतिविधियाँ",
+                "Activities & Honors": "गतिविधियाँ और सम्मान",
                 "Gallery": "गैलरी",
                 "Moments from conferences, field visits, and academic events.": "सम्मेलनों, क्षेत्र भ्रमणों और शैक्षणिक कार्यक्रमों के कुछ पल।",
                 "Visualizing key concepts in transportation infrastructure, pavement sustainability, and advanced material engineering.": "परिवहन बुनियादी ढांचे, फुटपाथ स्थिरता और उन्नत सामग्री इंजीनियरिंग में प्रमुख अवधारणाओं की कल्पना करना।",
@@ -1961,69 +1827,6 @@
             document.getElementById('langToggleBtn').addEventListener('click', toggleLanguage);
             document.getElementById('langToggleBtnMobile').addEventListener('click', toggleLanguage);
 
-            // Search Logic
-            const searchInput = document.getElementById('searchInput');
-            const searchResults = document.getElementById('searchResults');
-            
-            // Collect searchable items
-            const searchableItems = Array.from(document.querySelectorAll('.project-card, #research-highlights > div > div')).map(el => {
-                const titleEl = el.querySelector('h3, p');
-                return {
-                    element: el,
-                    text: el.innerText.toLowerCase(),
-                    title: titleEl ? titleEl.innerText : 'Project'
-                };
-            });
-
-            searchInput.addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase().trim();
-                searchResults.innerHTML = '';
-                
-                if (query.length < 2) {
-                    searchResults.classList.add('hidden');
-                    searchResults.classList.remove('flex');
-                    return;
-                }
-                
-                const matches = searchableItems.filter(item => item.text.includes(query));
-                
-                if (matches.length > 0) {
-                    matches.forEach(match => {
-                        const div = document.createElement('div');
-                        div.className = 'p-3 hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-0 text-sm text-slate-700 font-medium transition-colors';
-                        div.innerText = match.title.length > 60 ? match.title.substring(0, 60) + '...' : match.title;
-                        div.addEventListener('click', () => {
-                            match.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            
-                            // Highlight effect
-                            match.element.classList.add('ring-4', 'ring-primary', 'ring-opacity-50', 'scale-[1.02]');
-                            setTimeout(() => match.element.classList.remove('ring-4', 'ring-primary', 'ring-opacity-50', 'scale-[1.02]'), 2000);
-                            
-                            searchResults.classList.add('hidden');
-                            searchResults.classList.remove('flex');
-                            searchInput.value = '';
-                        });
-                        searchResults.appendChild(div);
-                    });
-                } else {
-                    const noRes = document.createElement('div');
-                    noRes.className = 'p-3 text-sm text-slate-500 text-center';
-                    noRes.innerText = 'No results found';
-                    searchResults.appendChild(noRes);
-                }
-                
-                searchResults.classList.remove('hidden');
-                searchResults.classList.add('flex');
-            });
-            
-            // Close search dropdown on outside click
-            document.addEventListener('click', (e) => {
-                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-                    searchResults.classList.add('hidden');
-                    searchResults.classList.remove('flex');
-                }
-            });
-
             // View Toggle State
             window.toggleProjectView = function(view) {
                 const cardsBtn = document.getElementById('btn-view-cards');
@@ -2069,11 +1872,11 @@
             // D3.js Gantt Chart Timeline
             function renderTimeline() {
                 const timelineData = [
-                    { start: 2023.5, end: 2024.5, title: "M.Tech Major: Pavement Surface Characteristics", category: "transportation", color: "#8b5cf6" },
-                    { start: 2023, end: 2023.5, title: "CSIR-CRRI Research Internship", category: "materials", color: "#4f46e5" },
-                    { start: 2022.5, end: 2023, title: "M.Tech Minor: Accident Black Spot Identification", category: "transportation", color: "#ec4899" },
-                    { start: 2020, end: 2021, title: "B.Tech Major: Multi-Story Car Parking Design", category: "materials", color: "#4f46e5" },
-                    { start: 2019, end: 2020, title: "B.Tech Minor: Self-Healing Concrete", category: "materials", color: "#ec4899" }
+                    { start: 2023.5, end: 2024.5, title: "M.Tech Major: Pavement Surface Characteristics", category: "transportation", color: "#0f766e" },
+                    { start: 2023, end: 2023.5, title: "CSIR-CRRI Research Internship", category: "materials", color: "#0f766e" },
+                    { start: 2022.5, end: 2023, title: "M.Tech Minor: Accident Black Spot Identification", category: "transportation", color: "#14b8a6" },
+                    { start: 2020, end: 2021, title: "B.Tech Major: Multi-Story Car Parking Design", category: "materials", color: "#0f766e" },
+                    { start: 2019, end: 2020, title: "B.Tech Minor: Self-Healing Concrete", category: "materials", color: "#14b8a6" }
                 ];
 
                 const container = d3.select("#d3-timeline-container");
@@ -2305,7 +2108,7 @@
                         .data(countries.features)
                         .enter().append("path")
                         .attr("d", path)
-                        .attr("fill", d => String(d.id) === "356" ? "#e0e7ff" : "#f1f5f9") // India highlighted
+                        .attr("fill", d => String(d.id) === "356" ? "#ccfbf1" : "#f1f5f9") // India highlighted
                         .attr("stroke", "#cbd5e1") // slate-300
                         .attr("stroke-width", "0.75px")
                         .attr("vector-effect", "non-scaling-stroke");
@@ -2332,7 +2135,7 @@
                     // Pin marker
                     pins.append("path")
                         .attr("d", "M0,0 C-4,-4 -8,-10 -8,-16 C-8,-20.4 -4.4,-24 0,-24 C4.4,-24 8,-20.4 8,-16 C8,-10 4,-4 0,0 Z")
-                        .attr("fill", d => d.type === "study" ? "#4f46e5" : "#ec4899") // primary vs secondary
+                        .attr("fill", d => d.type === "study" ? "#0f766e" : "#d97706") // primary vs secondary
                         .attr("stroke", "#ffffff")
                         .attr("stroke-width", "1.5px")
                         .style("filter", "drop-shadow(0 2px 3px rgba(0,0,0,0.2))");
@@ -2358,7 +2161,7 @@
                     pins.on("mouseenter", function(event, d) {
                         d3.select(this).raise().transition().duration(200).attr("transform", pinTransform(d, 1.2));
                         
-                        const colorClass = d.type === 'study' ? 'text-primary' : 'text-secondary';
+                        const colorClass = d.type === 'study' ? 'text-teal-300' : 'text-amber-400';
                         tooltip.html(`<strong class="block mb-1 ${colorClass}">${d.name}</strong><span class="text-xs text-slate-300 block">${d.desc}</span>`)
                             .style("left", (event.pageX + 15) + "px")
                             .style("top", (event.pageY - 20) + "px")
