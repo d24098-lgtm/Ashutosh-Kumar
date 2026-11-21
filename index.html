@@ -42,7 +42,7 @@
     </script>
     <style>
         :root {
-            --bg-body: #f8fafc;
+            --bg-body: #f3f9f8;
             --text-main: #0f172a;
             --text-muted: #475569;
             --bg-surface: #ffffff;
@@ -107,7 +107,7 @@
         /* Modern glassmorphism */
         .glass-card {
             background: #ffffff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #d9e9e5;
             box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
         }
         html.dark .glass-card {
@@ -117,6 +117,23 @@
         }
         nav.glass-card { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-width: 0 0 1px 0; }
         html.dark nav.glass-card { background: rgba(9, 9, 11, 0.92); }
+        /* Hero band: deeper mint with a faint dot grid, full width, fading into the page */
+        #about { position: relative; isolation: isolate; }
+        #about::before {
+            content: ""; position: absolute; z-index: -1;
+            top: -7rem; bottom: 0; left: calc(50% - 50vw); right: calc(50% - 50vw);
+            background-color: #e6f3f0;
+            background-image: radial-gradient(rgba(15, 118, 110, 0.16) 1px, transparent 1px);
+            background-size: 18px 18px;
+            -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
+                    mask-image: linear-gradient(to bottom, #000 72%, transparent);
+        }
+        html.dark #about::before {
+            background-color: #0b1514;
+            background-image: radial-gradient(rgba(94, 234, 212, 0.10) 1px, transparent 1px);
+        }
+        #about ul li.bg-slate-100 { background-color: #ffffff; box-shadow: inset 0 0 0 1px #d9e9e5; }
+        html.dark #about ul li.bg-slate-100 { background-color: var(--bg-surface-hover) !important; box-shadow: none; }
         html.dark .bg-teal-50 { background-color: rgba(20, 184, 166, 0.12) !important; }
         html.dark .text-teal-700 { color: #5eead4 !important; }
         html.dark .bg-teal-100 { background-color: rgba(20, 184, 166, 0.22) !important; }
@@ -217,8 +234,8 @@
                     <h1 class="text-5xl md:text-6xl font-bold leading-[1.05] text-dark tracking-tight">Ashutosh Kumar</h1>
                     <p class="mt-5 text-xl md:text-2xl text-slate-700 leading-snug font-medium max-w-2xl">Researching durable, climate-resilient concrete pavements and their life cycle environmental impact.</p>
                     <p class="mt-4 text-base text-slate-600 leading-relaxed max-w-2xl">
-                        <span>PhD student in Transportation Engineering and Pavement Materials at the School of Civil and Environmental Engineering, supervised by</span>
-                        <a href="https://scene.iitmandi.ac.in/pages/faculty_details/NA==" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:underline underline-offset-4">Dr. Kaustav Sarkar</a>.
+                        <span>PhD student in Transportation Engineering and Pavement Materials at the School of Civil and Environmental Engineering, IIT Mandi, supervised by</span>
+                        <a href="https://scene.iitmandi.ac.in/pages/faculty_details/NA==" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:underline underline-offset-4">Prof. Kaustav Sarkar</a>.
                     </p>
                     <ul class="mt-6 flex flex-wrap gap-2 text-sm">
                         <li class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-medium">Life Cycle Assessment</li>
@@ -1654,7 +1671,7 @@
                 "Development of Bio-Binders for Sustainable Bituminous Roads": "सतत बिटुमिनस सड़कों के लिए बायो-बाइंडर का विकास",
                 "PhD Scholar · IIT Mandi": "पीएचडी स्कॉलर · आईआईटी मंडी",
                 "Researching durable, climate-resilient concrete pavements and their life cycle environmental impact.": "टिकाऊ, जलवायु-अनुकूल कंक्रीट फुटपाथों और उनके जीवन चक्र पर्यावरणीय प्रभाव पर शोध।",
-                "PhD student in Transportation Engineering and Pavement Materials at the School of Civil and Environmental Engineering, supervised by": "सिविल और पर्यावरण इंजीनियरिंग स्कूल में परिवहन इंजीनियरिंग और फुटपाथ सामग्री में पीएचडी छात्र, पर्यवेक्षक",
+                "PhD student in Transportation Engineering and Pavement Materials at the School of Civil and Environmental Engineering, IIT Mandi, supervised by": "आईआईटी मंडी के सिविल और पर्यावरण इंजीनियरिंग स्कूल में परिवहन इंजीनियरिंग और फुटपाथ सामग्री में पीएचडी छात्र, पर्यवेक्षक",
                 "Life Cycle Assessment": "जीवन चक्र मूल्यांकन",
                 "Concrete Durability": "कंक्रीट स्थायित्व",
                 "View CV": "सीवी देखें",
@@ -1695,7 +1712,7 @@
                 "I am a PhD Student specializing in": "मैं एक पीएचडी छात्र हूँ जो विशेषज्ञता रखता है",
                 "Transportation Engineering and Pavement Materials": "परिवहन इंजीनियरिंग और फुटपाथ सामग्री",
                 "at the School of Civil and Environmental Engineering, supervised by": "स्कूल ऑफ सिविल एंड एनवायर्नमेंटल इंजीनियरिंग में, जिनके पर्यवेक्षक हैं",
-                "Dr. Kaustav Sarkar": "डॉ. कौस्तव सरकार",
+                "Prof. Kaustav Sarkar": "प्रो. कौस्तव सरकार",
                 "Current Research Focus": "वर्तमान शोध फोकस",
                 "Life Cycle Assessment (LCA) of Pavements & Hygrothermal Analysis of Concrete Pavements.": "फुटपाथ का जीवन चक्र मूल्यांकन (LCA) और कंक्रीट फुटपाथ का हाइग्रोथर्मल विश्लेषण।",
                 "Download CV": "सीवी डाउनलोड करें",
