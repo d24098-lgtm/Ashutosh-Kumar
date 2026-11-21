@@ -76,6 +76,19 @@
         html.dark .from-slate-50 { --tw-gradient-from: var(--bg-surface-hover) !important; --tw-gradient-to: rgb(24 24 27 / 0) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
         html.dark .to-white { --tw-gradient-to: var(--bg-surface) !important; }
 
+        /* Research figures (inline SVG): colours follow light / dark mode */
+        .rfig { --ink: #1e293b; --muted: #64748b; --line: #cbd5e1; --panel: #f8fafc; --card: #ffffff; --slab: #e2e8f0; --road: #cbd5e1; background: var(--panel); }
+        html.dark .rfig { --ink: #e4e4e7; --muted: #a1a1aa; --line: #52525b; --panel: #18181b; --card: #27272a; --slab: #3f3f46; --road: #52525b; }
+        .rfig .t { fill: var(--ink); }
+        .rfig .m { fill: var(--muted); }
+        .rfig .fa { fill: var(--muted); }
+        .rfig .ln { stroke: var(--line); }
+        .rfig .pill { fill: var(--card); stroke: var(--line); }
+        .rfig .slab { fill: var(--slab); stroke: var(--muted); }
+        .rfig .mt { fill: var(--line); }
+        .rfig .road { stroke: var(--road); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .rfig svg { font-family: inherit; }
+
         /* Smooth reveal animations */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -553,45 +566,163 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Gallery Item 1 -->
-                <div class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all aspect-video">
-                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/40 transition-colors z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1517737812598-1a43d0ef2a60?q=80&w=1470&auto=format&fit=crop" alt="Sustainable Pavements" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900/90 to-transparent z-20 translate-y-2 group-hover:translate-y-0 transition-transform">
-                        <h3 class="text-white font-bold text-xl mb-1" data-i18n="Sustainable Pavements">Sustainable Pavements</h3>
-                        <p class="text-slate-300 text-sm font-medium" data-i18n="Eco-friendly road materials and life cycle assessment.">Eco-friendly road materials and life cycle assessment.</p>
+                <!-- Figure 1: durability-integrated pavement LCA (PhD research) -->
+                <figure class="group bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all overflow-hidden">
+                    <div class="rfig aspect-[8/5] p-2">
+                        <svg viewBox="0 0 480 300" class="w-full h-full" role="img" aria-label="Schematic of a durability-integrated pavement life cycle assessment">
+                            <defs><marker id="rf1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fa"/></marker>
+                            <marker id="rf1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs>
+                            <text x="16" y="26" class="t" font-size="14" font-weight="700">Durability-integrated pavement LCA</text>
+                            <text x="464" y="26" class="m" font-size="10" text-anchor="end">Schematic</text>
+                            <rect x="150" y="42" width="236" height="44" rx="10" fill="#06b6d4" fill-opacity=".14" stroke="#06b6d4"/>
+                            <text x="268" y="60" text-anchor="middle" class="t" font-size="11" font-weight="600">Service life from hygrothermal</text>
+                            <text x="268" y="76" text-anchor="middle" class="t" font-size="11" font-weight="600">&amp; durability models</text>
+                            <line x1="239" y1="86" x2="239" y2="117" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#rf1a)"/>
+                            <line x1="332" y1="86" x2="332" y2="117" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#rf1a)"/>
+                            <rect x="14" y="120" width="78" height="44" rx="10" fill="#3b82f6" fill-opacity=".14" stroke="#3b82f6"/>
+                            <rect x="107" y="120" width="78" height="44" rx="10" fill="#8b5cf6" fill-opacity=".14" stroke="#8b5cf6"/>
+                            <rect x="200" y="120" width="78" height="44" rx="10" fill="#06b6d4" fill-opacity=".14" stroke="#06b6d4"/>
+                            <rect x="293" y="120" width="78" height="44" rx="10" fill="#f59e0b" fill-opacity=".14" stroke="#f59e0b"/>
+                            <rect x="386" y="120" width="78" height="44" rx="10" fill="#10b981" fill-opacity=".14" stroke="#10b981"/>
+                            <g class="t" font-size="11" font-weight="600" text-anchor="middle">
+                                <text x="53" y="146">Materials</text><text x="146" y="146">Construction</text><text x="239" y="146">Use phase</text><text x="332" y="146">M &amp; R</text><text x="425" y="146">End of life</text>
+                            </g>
+                            <g stroke-width="1.5" class="ln">
+                                <line x1="93" y1="142" x2="104" y2="142" marker-end="url(#rf1a)"/><line x1="186" y1="142" x2="197" y2="142" marker-end="url(#rf1a)"/><line x1="279" y1="142" x2="290" y2="142" marker-end="url(#rf1a)"/><line x1="372" y1="142" x2="383" y2="142" marker-end="url(#rf1a)"/>
+                            </g>
+                            <path d="M425,164 V194 H53 V168" fill="none" stroke="#10b981" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#rf1g)"/>
+                            <text x="239" y="188" text-anchor="middle" fill="#10b981" font-size="10" font-weight="600">Recycling / reuse</text>
+                            <text x="16" y="226" class="m" font-size="10" font-weight="700">IMPACT INDICATORS</text>
+                            <rect x="16" y="236" width="162" height="26" rx="13" class="pill"/><text x="97" y="253" text-anchor="middle" class="t" font-size="10.5">Global warming (CO₂-eq)</text>
+                            <rect x="188" y="236" width="110" height="26" rx="13" class="pill"/><text x="243" y="253" text-anchor="middle" class="t" font-size="10.5">Energy use (MJ)</text>
+                            <rect x="308" y="236" width="156" height="26" rx="13" class="pill"/><text x="386" y="253" text-anchor="middle" class="t" font-size="10.5">Raw material depletion</text>
+                            <text x="16" y="286" class="m" font-size="10">Moves beyond LCA that assumes a fixed service life</text>
+                        </svg>
                     </div>
-                </div>
+                    <figcaption class="p-5 border-t border-slate-100">
+                        <h3 class="text-dark font-bold text-xl mb-1">Pavement Life Cycle Assessment</h3>
+                        <p class="text-slate-600 text-sm font-medium">Linking concrete durability and hygrothermal performance to service life and environmental impact.</p>
+                    </figcaption>
+                </figure>
 
-                <!-- Gallery Item 2 -->
-                <div class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all aspect-video">
-                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/40 transition-colors z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1494522855154-9297ac14b55f?q=80&w=1470&auto=format&fit=crop" alt="Traffic Flow Optimization" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900/90 to-transparent z-20 translate-y-2 group-hover:translate-y-0 transition-transform">
-                        <h3 class="text-white font-bold text-xl mb-1" data-i18n="Traffic Flow Optimization">Traffic Flow Optimization</h3>
-                        <p class="text-slate-300 text-sm font-medium" data-i18n="Analyzing heterogeneous traffic patterns and simulation.">Analyzing heterogeneous traffic patterns and simulation.</p>
+                <!-- Figure 2: pavement surface condition vs vehicle speeds (M.Tech major project) -->
+                <figure class="group bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all overflow-hidden">
+                    <div class="rfig aspect-[8/5] p-2">
+                        <svg viewBox="0 0 480 300" class="w-full h-full" role="img" aria-label="Schematic: operating speed decreases as pavement roughness and distress increase, for four vehicle classes">
+                            <defs><marker id="rf2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fa"/></marker></defs>
+                            <text x="16" y="26" class="t" font-size="14" font-weight="700">Pavement surface vs. operating speed</text>
+                            <text x="464" y="26" class="m" font-size="10" text-anchor="end">Schematic</text>
+                            <line x1="64" y1="232" x2="64" y2="48" class="ln" stroke-width="1.5" marker-end="url(#rf2a)"/>
+                            <line x1="64" y1="232" x2="334" y2="232" class="ln" stroke-width="1.5" marker-end="url(#rf2a)"/>
+                            <text transform="translate(40,140) rotate(-90)" text-anchor="middle" class="m" font-size="11" font-weight="600">Operating speed</text>
+                            <g fill="none" stroke-width="2.5" stroke-linecap="round">
+                                <path d="M70,62 C150,70 240,105 326,150" stroke="#3b82f6"/>
+                                <path d="M70,84 C150,92 240,126 326,172" stroke="#8b5cf6"/>
+                                <path d="M70,108 C150,116 240,146 326,190" stroke="#f59e0b"/>
+                                <path d="M70,130 C150,138 240,166 326,208" stroke="#ec4899"/>
+                            </g>
+                            <path d="M70,254 C90,253 110,255 130,254 S170,251 190,256 S220,248 240,258 S270,245 290,260 S315,244 330,260" fill="none" class="ln" stroke-width="2.5" stroke-linecap="round"/>
+                            <text x="70" y="274" class="m" font-size="9">smooth</text>
+                            <text x="330" y="274" class="m" font-size="9" text-anchor="end">rough, distressed</text>
+                            <text x="197" y="292" text-anchor="middle" class="m" font-size="11" font-weight="600">Roughness (IRI) &amp; surface distress</text>
+                            <text x="350" y="70" class="m" font-size="10" font-weight="700">VEHICLE CLASS</text>
+                            <g stroke-width="3" stroke-linecap="round">
+                                <line x1="350" y1="88" x2="372" y2="88" stroke="#3b82f6"/><line x1="350" y1="110" x2="372" y2="110" stroke="#8b5cf6"/><line x1="350" y1="132" x2="372" y2="132" stroke="#f59e0b"/><line x1="350" y1="154" x2="372" y2="154" stroke="#ec4899"/>
+                            </g>
+                            <g class="t" font-size="11"><text x="380" y="92">Car</text><text x="380" y="114">Two-wheeler</text><text x="380" y="136">Bus / LCV</text><text x="380" y="158">Truck</text></g>
+                            <text x="350" y="196" class="m" font-size="9.5">Trend shape only,</text>
+                            <text x="350" y="210" class="m" font-size="9.5">not measured data</text>
+                        </svg>
                     </div>
-                </div>
+                    <figcaption class="p-5 border-t border-slate-100">
+                        <h3 class="text-dark font-bold text-xl mb-1">Pavement Surface &amp; Vehicle Speeds</h3>
+                        <p class="text-slate-600 text-sm font-medium">How roughness and distress affect the operating speeds of different vehicle classes (M.Tech research).</p>
+                    </figcaption>
+                </figure>
 
-                <!-- Gallery Item 3 -->
-                <div class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all aspect-video">
-                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/40 transition-colors z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1470&auto=format&fit=crop" alt="Advanced Geotechnical Materials" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900/90 to-transparent z-20 translate-y-2 group-hover:translate-y-0 transition-transform">
-                        <h3 class="text-white font-bold text-xl mb-1" data-i18n="Hygrothermal Analysis">Hygrothermal Analysis</h3>
-                        <p class="text-slate-300 text-sm font-medium" data-i18n="Modeling heat and moisture gradients in concrete.">Modeling heat and moisture gradients in concrete.</p>
+                <!-- Figure 3: hygrothermal behaviour of a concrete pavement slab (PhD research) -->
+                <figure class="group bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all overflow-hidden">
+                    <div class="rfig aspect-[8/5] p-2">
+                        <svg viewBox="0 0 480 300" class="w-full h-full" role="img" aria-label="Schematic of heat and moisture acting on a concrete pavement slab, with curling and through-depth temperature and moisture profiles">
+                            <defs><marker id="rf3o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f59e0b"/></marker>
+                            <marker id="rf3b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3b82f6"/></marker>
+                            <marker id="rf3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="fa"/></marker></defs>
+                            <text x="16" y="26" class="t" font-size="14" font-weight="700">Hygrothermal behavior of a concrete slab</text>
+                            <text x="464" y="26" class="m" font-size="10" text-anchor="end">Schematic</text>
+                            <polygon points="16,106 50,64 76,92 102,58 140,106" class="mt"/>
+                            <circle cx="170" cy="60" r="11" fill="#f59e0b"/>
+                            <g stroke="#f59e0b" stroke-width="2" stroke-linecap="round"><line x1="170" y1="41" x2="170" y2="45"/><line x1="151" y1="60" x2="155" y2="60"/><line x1="185" y1="60" x2="189" y2="60"/><line x1="157" y1="47" x2="160" y2="50"/><line x1="183" y1="47" x2="180" y2="50"/></g>
+                            <text x="194" y="64" class="m" font-size="10" font-weight="600">Solar heat</text>
+                            <g fill="#3b82f6"><path d="M262,50 q4,7 0,10 q-4,-3 0,-10z"/><path d="M272,56 q4,7 0,10 q-4,-3 0,-10z"/><path d="M282,50 q4,7 0,10 q-4,-3 0,-10z"/></g>
+                            <text x="292" y="64" class="m" font-size="10" font-weight="600">Moisture</text>
+                            <line x1="170" y1="76" x2="170" y2="104" stroke="#f59e0b" stroke-width="2" marker-end="url(#rf3o)"/>
+                            <line x1="272" y1="72" x2="272" y2="104" stroke="#3b82f6" stroke-width="2" marker-end="url(#rf3b)"/>
+                            <rect x="40" y="110" width="270" height="50" class="slab"/>
+                            <g class="m" opacity=".45"><circle cx="70" cy="126" r="2.5"/><circle cx="96" cy="146" r="2"/><circle cx="128" cy="122" r="2"/><circle cx="210" cy="150" r="2.5"/><circle cx="246" cy="124" r="2"/><circle cx="282" cy="144" r="2.5"/><circle cx="58" cy="150" r="2"/></g>
+                            <text x="175" y="139" text-anchor="middle" class="t" font-size="11" font-weight="700">Concrete slab</text>
+                            <rect x="40" y="160" width="270" height="22" fill="#d6b98c" fill-opacity=".55"/>
+                            <text x="48" y="175" class="t" font-size="9.5">Base</text>
+                            <rect x="40" y="182" width="270" height="26" fill="#a8a29e" fill-opacity=".4"/>
+                            <text x="48" y="199" class="t" font-size="9.5">Subgrade</text>
+                            <path d="M40,96 Q175,120 310,96" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="6 4"/>
+                            <line x1="40" y1="226" x2="62" y2="226" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="6 4"/>
+                            <text x="68" y="230" class="m" font-size="10">Night-time curling (slab edges lift)</text>
+                            <text x="16" y="262" class="t" font-size="11" font-weight="700">→ Thermal stresses · Fatigue · Durability · Service life</text>
+                            <text x="16" y="282" class="m" font-size="10">Under the climate of Indian mountainous regions</text>
+                            <text x="404" y="88" text-anchor="middle" class="m" font-size="10" font-weight="700">THROUGH-DEPTH PROFILES</text>
+                            <rect x="342" y="96" width="124" height="136" rx="8" class="pill"/>
+                            <line x1="356" y1="106" x2="356" y2="220" class="ln" stroke-width="1.5" marker-end="url(#rf3a)"/>
+                            <text transform="translate(350,170) rotate(-90)" text-anchor="middle" class="m" font-size="9">depth</text>
+                            <path d="M452,108 C404,128 384,170 380,222" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M370,108 C392,128 420,170 454,222" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+                            <text x="394" y="120" fill="#ef4444" font-size="9.5" font-weight="700">T (day)</text>
+                            <text x="402" y="214" fill="#3b82f6" font-size="9.5" font-weight="700">RH</text>
+                            <text x="404" y="248" text-anchor="middle" class="m" font-size="9">low → high</text>
+                        </svg>
                     </div>
-                </div>
+                    <figcaption class="p-5 border-t border-slate-100">
+                        <h3 class="text-dark font-bold text-xl mb-1">Hygrothermal Behavior of Concrete Pavements</h3>
+                        <p class="text-slate-600 text-sm font-medium">Temperature and moisture gradients, curling, and their effect on service life in mountainous climates.</p>
+                    </figcaption>
+                </figure>
 
-                <!-- Gallery Item 4 -->
-                <div class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all aspect-video">
-                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/40 transition-colors z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1470&auto=format&fit=crop" alt="Data & Analytics" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900/90 to-transparent z-20 translate-y-2 group-hover:translate-y-0 transition-transform">
-                        <h3 class="text-white font-bold text-xl mb-1" data-i18n="Data & Spatial Analytics">Data & Spatial Analytics</h3>
-                        <p class="text-slate-300 text-sm font-medium" data-i18n="GIS methodologies and structural performance evaluation.">GIS methodologies and structural performance evaluation.</p>
+                <!-- Figure 4: GIS accident black spot identification (M.Tech minor project) -->
+                <figure class="group bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all overflow-hidden">
+                    <div class="rfig aspect-[8/5] p-2">
+                        <svg viewBox="0 0 480 300" class="w-full h-full" role="img" aria-label="Schematic of GIS-based accident black spot identification with accident points, density hotspots and ranked black spots">
+                            <defs><radialGradient id="rf4h"><stop offset="0" stop-color="#ef4444" stop-opacity=".6"/><stop offset=".6" stop-color="#f59e0b" stop-opacity=".25"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient></defs>
+                            <text x="16" y="26" class="t" font-size="14" font-weight="700">GIS-based black spot identification</text>
+                            <text x="464" y="26" class="m" font-size="10" text-anchor="end">Schematic</text>
+                            <rect x="16" y="40" width="300" height="214" rx="10" class="pill"/>
+                            <g class="road" stroke-width="7"><path d="M16,150 C90,140 160,160 316,130"/><path d="M122,40 C130,110 150,180 170,254"/><path d="M230,40 C220,100 250,170 300,254"/></g>
+                            <g class="road" stroke-width="3.5"><path d="M16,90 L120,100 L230,86 L316,96"/><path d="M60,254 L110,176 L160,156"/><path d="M200,254 L245,190 L316,202"/></g>
+                            <circle cx="140" cy="150" r="36" fill="url(#rf4h)"/><circle cx="238" cy="145" r="28" fill="url(#rf4h)"/><circle cx="229" cy="90" r="20" fill="url(#rf4h)"/>
+                            <g class="t" opacity=".75">
+                                <circle cx="134" cy="146" r="2.5"/><circle cx="146" cy="154" r="2.5"/><circle cx="139" cy="140" r="2.5"/><circle cx="128" cy="157" r="2.5"/><circle cx="152" cy="146" r="2.5"/><circle cx="143" cy="162" r="2.5"/><circle cx="133" cy="134" r="2.5"/>
+                                <circle cx="236" cy="140" r="2.5"/><circle cx="244" cy="150" r="2.5"/><circle cx="231" cy="152" r="2.5"/><circle cx="246" cy="138" r="2.5"/><circle cx="240" cy="158" r="2.5"/>
+                                <circle cx="226" cy="88" r="2.5"/><circle cx="234" cy="94" r="2.5"/><circle cx="222" cy="96" r="2.5"/>
+                                <circle cx="70" cy="146" r="2.5"/><circle cx="96" cy="98" r="2.5"/><circle cx="290" cy="132" r="2.5"/><circle cx="160" cy="210" r="2.5"/><circle cx="276" cy="214" r="2.5"/><circle cx="104" cy="186" r="2.5"/><circle cx="292" cy="98" r="2.5"/>
+                            </g>
+                            <g font-size="10" font-weight="700" text-anchor="middle" fill="#ffffff">
+                                <circle cx="160" cy="128" r="9" fill="#ef4444"/><text x="160" y="132">1</text>
+                                <circle cx="256" cy="126" r="9" fill="#ef4444"/><text x="256" y="130">2</text>
+                                <circle cx="248" cy="74" r="9" fill="#ef4444"/><text x="248" y="78">3</text>
+                            </g>
+                            <polygon points="296,52 290,70 296,66 302,70" class="t"/><text x="296" y="82" text-anchor="middle" class="t" font-size="9" font-weight="700">N</text>
+                            <text x="332" y="56" class="m" font-size="10" font-weight="700">LEGEND</text>
+                            <circle cx="340" cy="77" r="3" class="t"/><text x="352" y="81" class="t" font-size="10.5">Accident record</text>
+                            <circle cx="340" cy="101" r="9" fill="url(#rf4h)"/><text x="352" y="105" class="t" font-size="10.5">Density hotspot</text>
+                            <circle cx="340" cy="125" r="7" fill="#ef4444"/><text x="352" y="129" class="t" font-size="10.5">Ranked black spot</text>
+                            <line x1="332" y1="149" x2="348" y2="149" class="road" stroke-width="5"/><text x="352" y="153" class="t" font-size="10.5">Road network</text>
+                            <rect x="332" y="176" width="132" height="26" rx="13" class="pill"/><text x="398" y="193" text-anchor="middle" class="t" font-size="11" font-weight="600">ArcGIS · QGIS</text>
+                            <text x="16" y="276" class="m" font-size="10">Thiruvananthapuram case study · illustrative layout, not the real map</text>
+                        </svg>
                     </div>
-                </div>
+                    <figcaption class="p-5 border-t border-slate-100">
+                        <h3 class="text-dark font-bold text-xl mb-1">GIS Accident Black Spot Analysis</h3>
+                        <p class="text-slate-600 text-sm font-medium">Mapping and ranking accident black spots in Thiruvananthapuram using ArcGIS and QGIS.</p>
+                    </figcaption>
+                </figure>
             </div>
         </section>
 
@@ -1667,6 +1798,14 @@
                 "Gallery": "गैलरी",
                 "Moments from conferences, field visits, and academic events.": "सम्मेलनों, क्षेत्र भ्रमणों और शैक्षणिक कार्यक्रमों के कुछ पल।",
                 "Visualizing key concepts in transportation infrastructure, pavement sustainability, and advanced material engineering.": "परिवहन बुनियादी ढांचे, फुटपाथ स्थिरता और उन्नत सामग्री इंजीनियरिंग में प्रमुख अवधारणाओं की कल्पना करना।",
+                "Pavement Life Cycle Assessment": "फुटपाथ जीवन चक्र मूल्यांकन",
+                "Linking concrete durability and hygrothermal performance to service life and environmental impact.": "कंक्रीट के स्थायित्व और हाइग्रोथर्मल प्रदर्शन को सेवा-जीवन और पर्यावरणीय प्रभाव से जोड़ना।",
+                "Pavement Surface & Vehicle Speeds": "फुटपाथ सतह और वाहन गति",
+                "How roughness and distress affect the operating speeds of different vehicle classes (M.Tech research).": "खुरदरापन और क्षति विभिन्न वाहन वर्गों की संचालन गति को कैसे प्रभावित करते हैं (एम.टेक शोध)।",
+                "Hygrothermal Behavior of Concrete Pavements": "कंक्रीट फुटपाथों का हाइग्रोथर्मल व्यवहार",
+                "Temperature and moisture gradients, curling, and their effect on service life in mountainous climates.": "तापमान और नमी के ग्रेडिएंट, कर्लिंग, और पर्वतीय जलवायु में सेवा-जीवन पर उनका प्रभाव।",
+                "GIS Accident Black Spot Analysis": "जीआईएस दुर्घटना ब्लैक स्पॉट विश्लेषण",
+                "Mapping and ranking accident black spots in Thiruvananthapuram using ArcGIS and QGIS.": "ArcGIS और QGIS का उपयोग करके तिरुवनंतपुरम में दुर्घटना ब्लैक स्पॉट का मानचित्रण और रैंकिंग।",
                 "Sustainable Pavements": "टिकाऊ फुटपाथ",
                 "Eco-friendly road materials and life cycle assessment.": "पर्यावरण के अनुकूल सड़क सामग्री और जीवन चक्र मूल्यांकन।",
                 "Traffic Flow Optimization": "यातायात प्रवाह अनुकूलन",
