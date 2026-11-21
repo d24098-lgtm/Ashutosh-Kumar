@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ashutosh Kumar | Academic Portfolio</title>
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Pinned to an exact version so an upstream change cannot silently alter the site -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <!-- Tailwind Config for Custom Colors/Fonts -->
     <script>
         tailwind.config = {
@@ -30,7 +31,7 @@
         }
     </script>
     <!-- FontAwesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     
@@ -127,8 +128,9 @@
             box-shadow: 0 0 0 2px #8b5cf6;
         }
     </style>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://unpkg.com/topojson-client@3"></script>
+    <!-- Exact versions + integrity fingerprints: the browser refuses these files if their content ever changes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.2/d3.min.js" integrity="sha512-YjIZebu2Da42ahpFnphuC1sqi+UEcWP1UNOVKosYGeqPnXK9GqNBpKS7BMctZQ6fgmQk+I+gi9EqMv95OiO1DA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha256-Jc0CrkhsxQY+AhWk5M+xXeg3AMh6xIusTVfcaq8+u4k=" crossorigin="anonymous"></script>
 </head>
 <body class="antialiased selection:bg-secondary selection:text-white relative z-0">
     <!-- Ambient Background Gradients -->
@@ -152,6 +154,7 @@
                 <a href="#education" class="hover:text-primary transition-colors" data-i18n="nav-education">Education</a>
                 <a href="#projects" class="hover:text-primary transition-colors" data-i18n="nav-projects">Research</a>
                 <a href="#skills" class="hover:text-primary transition-colors" data-i18n="nav-skills">Skills</a>
+                <a href="#gallery" id="navGalleryLink" hidden class="hover:text-primary transition-colors">Gallery</a>
                 <a href="#contact" class="hover:text-primary transition-colors" data-i18n="nav-contact">Contact</a>
                 
                 <!-- Search Bar -->
@@ -215,7 +218,7 @@
                     </div>
                     
                     <div class="pt-4 flex flex-wrap gap-4 items-center">
-                        <a href="#" onclick="openPdfModal('', 'Curriculum Vitae'); return false;" class="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white text-sm font-bold rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-1 transition-all flex items-center gap-2">
+                        <a href="cv/Ashutosh-Kumar-CV.pdf" target="_blank" rel="noopener" onclick="openPdfModal('cv/Ashutosh-Kumar-CV.pdf', 'Ashutosh Kumar CV'); return false;" class="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white text-sm font-bold rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-1 transition-all flex items-center gap-2">
                             <i class="fa-solid fa-file-pdf"></i> View CV
                         </a>
                         <a href="https://scene.iitmandi.ac.in/pages/student_details/OTE1" target="_blank" rel="noopener noreferrer" class="px-8 py-4 glass-card text-dark text-sm font-bold border-2 border-slate-200/50 rounded-xl hover:border-primary hover:text-primary hover:-translate-y-1 transition-all shadow-sm flex items-center gap-2">
@@ -261,7 +264,7 @@
                             <i class="fa-solid fa-temperature-half text-xl text-tertiary group-hover:text-white transition-colors"></i>
                         </div>
                         <h4 class="text-lg font-bold text-dark mb-2 group-hover:text-tertiary transition-colors">Multiphysics Performance of Concrete Pavements</h4>
-                        <p class="text-slate-600 leading-relaxed font-medium text-sm">Modeling and analyzing coupled moisture and heat transfer (hygrothermal performance) in rigid pavements to predict long-term durability under climate stresses.</p>
+                        <p class="text-slate-600 leading-relaxed font-medium text-sm">Modeling and analyzing coupled moisture and heat transfer (hygrothermal performance) in rigid pavements to assess concrete durability and predict service life, toward climate-resilient infrastructure.</p>
                     </div>
                     <div class="glass-card p-6 rounded-2xl border border-slate-100 hover:border-emerald-500/50 hover:shadow-xl transition-all group">
                         <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-emerald-500 transition-all shadow-inner">
@@ -278,7 +281,7 @@
                 <div class="relative z-10">
                     <h3 class="text-2xl font-serif text-dark mb-4 flex items-center gap-2"><i class="fa-solid fa-route text-secondary"></i> Research Trajectory</h3>
                     <p class="text-slate-700 leading-relaxed font-medium text-lg italic border-l-4 border-primary pl-4">
-                        "My research journey centers on making transportation infrastructure safer, more durable, and environmentally sustainable. By combining frontend empirical traffic data, asset tracking, and advanced material characteristics, my work addresses the lifecycle of infrastructure from structural design to socio-environmental impact."
+                        "My research centers on making transportation infrastructure durable, climate-resilient, and environmentally sustainable. I study how temperature and moisture variations affect concrete pavement response, thermal stresses, fatigue, durability, and service life, and I connect these mechanistic findings with Life Cycle Assessment to understand the real environmental performance of rigid pavements in India's mountainous regions."
                     </p>
                 </div>
             </div>
@@ -290,11 +293,11 @@
                     <ul class="space-y-6">
                         <li class="text-sm">
                             <strong class="text-primary block mb-2 text-base">Life Cycle Assessment (LCA) of Pavements</strong>
-                            <span class="text-slate-600 leading-relaxed font-medium">Developing holistic frameworks to model the environmental impacts of modern pavement systems. This research aims to optimize material selection and construction methodologies to minimize greenhouse gas emissions in infrastructure development.</span>
+                            <span class="text-slate-600 leading-relaxed font-medium">Developing holistic frameworks to model the environmental impacts of modern pavement systems. A key aim is to integrate concrete durability and hygrothermal performance into LCA, moving beyond conventional approaches that assume a fixed service life.</span>
                         </li>
                         <li class="text-sm">
                             <strong class="text-primary block mb-2 text-base">Hygrothermal Analysis of Concrete Pavements</strong>
-                            <span class="text-slate-600 leading-relaxed font-medium">Utilizing numerical modeling and computational analysis to study heat and moisture gradients in concrete pavements. Understanding these coupled variations is essential for mitigating curling, warping, and early-age cracking in rigid pavements subjected to fluctuating environmental conditions.</span>
+                            <span class="text-slate-600 leading-relaxed font-medium">Utilizing numerical modeling and computational analysis to study heat and moisture gradients in concrete pavements. Understanding these coupled variations is essential for mitigating curling, warping, and early-age cracking in rigid pavements subjected to fluctuating environmental conditions. The work examines their effect on thermal stresses, fatigue behavior, durability, and service life under the climate of Indian mountainous regions.</span>
                         </li>
                     </ul>
                 </div>
@@ -306,6 +309,10 @@
                         <li class="text-sm">
                             <strong class="text-secondary block mb-2 text-base">Pavement Material Longevity</strong>
                             <span class="text-slate-600 leading-relaxed font-medium">Investigated the structural mitigation of reflective cracking in asphalt concrete overlays. This work focused on analyzing the performance-enhancing lifespan of geosynthetics in overlay systems.</span>
+                        </li>
+                        <li class="text-sm">
+                            <strong class="text-secondary block mb-2 text-base">Sustainable Bituminous Binders</strong>
+                            <span class="text-slate-600 leading-relaxed font-medium">Contributed to the CSIR-CRRI project on developing bio-binders for sustainable bituminous roads.</span>
                         </li>
                         <li class="text-sm">
                             <strong class="text-secondary block mb-2 text-base">Vehicle-Pavement Interaction</strong>
@@ -325,11 +332,11 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div>
                         <h5 class="font-bold text-primary mb-2 text-sm uppercase tracking-wider">Pavement Engineering</h5>
-                        <p class="text-slate-400 text-sm leading-relaxed">Bituminous and concrete pavement design, overlay design, and distress evaluation.</p>
+                        <p class="text-slate-400 text-sm leading-relaxed">Bituminous (flexible) and concrete pavement design, overlay design, distress evaluation, pavement evaluation and rehabilitation, laboratory testing, and surveying.</p>
                     </div>
                     <div>
                         <h5 class="font-bold text-secondary mb-2 text-sm uppercase tracking-wider">Sustainability Tools</h5>
-                        <p class="text-slate-400 text-sm leading-relaxed">Lifecycle assessment methodologies, inventory data analysis.</p>
+                        <p class="text-slate-400 text-sm leading-relaxed">Lifecycle assessment methodologies, inventory data analysis, statistical data analysis.</p>
                     </div>
                     <div>
                         <h5 class="font-bold text-tertiary mb-2 text-sm uppercase tracking-wider">Simulation & Modeling</h5>
@@ -395,7 +402,7 @@
                 <div class="timeline-container">
                     
                     <div class="timeline-item group">
-                        <span class="inline-block px-3 py-1 bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold rounded-full mb-3 shadow-md">Ongoing</span>
+                        <span class="inline-block px-3 py-1 bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold rounded-full mb-3 shadow-md">Aug 2024 &mdash; Present</span>
                         <h3 class="text-xl font-bold text-dark group-hover:text-primary transition-colors">PhD in Transportation Engineering</h3>
                         <p class="text-primary font-semibold mt-1">IIT Mandi</p>
                         <p class="text-sm text-slate-600 mt-2 leading-relaxed bg-white/50 p-3 rounded-lg border border-slate-100">Focusing on pavement materials and advanced transportation infrastructure solutions.</p>
@@ -466,7 +473,9 @@
                             <div class="absolute top-0 right-0 p-4 opacity-5"><i class="fa-solid fa-quote-right text-6xl text-primary"></i></div>
                             <span class="inline-flex items-center gap-2 text-xs font-bold text-primary mb-3 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-md"><i class="fa-solid fa-briefcase"></i> Research Internship</span>
                             <h3 class="text-2xl font-bold text-dark mb-1">CSIR-Central Road Research Institute (CRRI)</h3>
-                            <p class="text-slate-500 font-medium text-sm mb-6 flex items-center gap-2"><i class="fa-solid fa-location-dot"></i> New Delhi</p>
+                            <p class="text-slate-500 font-medium text-sm mb-2 flex items-center gap-2"><i class="fa-solid fa-location-dot"></i> New Delhi</p>
+                            <p class="text-slate-500 font-medium text-sm mb-2 flex items-center gap-2"><i class="fa-regular fa-calendar"></i> <span>1 June – 28 July 2023</span></p>
+                            <p class="text-slate-500 font-medium text-sm mb-6 flex items-center gap-2"><i class="fa-solid fa-user-tie"></i> <span>Supervisor: Dr. G. Bharath, Senior Scientist (FPD)</span></p>
                             <p class="text-slate-800 leading-relaxed font-serif italic text-lg border-l-4 border-secondary pl-5 py-1 mb-6">
                                 "Impact of geosynthetics on reflective cracking performance life of asphalt concrete overlays"
                             </p>
@@ -586,6 +595,84 @@
             </div>
         </section>
 
+        <!-- PHOTO GALLERY: your own photos. Hidden automatically until at least one photo is added. -->
+        <section id="gallery" hidden class="max-w-6xl mx-auto px-6 pb-24 scroll-mt-24 reveal">
+            <div class="mb-10 text-center">
+                <h2 class="text-3xl font-serif text-dark flex items-center justify-center gap-3"><i class="fa-solid fa-camera-retro text-secondary"></i> <span>Gallery</span></h2>
+                <p class="text-slate-600 mt-4 max-w-2xl mx-auto">Moments from conferences, field visits, and academic events.</p>
+            </div>
+
+            <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!--
+                  HOW TO ADD A PHOTO: copy this block, put the photo in src/assets/images/gallery/,
+                  and fill in the file name, title and "place · date" line.
+
+                <figure class="gallery-item group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl overflow-hidden transition-all">
+                    <button type="button" onclick="openGalleryPhoto(this)" class="block w-full overflow-hidden cursor-zoom-in" aria-label="View larger photo">
+                        <img src="src/assets/images/gallery/FILE-NAME.jpg" alt="TITLE" loading="lazy" class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500">
+                    </button>
+                    <figcaption class="p-4">
+                        <span class="block font-bold text-dark leading-snug">TITLE</span>
+                        <span class="block text-xs font-semibold text-slate-500 mt-1">PLACE · DATE</span>
+                    </figcaption>
+                </figure>
+                -->
+            </div>
+        </section>
+
+        <!-- Gallery photo viewer (opens when a photo is clicked) -->
+        <div id="galleryViewer" class="fixed inset-0 z-[110] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Photo viewer">
+            <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm" onclick="closeGalleryPhoto()"></div>
+            <figure class="relative z-10 max-w-5xl w-full flex flex-col items-center">
+                <img id="galleryViewerImg" src="" alt="" class="max-h-[78vh] w-auto max-w-full rounded-2xl shadow-2xl object-contain">
+                <figcaption id="galleryViewerCaption" class="mt-4 text-center text-white font-semibold"></figcaption>
+            </figure>
+            <button type="button" onclick="closeGalleryPhoto()" class="absolute top-4 right-4 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center" aria-label="Close"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <button type="button" onclick="stepGalleryPhoto(-1)" class="gallery-nav absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center" aria-label="Previous photo"><i class="fa-solid fa-chevron-left"></i></button>
+            <button type="button" onclick="stepGalleryPhoto(1)" class="gallery-nav absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center" aria-label="Next photo"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+
+        <script>
+            (function () {
+                const items = () => Array.from(document.querySelectorAll('#galleryGrid .gallery-item'));
+                // Show the section and its menu link only when there is at least one photo
+                if (items().length > 0) {
+                    document.getElementById('gallery').hidden = false;
+                    document.getElementById('navGalleryLink').hidden = false;
+                }
+                let current = 0;
+                const viewer = document.getElementById('galleryViewer');
+                function show(i) {
+                    const list = items();
+                    current = (i + list.length) % list.length;
+                    const img = list[current].querySelector('img');
+                    const caption = list[current].querySelector('figcaption');
+                    document.getElementById('galleryViewerImg').src = img.currentSrc || img.src;
+                    document.getElementById('galleryViewerImg').alt = img.alt;
+                    document.getElementById('galleryViewerCaption').textContent = caption ? caption.innerText.replace(/\n+/g, ' · ') : '';
+                    viewer.querySelectorAll('.gallery-nav').forEach(b => b.style.display = list.length > 1 ? '' : 'none');
+                }
+                window.openGalleryPhoto = function (btn) {
+                    show(items().indexOf(btn.closest('.gallery-item')));
+                    viewer.classList.remove('hidden');
+                    viewer.classList.add('flex');
+                    document.body.style.overflow = 'hidden';
+                };
+                window.closeGalleryPhoto = function () {
+                    viewer.classList.add('hidden');
+                    viewer.classList.remove('flex');
+                    document.body.style.overflow = '';
+                };
+                window.stepGalleryPhoto = function (d) { show(current + d); };
+                document.addEventListener('keydown', function (e) {
+                    if (viewer.classList.contains('hidden')) return;
+                    if (e.key === 'Escape') closeGalleryPhoto();
+                    if (e.key === 'ArrowRight') stepGalleryPhoto(1);
+                    if (e.key === 'ArrowLeft') stepGalleryPhoto(-1);
+                });
+            })();
+        </script>
+
         <!-- ACADEMIC & PROFESSIONAL RECOGNITION -->
         <section id="academic-activities" class="scroll-mt-24 py-20 bg-slate-50/50 reveal border-y border-slate-100">
             <div class="max-w-6xl mx-auto px-6">
@@ -630,7 +717,14 @@
                                 <div class="w-2 h-2 rounded-full bg-emerald-500 mt-2 flex-shrink-0"></div>
                                 <div>
                                     <h4 class="font-bold text-dark" data-i18n="Teaching Assistant - Pavement Engineering">Teaching Assistant - Pavement Engineering</h4>
-                                    <p class="text-sm text-slate-500 mt-1" data-i18n="IIT Mandi (Present) | Assisting in undergraduate and postgraduate courses, conducting lab sessions, and grading assignments.">IIT Mandi (Present) | Assisting in undergraduate and postgraduate courses, conducting lab sessions, and grading assignments.</p>
+                                    <p class="text-sm text-slate-500 mt-1" data-i18n="IIT Mandi (Aug 2024 – Present) | Assisting in undergraduate and postgraduate courses, conducting lab sessions, and grading assignments.">IIT Mandi (Aug 2024 – Present) | Assisting in undergraduate and postgraduate courses, conducting lab sessions, and grading assignments.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div class="w-2 h-2 rounded-full bg-emerald-500 mt-2 flex-shrink-0"></div>
+                                <div>
+                                    <h4 class="font-bold text-dark" data-i18n="Teaching Assistant - Transportation Engineering">Teaching Assistant - Transportation Engineering</h4>
+                                    <p class="text-sm text-slate-500 mt-1" data-i18n="NIT Calicut (Jan 2023 – Jul 2024) | Supported transportation engineering courses and the transportation engineering laboratory.">NIT Calicut (Jan 2023 – Jul 2024) | Supported transportation engineering courses and the transportation engineering laboratory.</p>
                                 </div>
                             </li>
                             <li class="flex gap-4">
@@ -673,6 +767,13 @@
                                 <div>
                                     <h4 class="font-bold text-dark" data-i18n="Conference Organizing Committee">Conference Organizing Committee</h4>
                                     <p class="text-sm text-slate-500 mt-1" data-i18n="Assisted in organizing national seminars and workshops on sustainable transportation at IIT Mandi.">Assisted in organizing national seminars and workshops on sustainable transportation at IIT Mandi.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div class="w-2 h-2 rounded-full bg-secondary mt-2 flex-shrink-0"></div>
+                                <div>
+                                    <h4 class="font-bold text-dark" data-i18n="Full-Depth Reclamation (FDR) Field Visit">Full-Depth Reclamation (FDR) Field Visit</h4>
+                                    <p class="text-sm text-slate-500 mt-1" data-i18n="With the Sustainable Pavement Research Group, IIT Mandi: joined PWD engineers at a road construction site for a proposal discussion on rehabilitating an existing road using FDR, and visited an FDR trial section.">With the Sustainable Pavement Research Group, IIT Mandi: joined PWD engineers at a road construction site for a proposal discussion on rehabilitating an existing road using FDR, and visited an FDR trial section.</p>
                                 </div>
                             </li>
                             <li class="flex gap-4">
@@ -736,9 +837,14 @@
                                     <button onclick="highlightSkillProjects('powerbi')" data-skill="powerbi" class="skill-tag-btn block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-pointer transition-colors">Power BI</button>
                                     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 bg-dark text-white text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20 shadow-lg after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-dark">Intermediate • 1 Year</div>
                                 </div>
+                                <div class="relative group">
+                                    <!-- Plain label (not a filter button): no project is tagged with OpenLCA yet -->
+                                    <span class="block px-3 py-1.5 bg-white shadow-sm border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:text-primary hover:border-primary cursor-default transition-colors">OpenLCA</span>
+                                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 bg-dark text-white text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20 shadow-lg after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-dark">Life Cycle Assessment (LCA)</div>
+                                </div>
                             </div>
                         </div>
-                        
+
                         <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 mt-6">
                             <h3 class="text-sm font-bold text-secondary uppercase tracking-widest mb-5 flex items-center gap-2"><i class="fa-solid fa-language"></i> Languages</h3>
                             <div class="flex flex-wrap gap-2.5">
@@ -787,6 +893,14 @@
                             <ul class="space-y-5">
                                 <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
                                     <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
+                                    <div class="flex-1">
+                                        <span class="block text-slate-800 font-bold leading-snug">ACES 2.0 – Annual Civil Engineering Symposium 2026</span>
+                                        <span class="block text-sm font-semibold text-primary mt-1">School of Civil &amp; Environmental Engineering (SCEnE), IIT Mandi · 8–10 October 2026</span>
+                                        <span class="block text-sm text-slate-600 mt-1"><span class="font-semibold text-slate-700">Role:</span> <span>Organising Committee Member</span></span>
+                                    </div>
+                                </li>
+                                <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
+                                    <span class="text-tertiary mt-1 mr-4"><i class="fa-solid fa-arrow-right"></i></span>
                                     <span class="text-slate-700 font-medium leading-relaxed">Student coordinator for International Conference RAID-2024 at NIT Calicut</span>
                                 </li>
                                 <li class="flex items-start p-2 hover:bg-slate-50 rounded-lg transition-colors">
@@ -798,51 +912,6 @@
                                     <span class="text-slate-700 font-medium leading-relaxed">2-Year NSS Volunteer</span>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- GitHub Contributions Section -->
-        <section id="github-contributions" class="bg-slate-50 py-24 relative overflow-hidden border-y border-slate-200 reveal">
-            <div class="max-w-6xl mx-auto px-6 relative z-10">
-                <div class="flex flex-col md:flex-row gap-16 items-center">
-                    <div class="md:w-1/3">
-                        <h2 class="text-3xl font-serif text-dark mb-6 flex items-center gap-3"><i class="fa-brands fa-github text-slate-800"></i> Open Source</h2>
-                        <p class="text-slate-600 leading-relaxed mb-8">My engagement with the open-source community, tracking contributions, projects, and continuous learning.</p>
-                        
-                        <div class="grid grid-cols-2 gap-4" id="github-stats-container">
-                            <!-- Stats will be injected here -->
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
-                                <div class="text-2xl font-bold text-dark mb-1 animate-pulse bg-slate-200 h-8 w-16 mx-auto rounded"></div>
-                                <div class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Public Repos</div>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
-                                <div class="text-2xl font-bold text-dark mb-1 animate-pulse bg-slate-200 h-8 w-16 mx-auto rounded"></div>
-                                <div class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Followers</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="md:w-2/3 w-full">
-                        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden">
-                            <h3 class="text-lg font-bold text-dark mb-6">Contribution Activity</h3>
-                            <!-- We use a widely known service to render the contribution graph SVG, as GitHub API doesn't provide the raw graph easily -->
-                            <div class="overflow-x-auto pb-4 custom-scrollbar">
-                                <img id="github-chart" src="" alt="GitHub Contributions Graph" class="min-w-[700px] w-full h-auto opacity-0 transition-opacity duration-500" onload="this.style.opacity=1" onerror="this.onerror=null; this.src='https://ghchart.rshah.org/4f46e5/ashutosh-kumar'; this.style.opacity=1;">
-                            </div>
-                            <div class="mt-4 flex justify-between items-center text-xs text-slate-500 font-medium">
-                                <span>Less</span>
-                                <div class="flex gap-1">
-                                    <span class="w-3 h-3 rounded-sm bg-[#ebedf0]"></span>
-                                    <span class="w-3 h-3 rounded-sm bg-[#9be9a8]"></span>
-                                    <span class="w-3 h-3 rounded-sm bg-[#40c463]"></span>
-                                    <span class="w-3 h-3 rounded-sm bg-[#30a14e]"></span>
-                                    <span class="w-3 h-3 rounded-sm bg-[#216e39]"></span>
-                                </div>
-                                <span>More</span>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -864,7 +933,7 @@
                     </div>
                 </div>
                 <div id="world-map-container" class="w-full h-[250px] md:h-[300px] bg-slate-50 rounded-2xl overflow-hidden relative border border-slate-100 group transition-all duration-300 hover:shadow-lg hover:border-primary/30 hover:scale-[1.01]">
-                    <div id="map-tooltip" class="absolute hidden bg-dark/90 backdrop-blur-sm text-white px-3 py-2 rounded-lg text-xs font-medium shadow-xl pointer-events-none z-20 border border-slate-700/50 max-w-[200px]"></div>
+                    <div id="map-tooltip" class="absolute hidden bg-dark/90 backdrop-blur-sm text-white px-3 py-2 rounded-lg text-xs font-medium shadow-xl pointer-events-none z-20 border border-slate-700/50 max-w-[260px]"></div>
                     <button id="reset-map-btn" class="absolute bottom-4 right-4 z-10 bg-white border border-slate-200 text-slate-600 hover:text-primary hover:border-primary shadow-sm rounded-lg px-3 py-1.5 text-xs font-bold flex items-center gap-2 transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0" aria-label="Reset Map View">
                         <i class="fa-solid fa-compress"></i> Reset View
                     </button>
@@ -889,9 +958,18 @@
                         
                         <ul class="space-y-6">
                             <li>
-                                <a href="mailto:ashutstar66@gmail.com" class="flex items-center text-slate-300 hover:text-white transition-colors group bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-primary/50 hover:bg-white/10 shadow-lg">
+                                <a href="mailto:d24098@students.iitmandi.ac.in" class="flex items-center text-slate-300 hover:text-white transition-colors group bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-primary/50 hover:bg-white/10 shadow-lg">
+                                    <div class="w-12 h-12 flex-shrink-0 bg-primary/20 text-primary rounded-xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-building-columns text-xl"></i></div>
+                                    <span class="min-w-0">
+                                        <span class="block text-xs font-semibold uppercase tracking-widest text-indigo-200/70 mb-0.5">Official · IIT Mandi</span>
+                                        <span class="block font-mono text-sm tracking-wide break-all">d24098@students.iitmandi.ac.in</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:ashustar66@gmail.com" class="flex items-center text-slate-300 hover:text-white transition-colors group bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-primary/50 hover:bg-white/10 shadow-lg">
                                     <div class="w-12 h-12 bg-primary/20 text-primary rounded-xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-envelope text-xl"></i></div>
-                                    <span class="font-mono text-sm tracking-wide">ashutstar66@gmail.com</span>
+                                    <span class="font-mono text-sm tracking-wide">ashustar66@gmail.com</span>
                                 </a>
                             </li>
                             <li>
@@ -902,7 +980,7 @@
                             </li>
                             <li class="flex items-center text-slate-300 bg-white/5 p-4 rounded-2xl border border-white/10 shadow-lg">
                                 <div class="w-12 h-12 bg-white/10 text-white rounded-xl flex items-center justify-center mr-6"><i class="fa-solid fa-location-dot text-xl"></i></div>
-                                <span class="text-sm font-medium">Supaul, Bihar, 852131</span>
+                                <span class="text-sm font-medium">IIT Mandi, Kamand, Himachal Pradesh, 175005</span>
                             </li>
                         </ul>
 
@@ -930,9 +1008,10 @@
                         <form action="https://formsubmit.co/ashutoshiitmandi66@gmail.com" method="POST" class="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-sm shadow-xl">
                             <h3 class="text-2xl font-bold text-white mb-6">Send a Message</h3>
                             
-                            <!-- Required by formsubmit.co -->
-                            <input type="hidden" name="_captcha" value="false">
+                            <!-- formsubmit.co settings. The captcha is on by default; do not add _captcha=false. -->
                             <input type="hidden" name="_subject" value="New message from portfolio!">
+                            <!-- Honeypot: hidden from people; bots that fill it in are rejected by formsubmit.co -->
+                            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
                             
                             <div class="space-y-5">
                                 <div>
@@ -1055,7 +1134,7 @@
                 title: 'CSIR-Central Road Research Institute (CRRI)',
                 category: 'Research Internship',
                 location: 'New Delhi',
-                description: '"Impact of geosynthetics on reflective cracking performance life of asphalt concrete overlays". This research focused on understanding how various geosynthetic materials can be used to extend the life of pavement overlays by mitigating reflective cracking, a major distress in rehabilitated pavements.',
+                description: '"Impact of geosynthetics on reflective cracking performance life of asphalt concrete overlays". This research focused on understanding how various geosynthetic materials can be used to extend the life of pavement overlays by mitigating reflective cracking, a major distress in rehabilitated pavements. I also worked on the project "Development of Bio-Binders for Sustainable Bituminous Roads". The internship ran from 1 June to 28 July 2023 under the guidance of Dr. G. Bharath, Senior Scientist (FPD), during my M.Tech at NIT Calicut.',
                 pdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
             },
             'mtech-major': {
@@ -1484,58 +1563,6 @@
                 revealObserver.observe(el);
             });
 
-            // Fetch GitHub Stats
-            async function fetchGitHubStats(username) {
-                try {
-                    const response = await fetch(`https://api.github.com/users/${username}`);
-                    if (!response.ok) throw new Error('GitHub API error');
-                    const data = await response.json();
-                    
-                    const statsContainer = document.getElementById('github-stats-container');
-                    if (statsContainer) {
-                        statsContainer.innerHTML = `
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
-                                <div class="text-2xl font-bold text-dark mb-1">${data.public_repos}</div>
-                                <div class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Public Repos</div>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
-                                <div class="text-2xl font-bold text-dark mb-1">${data.followers}</div>
-                                <div class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Followers</div>
-                            </div>
-                        `;
-                    }
-                    
-                    const chart = document.getElementById('github-chart');
-                    if (chart) {
-                        // Check if dark mode is active to adjust chart colors
-                        const isDark = document.documentElement.classList.contains('dark');
-                        const colorHex = isDark ? '4f46e5' : '4f46e5'; 
-                        chart.src = `https://ghchart.rshah.org/${colorHex}/${username}`;
-                    }
-                } catch (error) {
-                    // Fallback username if the first one fails
-                    if (username !== 'ashutosh-kumar') {
-                        fetchGitHubStats('ashutosh-kumar');
-                    } else {
-                        // Silently handle error and show placeholder
-                        const statsContainer = document.getElementById('github-stats-container');
-                        if (statsContainer) {
-                            statsContainer.innerHTML = `
-                                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
-                                    <div class="text-2xl font-bold text-dark mb-1">4</div>
-                                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Public Repos</div>
-                                </div>
-                                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
-                                    <div class="text-2xl font-bold text-dark mb-1">12</div>
-                                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Followers</div>
-                                </div>
-                            `;
-                        }
-                    }
-                }
-            }
-            fetchGitHubStats('ashutoshiitmandi66');
-
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
@@ -1608,16 +1635,18 @@
                 "Pavement Sustainability & Life Cycle Assessment": "फुटपाथ स्थिरता और जीवन चक्र मूल्यांकन",
                 "Quantifying environmental burdens (carbon footprint, energy consumption, and raw material depletion) of pavements from extraction to recycling.": "निष्कर्षण से रीसाइक्लिंग तक फुटपाथों के पर्यावरणीय बोझ की मात्रा निर्धारित करना।",
                 "Multiphysics Performance of Concrete Pavements": "कंक्रीट फुटपाथों का मल्टीफिजिक्स प्रदर्शन",
-                "Modeling and analyzing coupled moisture and heat transfer (hygrothermal performance) in rigid pavements to predict long-term durability under climate stresses.": "जलवायु तनाव के तहत दीर्घकालिक स्थायित्व की भविष्यवाणी करने के लिए कठोर फुटपाथों में युग्मित नमी और गर्मी हस्तांतरण का मॉडलिंग और विश्लेषण करना।",
+                "Modeling and analyzing coupled moisture and heat transfer (hygrothermal performance) in rigid pavements to assess concrete durability and predict service life, toward climate-resilient infrastructure.": "कठोर फुटपाथों में युग्मित नमी और ऊष्मा स्थानांतरण (हाइग्रोथर्मल प्रदर्शन) का मॉडलिंग और विश्लेषण, ताकि कंक्रीट के स्थायित्व का आकलन और सेवा-जीवन का पूर्वानुमान किया जा सके और जलवायु-अनुकूल अवसंरचना की ओर बढ़ा जा सके।",
                 "Pavement Surface Dynamics & Traffic Operations": "फुटपाथ सतह की गतिशीलता और यातायात संचालन",
                 "Investigating the complex interaction between pavement surface deterioration (roughness, distresses) and real-world vehicle operating speeds.": "फुटपाथ की सतह के बिगड़ने और वास्तविक दुनिया के वाहन संचालन की गति के बीच जटिल संपर्क की जांच करना।",
                 "Research Trajectory": "अनुसंधान प्रक्षेपवक्र",
-                "\"My research journey centers on making transportation infrastructure safer, more durable, and environmentally sustainable. By combining frontend empirical traffic data, asset tracking, and advanced material characteristics, my work addresses the lifecycle of infrastructure from structural design to socio-environmental impact.\"": "\"मेरी शोध यात्रा परिवहन बुनियादी ढांचे को सुरक्षित, अधिक टिकाऊ और पर्यावरण की दृष्टि से टिकाऊ बनाने पर केंद्रित है। अनुभवजन्य यातायात डेटा, परिसंपत्ति ट्रैकिंग और उन्नत सामग्री विशेषताओं के संयोजन से, मेरा काम बुनियादी ढांचे के जीवनचक्र को संबोधित करता है।\"",
+                "\"My research centers on making transportation infrastructure durable, climate-resilient, and environmentally sustainable. I study how temperature and moisture variations affect concrete pavement response, thermal stresses, fatigue, durability, and service life, and I connect these mechanistic findings with Life Cycle Assessment to understand the real environmental performance of rigid pavements in India's mountainous regions.\"": "\"मेरा शोध परिवहन अवसंरचना को टिकाऊ, जलवायु-अनुकूल और पर्यावरण की दृष्टि से सतत बनाने पर केंद्रित है। मैं अध्ययन करता हूँ कि तापमान और नमी में बदलाव कंक्रीट फुटपाथ की प्रतिक्रिया, तापीय प्रतिबल, थकान, स्थायित्व और सेवा-जीवन को कैसे प्रभावित करते हैं, और इन यांत्रिक निष्कर्षों को जीवन चक्र मूल्यांकन से जोड़ता हूँ ताकि भारत के पर्वतीय क्षेत्रों में कठोर फुटपाथों के वास्तविक पर्यावरणीय प्रदर्शन को समझा जा सके।\"",
                 "Current Doctoral Research": "वर्तमान डॉक्टरेट अनुसंधान",
                 "Life Cycle Assessment (LCA) of Pavements": "फुटपाथ का जीवन चक्र मूल्यांकन (LCA)",
-                "Developing holistic frameworks to model the environmental impacts of modern pavement systems. This research aims to optimize material selection and construction methodologies to minimize greenhouse gas emissions in infrastructure development.": "आधुनिक फुटपाथ प्रणालियों के पर्यावरणीय प्रभावों को मॉडल करने के लिए समग्र ढांचे का विकास करना। इस शोध का उद्देश्य ग्रीनहाउस गैस उत्सर्जन को कम करने के लिए सामग्री चयन और निर्माण पद्धतियों को अनुकूलित करना है।",
+                "Developing holistic frameworks to model the environmental impacts of modern pavement systems. A key aim is to integrate concrete durability and hygrothermal performance into LCA, moving beyond conventional approaches that assume a fixed service life.": "आधुनिक फुटपाथ प्रणालियों के पर्यावरणीय प्रभावों को मॉडल करने के लिए समग्र ढांचे का विकास करना। एक प्रमुख लक्ष्य कंक्रीट के स्थायित्व और हाइग्रोथर्मल प्रदर्शन को LCA में शामिल करना है, ताकि निश्चित सेवा-जीवन मानने वाले पारंपरिक तरीकों से आगे बढ़ा जा सके।",
                 "Hygrothermal Analysis of Concrete Pavements": "कंक्रीट फुटपाथों का हाइग्रोथर्मल विश्लेषण",
-                "Utilizing numerical modeling and computational analysis to study heat and moisture gradients in concrete pavements. Understanding these coupled variations is essential for mitigating curling, warping, and early-age cracking in rigid pavements subjected to fluctuating environmental conditions.": "कंक्रीट फुटपाथों में गर्मी और नमी के ग्रेडिएंट्स का अध्ययन करने के लिए संख्यात्मक मॉडलिंग का उपयोग करना। इन विविधताओं को समझना पर्यावरणीय परिस्थितियों के अधीन कठोर फुटपाथों में क्रैकिंग को कम करने के लिए आवश्यक है।",
+                "Utilizing numerical modeling and computational analysis to study heat and moisture gradients in concrete pavements. Understanding these coupled variations is essential for mitigating curling, warping, and early-age cracking in rigid pavements subjected to fluctuating environmental conditions. The work examines their effect on thermal stresses, fatigue behavior, durability, and service life under the climate of Indian mountainous regions.": "कंक्रीट फुटपाथों में गर्मी और नमी के ग्रेडिएंट्स का अध्ययन करने के लिए संख्यात्मक मॉडलिंग का उपयोग करना। इन विविधताओं को समझना पर्यावरणीय परिस्थितियों के अधीन कठोर फुटपाथों में क्रैकिंग को कम करने के लिए आवश्यक है। यह कार्य भारत के पर्वतीय क्षेत्रों की जलवायु में तापीय प्रतिबल, थकान व्यवहार, स्थायित्व और सेवा-जीवन पर इनके प्रभाव की जांच करता है।",
+                "Sustainable Bituminous Binders": "सतत बिटुमिनस बाइंडर",
+                "Contributed to the CSIR-CRRI project on developing bio-binders for sustainable bituminous roads.": "सतत बिटुमिनस सड़कों के लिए बायो-बाइंडर विकसित करने की CSIR-CRRI परियोजना में योगदान दिया।",
                 "Master's Research & Foundations": "मास्टर के अनुसंधान और नींव",
                 "Pavement Material Longevity": "फुटपाथ सामग्री दीर्घायु",
                 "Investigated the structural mitigation of reflective cracking in asphalt concrete overlays. This work focused on analyzing the performance-enhancing lifespan of geosynthetics in overlay systems.": "डामर कंक्रीट ओवरले में परावर्तक क्रैकिंग के संरचनात्मक शमन की जांच की। यह काम ओवरले सिस्टम में जियोसिंथेटिक्स के प्रदर्शन-बढ़ाने वाले जीवनकाल का विश्लेषण करने पर केंद्रित था।",
@@ -1627,14 +1656,16 @@
                 "Developed geospatial methodologies to identify, map, and analyze high-density accident black spots using Arc GIS and QGIS frameworks, linking infrastructure safety with spatial analytics.": "स्थानिक विश्लेषिकी के साथ बुनियादी ढांचे की सुरक्षा को जोड़ते हुए उच्च-घनत्व दुर्घटना ब्लैक स्पॉट की पहचान और विश्लेषण करने के लिए भू-स्थानिक कार्यप्रणाली विकसित की।",
                 "Key Technical Competencies in Research": "अनुसंधान में प्रमुख तकनीकी क्षमताएं",
                 "Pavement Engineering": "फुटपाथ इंजीनियरिंग",
-                "Bituminous and concrete pavement design, overlay design, and distress evaluation.": "बिटुमिनस और कंक्रीट फुटपाथ डिजाइन, ओवरले डिजाइन और संकट मूल्यांकन।",
+                "Bituminous (flexible) and concrete pavement design, overlay design, distress evaluation, pavement evaluation and rehabilitation, laboratory testing, and surveying.": "बिटुमिनस (लचीले) और कंक्रीट फुटपाथ डिजाइन, ओवरले डिजाइन, क्षति मूल्यांकन, फुटपाथ मूल्यांकन और पुनर्वास, प्रयोगशाला परीक्षण तथा सर्वेक्षण।",
                 "Sustainability Tools": "स्थिरता उपकरण",
-                "Lifecycle assessment methodologies, inventory data analysis.": "जीवनचक्र मूल्यांकन पद्धतियां, इन्वेंटरी डेटा विश्लेषण।",
+                "Lifecycle assessment methodologies, inventory data analysis, statistical data analysis.": "जीवनचक्र मूल्यांकन पद्धतियां, इन्वेंटरी डेटा विश्लेषण, सांख्यिकीय डेटा विश्लेषण।",
                 "Simulation & Modeling": "सिमुलेशन और मॉडलिंग",
                 "Computational analysis of thermal/moisture gradients, ETABS (Structural Analysis).": "थर्मल/नमी ग्रेडिएंट्स का कम्प्यूटेशनल विश्लेषण, ईटीएबीएस (संरचनात्मक विश्लेषण)।",
                 "Spatial & Traffic": "स्थानिक और यातायात",
                 "Arc GIS, QGIS, and VISSIM traffic simulation software.": "आर्क जीआईएस, क्यूजीआईएस, और विस्सिम ट्रैफिक सिमुलेशन सॉफ्टवेयर।",
                 "Research Gallery": "अनुसंधान गैलरी",
+                "Gallery": "गैलरी",
+                "Moments from conferences, field visits, and academic events.": "सम्मेलनों, क्षेत्र भ्रमणों और शैक्षणिक कार्यक्रमों के कुछ पल।",
                 "Visualizing key concepts in transportation infrastructure, pavement sustainability, and advanced material engineering.": "परिवहन बुनियादी ढांचे, फुटपाथ स्थिरता और उन्नत सामग्री इंजीनियरिंग में प्रमुख अवधारणाओं की कल्पना करना।",
                 "Sustainable Pavements": "टिकाऊ फुटपाथ",
                 "Eco-friendly road materials and life cycle assessment.": "पर्यावरण के अनुकूल सड़क सामग्री और जीवन चक्र मूल्यांकन।",
@@ -1672,6 +1703,7 @@
                 "ORCID": "ओआरसीआईडी (ORCID)",
                 "Researcher ID": "शोधकर्ता आईडी",
                 "Ongoing": "वर्तमान",
+                "Aug 2024 — Present": "अगस्त 2024 — वर्तमान",
                 "PhD in Transportation Engineering": "परिवहन इंजीनियरिंग में पीएचडी",
                 "IIT Mandi": "आईआईटी मंडी",
                 "Focusing on pavement materials and advanced transportation infrastructure solutions.": "फुटपाथ सामग्री और उन्नत परिवहन बुनियादी ढांचा समाधानों पर ध्यान केंद्रित कर रहा हूँ।",
@@ -1693,6 +1725,13 @@
                 "Research Internship": "अनुसंधान इंटर्नशिप",
                 "CSIR-Central Road Research Institute (CRRI)": "CSIR-केंद्रीय सड़क अनुसंधान संस्थान (CRRI)",
                 "New Delhi": "नई दिल्ली",
+                "1 June – 28 July 2023": "1 जून – 28 जुलाई 2023",
+                "Supervisor: Dr. G. Bharath, Senior Scientist (FPD)": "पर्यवेक्षक: डॉ. जी. भरत, वरिष्ठ वैज्ञानिक (FPD)",
+                "IIT Mandi (Aug 2024 – Present) | Assisting in undergraduate and postgraduate courses, conducting lab sessions, and grading assignments.": "आईआईटी मंडी (अगस्त 2024 – वर्तमान) | स्नातक और स्नातकोत्तर पाठ्यक्रमों में सहायता, प्रयोगशाला सत्रों का संचालन और असाइनमेंट का मूल्यांकन।",
+                "Teaching Assistant - Transportation Engineering": "शिक्षण सहायक - परिवहन इंजीनियरिंग",
+                "NIT Calicut (Jan 2023 – Jul 2024) | Supported transportation engineering courses and the transportation engineering laboratory.": "एनआईटी कालीकट (जनवरी 2023 – जुलाई 2024) | परिवहन इंजीनियरिंग पाठ्यक्रमों और परिवहन इंजीनियरिंग प्रयोगशाला में सहायता की।",
+                "Full-Depth Reclamation (FDR) Field Visit": "फुल-डेप्थ रिक्लेमेशन (FDR) क्षेत्र भ्रमण",
+                "With the Sustainable Pavement Research Group, IIT Mandi: joined PWD engineers at a road construction site for a proposal discussion on rehabilitating an existing road using FDR, and visited an FDR trial section.": "आईआईटी मंडी के सस्टेनेबल पेवमेंट रिसर्च ग्रुप के साथ: FDR तकनीक से मौजूदा सड़क के पुनर्वास पर प्रस्ताव-चर्चा के लिए PWD इंजीनियरों के साथ सड़क निर्माण स्थल का दौरा किया, और एक FDR ट्रायल सेक्शन देखा।",
                 "\"Impact of geosynthetics on reflective cracking performance life of asphalt concrete overlays\"": "\"डामर कंक्रीट ओवरले के परावर्तक क्रैकिंग प्रदर्शन जीवन पर जियोसिंथेटिक्स का प्रभाव\"",
                 "M.Tech Major": "एम.टेक मेजर",
                 "Influence of Pavement Surface Characteristics on the Speeds of Different Classes of Vehicles (Pavement Distress And Roughness)": "विभिन्न वर्गों के वाहनों की गति पर फुटपाथ सतह की विशेषताओं का प्रभाव (फुटपाथ संकट और खुरदरापन)",
@@ -1722,12 +1761,18 @@
                 "Bituminous Pavement Design (3-Day Short Course)": "बिटुमिनस फुटपाथ डिजाइन (3-दिवसीय लघु पाठ्यक्रम)",
                 "Tools for Transportation Data Analysis & Modelling (6-Day STTP at CTR, NIT Calicut)": "परिवहन डेटा विश्लेषण और मॉडलिंग के लिए उपकरण (CTR, NIT कालीकट में 6-दिवसीय STTP)",
                 "Extra-Curricular": "अतिरिक्त पाठयक्रम",
+                "ACES 2.0 – Annual Civil Engineering Symposium 2026": "ACES 2.0 – वार्षिक सिविल इंजीनियरिंग संगोष्ठी 2026",
+                "School of Civil & Environmental Engineering (SCEnE), IIT Mandi · 8–10 October 2026": "स्कूल ऑफ सिविल एंड एनवायरनमेंटल इंजीनियरिंग (SCEnE), आईआईटी मंडी · 8–10 अक्टूबर 2026",
+                "Role:": "भूमिका:",
+                "Organising Committee Member": "आयोजन समिति सदस्य",
+                "Life Cycle Assessment (LCA)": "जीवन चक्र मूल्यांकन (LCA)",
                 "Student coordinator for International Conference RAID-2024 at NIT Calicut": "एनआईटी कालीकट में अंतर्राष्ट्रीय सम्मेलन RAID-2024 के लिए छात्र समन्वयक",
                 "Participant in CTSEM 2024 Conference at NIT Nagpur": "एनआईटी नागपुर में CTSEM 2024 सम्मेलन में प्रतिभागी",
                 "2-Year NSS Volunteer": "2-वर्षीय एनएसएस स्वयंसेवक",
                 "Let's Connect": "आइए जुड़ें",
+                "Official · IIT Mandi": "आधिकारिक · आईआईटी मंडी",
                 "Open to academic discussions, research collaborations, and professional opportunities in transportation engineering.": "परिवहन इंजीनियरिंग में शैक्षणिक चर्चाओं, अनुसंधान सहयोग और पेशेवर अवसरों के लिए खुला हूँ।",
-                "Supaul, Bihar, 852131": "सुपौल, बिहार, 852131",
+                "IIT Mandi, Kamand, Himachal Pradesh, 175005": "आईआईटी मंडी, कमांद, हिमाचल प्रदेश, 175005",
                 "Scholar": "स्कॉलर",
                 "LinkedIn": "लिंक्डइन",
                 "Instagram": "इंस्टाग्राम",
@@ -2078,14 +2123,29 @@
                 const path = d3.geoPath().projection(projection);
                 
                 const g = svg.append("g");
-                
-                // Allow zooming and panning
+
+                // Allow zooming and panning. Pins and labels are counter-scaled so they keep the
+                // same size at every zoom level. Mouse-wheel zoom needs Ctrl, so normal scrolling
+                // moves the page; on touch screens one finger scrolls the page, two fingers zoom.
+                let zoomK = 1;
+                const pinTransform = (d, extra = 1) => {
+                    const c = projection([d.lon, d.lat]);
+                    return c ? `translate(${c[0]},${c[1]}) scale(${extra / zoomK})` : "";
+                };
                 const zoom = d3.zoom()
                     .scaleExtent([1, 8])
+                    .filter(event => {
+                        if (event.type === 'wheel') return event.ctrlKey;
+                        if (event.type.startsWith('touch')) return event.touches.length > 1;
+                        return !event.button;
+                    })
                     .on("zoom", (event) => {
+                        zoomK = event.transform.k;
                         g.attr("transform", event.transform);
+                        g.selectAll(".pin").attr("transform", d => pinTransform(d));
                     });
                 svg.call(zoom);
+                svg.style("touch-action", "pan-y");
 
                 // Reset Map Button Binding
                 d3.select("#reset-map-btn").on("click", () => {
@@ -2097,14 +2157,19 @@
                 try {
                     const worldData = await d3.json("https://unpkg.com/world-atlas@2.0.2/countries-110m.json");
                     const countries = topojson.feature(worldData, worldData.objects.countries);
-                    
+
+                    // All locations are in India, so frame the map on India instead of the whole world
+                    const india = countries.features.find(f => String(f.id) === "356");
+                    if (india) projection.fitExtent([[24, 16], [width - 24, height - 16]], india);
+
                     g.selectAll("path")
                         .data(countries.features)
                         .enter().append("path")
                         .attr("d", path)
-                        .attr("fill", "#f1f5f9") // slate-100
+                        .attr("fill", d => String(d.id) === "356" ? "#e0e7ff" : "#f1f5f9") // India highlighted
                         .attr("stroke", "#cbd5e1") // slate-300
-                        .attr("stroke-width", "0.5px");
+                        .attr("stroke-width", "0.75px")
+                        .attr("vector-effect", "non-scaling-stroke");
                         
                     // Locations Data
                     const locations = [
@@ -2112,17 +2177,16 @@
                         { name: "NIT Calicut", type: "study", lat: 11.3216, lon: 75.9336, desc: "M.Tech Transportation" },
                         { name: "CTAE Udaipur", type: "study", lat: 24.5937, lon: 73.7314, desc: "B.Tech Civil" },
                         { name: "CSIR-CRRI New Delhi", type: "study", lat: 28.5524, lon: 77.2764, desc: "Research Internship" },
-                        { name: "NIT Nagpur", type: "conference", lat: 21.1458, lon: 79.0882, desc: "CTSEM 2024 Conference" }
+                        { name: "NIT Nagpur", type: "conference", lat: 21.1458, lon: 79.0882, desc: "CTSEM 2024 Conference" },
+                        // School (X) and Senior Secondary (XII) are both in Supaul, so they share one pin
+                        { name: "Supaul, Bihar", type: "study", lat: 26.1260, lon: 86.6050, desc: "Class X: Jawahar Navodaya Vidyalaya Supaul (2014)<br>Class XII: Science Degree College Supaul (2016)" }
                     ];
                     
                     const pins = g.selectAll(".pin")
                         .data(locations)
                         .enter().append("g")
                         .attr("class", "pin")
-                        .attr("transform", d => {
-                            const coords = projection([d.lon, d.lat]);
-                            return coords ? `translate(${coords[0]},${coords[1]})` : "";
-                        })
+                        .attr("transform", d => pinTransform(d))
                         .style("display", d => activeMapFilters[d.type] ? null : "none")
                         .style("cursor", "pointer");
                         
@@ -2153,7 +2217,7 @@
                         
                     // Hover effects
                     pins.on("mouseenter", function(event, d) {
-                        d3.select(this).transition().duration(200).attr("transform", `translate(${projection([d.lon, d.lat])[0]},${projection([d.lon, d.lat])[1]}) scale(1.2)`);
+                        d3.select(this).raise().transition().duration(200).attr("transform", pinTransform(d, 1.2));
                         
                         const colorClass = d.type === 'study' ? 'text-primary' : 'text-secondary';
                         tooltip.html(`<strong class="block mb-1 ${colorClass}">${d.name}</strong><span class="text-xs text-slate-300 block">${d.desc}</span>`)
@@ -2166,7 +2230,7 @@
                                .style("top", (event.pageY - 20) + "px");
                     })
                     .on("mouseleave", function(event, d) {
-                        d3.select(this).transition().duration(200).attr("transform", `translate(${projection([d.lon, d.lat])[0]},${projection([d.lon, d.lat])[1]}) scale(1)`);
+                        d3.select(this).transition().duration(200).attr("transform", pinTransform(d));
                         tooltip.classed("hidden", true);
                     });
                     
